@@ -1,15 +1,17 @@
-import React from "react"
-
+// src/App.js
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+// (Import other pages later)
+import React from 'react';
 function App() {
-  
-
   return (
-   <>
-   <div className="h-screen w-screen bg-black ">
-<h1 className="text-white">lokendra singh</h1>
-   </div>
-   </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* Add more routes later */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

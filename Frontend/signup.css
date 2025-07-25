@@ -1,0 +1,137 @@
+/* Global Styles */
+body {
+  background-color: #EAF3F3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.95);
+  margin: 60px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #001F4D;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.roles {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.roles label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #001F4D;
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background-color: #001F4D;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+}
+
+.button:hover {
+  background-color: #003366;
+}
+
+span {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+span a {
+  color: #001F4D;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+span a:hover {
+  text-decoration: underline;
+}
+
+.signup-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.signup-line span {
+  margin: 0 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .container {
+    margin: 20px;
+    padding: 30px 20px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .roles {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .roles label {
+    margin: 5px 0;
+  }
+}

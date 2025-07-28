@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import OtpVerification from './pages/OtpVerification';
+import InstructorDashboard from './pages/InstructorDashboard';
 function App() {
   return (
     <Router>
@@ -15,6 +16,8 @@ function App() {
          <Route path="/login" element={<LoginPage/>} />
          <Route path="/signup" element={<Signup/>} />
          <Route path="/forget-Password" element={<ForgotPassword/>} />
+         <Route path="/forget-Password" element={<ForgotPassword/>} />
+          <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
          {/* <Route path="/otp-verification" element={<OtpVerification/>} /> */}
 
 

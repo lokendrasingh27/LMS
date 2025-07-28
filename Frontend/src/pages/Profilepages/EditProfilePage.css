@@ -62,14 +62,32 @@ body {
 }
 
 .avatar {
-  background-color: #ffffff22;
+  /* background-color: #ffffff22;
   color: var(--text-light);
   font-size: 24px;
   width: 60px;
   height: 60px;
   line-height: 60px;
   border-radius: 50%;
+  margin: 0 auto 10px; */
+   background-color: #ffffff22;
+  color: #ffffff;
+  font-size: 24px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
   margin: 0 auto 10px;
+  width: 64px;
+  height: 64px;
+  background-color: white;
+  color: #001f3f;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu {

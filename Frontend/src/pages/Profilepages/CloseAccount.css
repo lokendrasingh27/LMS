@@ -1,0 +1,138 @@
+:root {
+  --primary-dark: #002147;    /* Oxford Blue */
+  --primary-light: #e6f0ff;   /* Light Sky Blue */
+  --accent: #6c63ff;          /* Button / Highlight color */
+  --accent-hover: #5548d9;
+  --text-dark: #333;
+  --text-light: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: var(--primary-light);
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #001f3f;
+  color: white;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  height: 100vh;            /* Ensure it spans full height */
+  overflow-y: auto;         /* Enable vertical scroll */
+  scrollbar-width: thin;
+}
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #334155;  /* dark scroll thumb */
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.profile-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+  font-size: 24px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  margin: 12px 0;
+  padding: 10px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+  color: var(--text-light);
+}
+
+.menu li:hover {
+  background-color: #003366;
+}
+
+.menu .highlighted {
+  font-weight: bold;
+  background-color: var(--accent);
+  color: var(--text-light);
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  color: var(--text-dark);
+}
+
+.main-content h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.subheading {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.warning {
+  color: red;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background-color: var(--accent);
+  color: var(--text-light);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+}

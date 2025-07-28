@@ -44,18 +44,24 @@ html, body {
 
 /* Updated profile initial */
 .profile-initial {
-  background-color: #cbd5e1;      /* Soft gray background */
-  color: #1e293b;                 /* Dark readable text */
+   background-color: #ffffff22;
+  color: #ffffff;
+  font-size: 24px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  font-size: 28px;
-  font-weight: 600;
+  margin: 0 auto 10px;
+  width: 64px;
+  height: 64px;
+  background-color: white;
+  color: #001f3f;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0 auto 15px auto;       /* Centered in sidebar */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  justify-content: center;
 }
 
 .sidebar h2 {

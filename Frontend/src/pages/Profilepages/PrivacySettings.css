@@ -1,0 +1,155 @@
+/* Global Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Container */
+.privacy-container {
+  display: flex;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #001f3f;
+  color: white;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #334155;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Updated profile initial */
+.profile-initial {
+  background-color: #cbd5e1;      /* Soft gray background */
+  color: #1e293b;                 /* Dark readable text */
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px auto;       /* Centered in sidebar */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Sidebar navigation */
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  width: 100%;
+}
+
+.sidebar li {
+  margin: 12px 0;
+  cursor: pointer;
+  color: #bcd4f6;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.sidebar li:hover {
+  background-color: #153d77;
+}
+
+.sidebar .active {
+  background-color: #ffffff;
+  color: #001f4d;
+  font-weight: bold;
+}
+
+/* Main Content Area */
+.privacy-content {
+  flex-grow: 1;
+  padding: 40px;
+  background-color: #deebff; /* Light blue tone */
+  overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.privacy-content h1 {
+  font-size: 28px;
+  color: #001f4d;
+  margin-bottom: 5px;
+}
+
+.privacy-content p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Form Fields */
+form input,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #001f4d;
+}
+
+/* Save Button */
+button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #002244;
+}

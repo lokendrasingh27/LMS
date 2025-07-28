@@ -4,7 +4,7 @@ import { FaHome, FaBook, FaClipboardList, FaCalendarAlt, FaComments, FaCog, FaSi
 
 const Sidebar = () => {
   return (
-     <div className="w-64 bg-[#001f3f] text-white flex flex-col justify-between rounded-r-3xl p-4">
+     <div className="w-74 bg-[#001f3f] text-white flex flex-col justify-between rounded-r-3xl p-4">
             <div>
               <div className="flex flex-col items-center mb-8">
                 <img src="/images/logo.jpg" alt="Logo" className="w-20 h-20 mb-2" />
@@ -17,7 +17,7 @@ const Sidebar = () => {
                 </button>
               </Link>
               <Link to="/signup">
-                <button className="flex items-center space-x-2  py-2 px-3 bg-white text-[#001f3f] rounded-xl">
+                <button className="flex items-center space-x-2 w- py-2 px-3 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaUserPlus /> <span>Sign Up</span>
                 </button>
               </Link>
@@ -35,7 +35,7 @@ const Sidebar = () => {
                 <button className="flex items-center space-x-2 w-full py-2 px-3 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaHome /> <span>Home</span>
                 </button>
-                <button className="flex items-center space-x-2 w-full py-2 px-3 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
+                <button className="flex items-center space-x-2 w-full py- px-3 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaBook /> <span>My Courses</span>
                 </button>
                 <button className="flex items-center space-x-2 w-full py-2 px-3 bg-[#b3e5fc] text-[#001f3f] rounded-xl">

@@ -8,9 +8,23 @@ import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import OtpVerification from './pages/OtpVerification';
 import InstructorDashboard from './pages/InstructorDashboard';
+import AccountSecurityPage from './pages/Profilepages/AccountSecurityPage';
+import PhotoUploadPage from './pages/Profilepages/PhotoUploadPage';
+import EditProfilePage from './pages/Profilepages/EditProfilePage';
+import PrivacySettings from './pages/Profilepages/PrivacySettings';
+
 function App() {
   return (
+    
+    // <div>
+    //   {/* <AccountSecurityPage/> */}
+    //   {/* <PhotoUploadPage/> */}
+    //   {/* <EditProfilePage/> */}
+    //   {/* <PrivacySettings/> */}
+      
+    // </div>
     <Router>
+
       <Routes>
         <Route path="/" element={<HomePage />} />
          <Route path="/login" element={<LoginPage/>} />
@@ -18,12 +32,10 @@ function App() {
          <Route path="/forget-Password" element={<ForgotPassword/>} />
          <Route path="/forget-Password" element={<ForgotPassword/>} />
           <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
-         {/* <Route path="/otp-verification" element={<OtpVerification/>} /> */}
+         <Route path="/otp-verification" element={<OtpVerification/>} />
 
 
 
-
-        {/* Add more routes later */}
       </Routes>
     </Router>
   );

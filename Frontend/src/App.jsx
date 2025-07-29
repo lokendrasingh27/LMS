@@ -16,13 +16,13 @@ import PrivacySettings from './pages/Profilepages/PrivacySettings';
 function App() {
   return (
     
-    <div>
-      {/* <AccountSecurityPage/> */}
-      {/* <PhotoUploadPage/> */}
-      {/* <EditProfilePage/> */}
-      {/* <PrivacySettings/> */}
+    // <div>
+    //   {/* <AccountSecurityPage/> */}
+    //   {/* <PhotoUploadPage/> */}
+    //   {/* <EditProfilePage/> */}
+    //   {/* <PrivacySettings/> */}
       
-    </div>
+    // </div>
    
   );
 }

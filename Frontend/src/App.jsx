@@ -8,10 +8,9 @@ import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import OtpVerification from './pages/OtpVerification';
 import InstructorDashboard from './pages/InstructorDashboard';
-import AccountSecurityPage from './pages/Profilepages/AccountSecurityPage';
-import PhotoUploadPage from './pages/Profilepages/PhotoUploadPage';
-import EditProfilePage from './pages/Profilepages/EditProfilePage';
-import PrivacySettings from './pages/Profilepages/PrivacySettings';
+import AccountSecurityPage from './pages/newprofilepg/AccountSecurityPage';
+
+
 
 function App() {
   return (
@@ -31,10 +30,11 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
         <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
-        <Route path="/account-security" element={<AccountSecurityPage />} />
-        <Route path="/photo-upload" element={<PhotoUploadPage />} />
-        <Route path="/edit-profile" element={<EditProfilePage />} />
-        <Route path="/privacy-settings" element={<PrivacySettings />} />
+       <Route path="/account-security" element={<AccountSecurityPage />} />
+       <Route path="/account-security" element={<StudentProfile/>} />
+
+
+       
       </Routes>
     </Router>
    

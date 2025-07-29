@@ -16,13 +16,27 @@ import PrivacySettings from './pages/Profilepages/PrivacySettings';
 function App() {
   return (
     
-    <div>
-      {/* <AccountSecurityPage/> */}
-      {/* <PhotoUploadPage/> */}
-      {/* <EditProfilePage/> */}
-      {/* <PrivacySettings/> */}
+    // <div>
+    //   {/* <AccountSecurityPage/> */}
+    //   {/* <PhotoUploadPage/> */}
+    //   {/* <EditProfilePage/> */}
+    //   {/* <PrivacySettings/> */}
       
-    </div>
+    // </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/instructor-dashboard" element={<InstructorDashboard />} />
+        <Route path="/account-security" element={<AccountSecurityPage />} />
+        <Route path="/photo-upload" element={<PhotoUploadPage />} />
+        <Route path="/edit-profile" element={<EditProfilePage />} />
+        <Route path="/privacy-settings" element={<PrivacySettings />} />
+      </Routes>
+    </Router>
    
   );
 }

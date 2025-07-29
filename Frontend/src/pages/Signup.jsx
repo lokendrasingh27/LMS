@@ -12,10 +12,18 @@ const Signup = () => {
 
         <form>
           <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">Role</label>
+            <input
+              type="text"
+              placeholder="role"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Username</label>
             <input
               type="text"
-              placeholder="Enter username"
+              placeholder="name"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

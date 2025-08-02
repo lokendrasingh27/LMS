@@ -45,17 +45,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/otp-verification" element={<OtpVerification/>} />
         <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
-       <Route path="/account-security" element={<AccountSecurityPage  />} />
-       <Route path="/profile" element={<ProfilePage/>} />  
-       <Route path="/privacy" element={<PrivacyPage/>} />
-       {/* <Route path="/student/security" element={<AccountSecurityPage/>} /> */}
-        {/* <Route path="/student/profile" element={<StudentProfile/>} /> */}
-        <Route path="/student/academic-info" element={<AcademicInformationPage/>} />
-        <Route path="/student/close-account" element={<CloseAccountPage/>} />
-        <Route path="/student/notification-preferences" element={<NotificationPreferencesPage/>} />
-        <Route path="/student/payment-methods" element={<PaymentMethodsPage/>} />
-        <Route path="/student/photo" element={<PhotoPage/>} />
-        <Route path="/student/subscriptions" element={<SubscriptionsPage/>} />
+        <Route path="/student-profile" element={<Student />} />
+    
+    
 
 
 

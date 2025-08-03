@@ -1,9 +1,9 @@
 import React from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../../components/Sidebar';
 
 const InstructorDashboard = () => {
   return (
-    <div className=" flex min-h-screen bg-[#e3f1f1] ">
+    <div className=" flex h-[100vh] overflow-hidden  bg-[#e3f1f1]  ">
          <Sidebar/>
       {/* Header */}
    <div className="flex-1 p-6">
@@ -60,12 +60,23 @@ const InstructorDashboard = () => {
 
       {/* Recent Activity */}
       <div>
-        <h2 className="text-2xl font-bold mb-3 text-[#011638]">Recent Activity</h2>
-        <ul className="bg-white rounded-2xl shadow divide-y">
-          <li className="p-4 text-[#011638]">📝 New enrollment in <strong>React Basics</strong></li>
-          <li className="p-4 text-[#011638]">⭐ New review added for <strong>Node.js Masterclass</strong></li>
-          <li className="p-4 text-[#011638]">📤 Course <strong>UX Design 101</strong> published</li>
+        <h2 className="text-2xl font-bold mb-3 text-[#011638]">Student List</h2>
+         <div className="bg-white rounded-2xl shadow divide-y  overflow-hidden    ">
+          <div className='w-full flex justify-between'>
+            <h4 className="p-4 text-[#011638]">Course Name</h4>
+          <h4 className="p-4 pl-[-12 ] text-[#011638]">Student Name</h4>
+          <h4 className="p-4 text-[#011638]">Student Email</h4>
+          </div>
+       
+        <ul className="StudentList bg-white rounded-2xl h-50 shadow divide-y overflow-hidden overflow-y-auto">
+          <div className='w-full flex justify-between'>
+            <li  className="p-4 text-[#011638]"> web development </li>
+            <li className="p-4 text-[#011638]"> Lokendra singh  </li>
+            <li className="p-4 text-[#011638]"> singhlokendra9343@gmail.com  </li>
+          </div>
+   
         </ul>
+        </div>
       </div>
    </div>
     </div>

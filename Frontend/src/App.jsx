@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 
 import React from 'react';
-import LoginPage from './pages/LoginPage';
-import Signup from './pages/Signup';
+import LoginPage from './pages/auth/LoginPage';
+import Signup from './pages/auth/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import OtpVerification from './pages/OtpVerification';
-import InstructorDashboard from './pages/InstructorDashboard';
+import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import AccountSecurityPage from './pages/newprofilepg/AccountSecurityPage';
 import ProfilePage from './pages/newprofilepg/ProfilePage';
 import PrivacyPage from './pages/newprofilepg/PrivacyPage';
@@ -37,23 +37,18 @@ function App() {
     //   {/* <SubscriptionsPage/> */}
       
     // </div>
-    <Router>
+    
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/otp-verification" element={<OtpVerification/>} />
-        <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
-        <Route path="/student-profile" element={<Student />} />
+        <Route path="/instructor" element={<InstructorDashboard/>} />
+        {/* <Route path="/student-profile" element={<Student />} /> */}
     
-    
-
-
-
-       
       </Routes>
-    </Router>
+  
    
   );
 }

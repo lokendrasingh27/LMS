@@ -21,7 +21,7 @@ const Dashboard = () => {
      <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
+       <div className="flex-1 p-6">
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-2xl font-bold text-[#001f3f]">Dashboard</h1>
@@ -71,7 +71,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 

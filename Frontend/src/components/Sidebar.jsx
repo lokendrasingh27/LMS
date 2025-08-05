@@ -18,7 +18,7 @@ const Sidebar = () => {
   const isGuest = !isInstructor; // anything else is guest (like "/", "/login", etc.)
 
   return (
-    <div className="w-72 bg-[#001f3f] text-white flex flex-col h-[100vh] justify-between rounded-r-3xl p-4  overflow-hidden">
+    <div className=" w-72 bg-[#001f3f] text-white flex flex-col h-[100vh] justify-between rounded-r-3xl p-4  overflow-hidden">
       <div>
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">

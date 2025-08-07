@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
+import { Link } from 'react-router-dom';
 
 const InstructorDashboard = () => {
   return (
@@ -46,9 +47,11 @@ const InstructorDashboard = () => {
       <div className="mb-6">
         <h2 className="text-2xl font-bold mb-3 text-[#011638]">Quick Actions</h2>
         <div className="flex flex-wrap gap-4">
+         <Link to='/instructor/create-course'>
           <button className="bg-[#011638] hover:bg-[#02204d] text-white px-4 py-2 rounded-2xl shadow">
             Create New Course
           </button>
+         </Link>
           <button className="border border-[#011638] text-[#011638] px-4 py-2 rounded-2xl shadow">
             Manage Students
           </button>
@@ -60,21 +63,49 @@ const InstructorDashboard = () => {
 
       {/* Recent Activity */}
       <div>
-        <h2 className="text-2xl font-bold mb-3 text-[#011638]">Student List</h2>
+        <h2 className="text-2xl font-bold  text-[#011638]">Student List</h2>
          <div className="bg-white rounded-2xl shadow divide-y  overflow-hidden    ">
-          <div className='w-full flex justify-between'>
-            <h4 className="p-4 text-[#011638]">Course Name</h4>
-          <h4 className="p-4 pl-[-12 ] text-[#011638]">Student Name</h4>
-          <h4 className="p-4 text-[#011638]">Student Email</h4>
+          <div className='w-full flex justify-between mb-4'>
+            <li className="p-4 text-[#011638]">Course Name</li>
+          <li className="p-4 pl-[-12 ] text-[#011638]">Student Name</li>
+          <li className="p-4 text-[#011638]">Student Email</li>
           </div>
        
-        <ul className="StudentList bg-white rounded-2xl h-50 shadow divide-y overflow-hidden overflow-y-auto">
-          <div className='w-full flex justify-between'>
-            <li  className="p-4 text-[#011638]"> web development </li>
-            <li className="p-4 text-[#011638]"> Lokendra singh  </li>
-            <li className="p-4 text-[#011638]"> singhlokendra9343@gmail.com  </li>
+        <ul className="StudentList bg-white  h-50 shadow divide-y overflow-hidden overflow-y-auto">
+          <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
           </div>
-   
+           <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
+          </div>
+            <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
+          </div>
+            <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
+          </div>
+            <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
+          </div>
+            <div className='w-full mb-4 px-4 flex justify-between'>
+            <li  className=" w-60 h-fit  text-[#011638]"> web development lorem </li>
+            <li className=" w-40 text-[#011638]"> Lokendra singh  </li>
+            <li className="w-60 h-fit text-[#011638]"> singhlokendra9343@gmail.com  Lorem ipsum dolor sit amet consectetur. </li>
+          </div>
+          
+
+         
+          
         </ul>
         </div>
       </div>

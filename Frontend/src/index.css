@@ -3,3 +3,6 @@
 .StudentList::-webkit-scrollbar{
     display: none;
 }
+.instractor-course::-webkit-scrollbar{
+    display: none;
+}

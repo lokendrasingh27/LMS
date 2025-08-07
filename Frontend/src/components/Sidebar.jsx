@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaGraduationCap } from "react-icons/fa6";
 import {
   FaHome,
   FaChalkboardTeacher,
@@ -11,18 +12,24 @@ import {
 } from 'react-icons/fa';
 
 const Sidebar = () => {
+  const Navigate=useNavigate();
   const location = useLocation();
   const path = location.pathname;
 
-  const isInstructor = path.startsWith('/instructor');
-  const isGuest = !isInstructor; // anything else is guest (like "/", "/login", etc.)
+ const isInstructor = path.startsWith('/instructor');
+const isAdmin = path.startsWith('/admin');
+const isUser = path.startsWith('/user'); // or '/student'
+
+const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest (like "/", "/login", etc.)
 
   return (
     <div className=" w-72 bg-[#001f3f] text-white flex flex-col h-[100vh] justify-between rounded-r-3xl p-4  overflow-hidden">
       <div>
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <img src="/images/logo.jpg" alt="Logo" className="w-20 h-20 mb-2 rounded-full" />
+          {/* <img src="/images/logo.jpg" alt="Logo" className="w-20 h-20 mb-2 rounded-full" /> */}
+          <FaGraduationCap className='text-6xl' />
+          <h1 className='text-2xl font-bold text-white'>Gradix</h1>
         </div>
 
         {/* GUEST SIDEBAR */}
@@ -59,7 +66,7 @@ const Sidebar = () => {
                   <FaHome /> <span>All courses</span>
                 </button>
               </Link>
-               <Link to="/All-Courses">
+               <Link to="/Category">
                 <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaHome /> <span>Category</span>
                 </button>
@@ -103,11 +110,11 @@ const Sidebar = () => {
                   <FaCog /> <span>Settings</span>
                 </button>
               </Link>
-              <Link to="/Logout">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
+              
+                <button onClick={()=>Navigate('/')}  className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
                   <FaUsers /> <span>logOut</span>
                 </button>
-              </Link>
+              
              
             </nav>
           </div>

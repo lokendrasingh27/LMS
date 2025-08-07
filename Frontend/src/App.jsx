@@ -8,8 +8,6 @@ import Signup from './pages/auth/Signup';
 
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 
-
-
 import Courses from './pages/instructor/Courses';
 import CreateCourse from './pages/instructor/CreateCourse';
 import ProfilePage from './pages/profile/ProfilePage';

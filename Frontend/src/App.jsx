@@ -27,18 +27,7 @@ import CreateCourse from './pages/instructor/CreateCourse';
 function App() {
   return (
     
-    // <div>
-    //  {/* <AccountSecurityPage/> */}
-    //  {/* <StudentProfile/> */}
-    //  {/* <AcademicInformationPage/> */}
-    //  {/* <CloseAccountPage/> */}
-    //  {/* <NotificationPreferencesPage/> */}
-    //  {/* <PaymentMethodsPage/> */}
-    //  {/* <PhotoPage/> */}
-    //   {/* <ProfilePage/> */}
-    //   {/* <SubscriptionsPage/> */}
-      
-    // </div>
+    
     
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -50,6 +39,7 @@ function App() {
         <Route path="/instructor/create-course" element={<CreateCourse/>} />
 
         {/* <Route path="/student-profile" element={<Student />} /> */}
+
     
       </Routes>
   

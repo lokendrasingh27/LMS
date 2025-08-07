@@ -17,7 +17,7 @@ import NotificationPreferencesPage from './pages/newprofilepg/NotificationPrefer
 import PaymentMethodsPage from './pages/newprofilepg/PaymentMethodsPage';
 import PhotoPage from './pages/newprofilepg/PhotoPage';
 import SubscriptionsPage from './pages/newprofilepg/SubscriptionsPage';
-
+import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 
 
 
@@ -45,7 +45,10 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/otp-verification" element={<OtpVerification/>} />
         <Route path="/instructor" element={<InstructorDashboard/>} />
+        <Route path="/course-player" element={<CoursePlayerPage/>} />
+
         {/* <Route path="/student-profile" element={<Student />} /> */}
+
     
       </Routes>
   

@@ -1,6 +1,7 @@
 // src/pages/ProfilePage.jsx
 import React, { useState, useRef } from 'react';
-import Navbar from '../components/Navbar';
+import Sidebar from '../../components/Sidebar';
+// import Navbar from '../components/Navbar';
 
 const ProfilePage = () => {
   const [firstName, setFirstName] = useState('John');
@@ -38,7 +39,8 @@ const ProfilePage = () => {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Navbar />
+      {/* <Navbar /> */}
+      <Sidebar />
 
       <div className="flex-1 overflow-y-auto bg-gray-50 p-10">
         <h1 className="text-4xl font-bold text-[#001F3F] mb-6 text-left">Public Profile</h1>

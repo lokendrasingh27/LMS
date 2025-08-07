@@ -86,6 +86,7 @@ const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest 
             {/* User Info */}
             <div className="bg-[#15315B] p-4 rounded-2xl text-center">
               <img
+              
                 src="/images/userimage.jpeg"
                 alt="Instructor"
                 className="w-16 h-16 rounded-full mx-auto mb-2"

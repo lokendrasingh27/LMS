@@ -28,7 +28,7 @@ function App() {
         <Route path="/instructor" element={<InstructorDashboard/>} />
         <Route path="/instructor/courses" element={<Courses/>} />
         <Route path="/instructor/create-course" element={<CreateCourse/>} />
-
+        
         {/* <Route path="/student-profile" element={<Student />} /> */}
 
     

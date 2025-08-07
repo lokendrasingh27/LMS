@@ -8,11 +8,8 @@ import Signup from './pages/auth/Signup';
 
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> b92a816e696776491b5e2092012ee2a0438803de
 import Courses from './pages/instructor/Courses';
 import CreateCourse from './pages/instructor/CreateCourse';
 import ProfilePage from './pages/profile/ProfilePage';

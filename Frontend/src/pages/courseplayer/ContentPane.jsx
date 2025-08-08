@@ -4,7 +4,8 @@ import QuizInterface from './quizinterface';
 import QuizResults from './quizresults';
 import AssignmentPane from './AssignmentPane'; // Import the new component
 
-function ContentPane({ lesson, quizMode, onStartQuiz, onSubmitQuiz, quizResult, onRetakeQuiz, onToggleComplete, onContinue, onAssignmentSubmit }) {
+function ContentPane({ lesson, quizMode, onStartQuiz, onSubmitQuiz, quizResult, onRetakeQuiz, onToggleComplete, onContinue, onAssignmentSubmit, onSelectPreviousLesson }) {
+  const isFirstLesson = lesson.id === 1; 
   const renderContent = () => {
     if (lesson.type === 'quiz') {
       if (quizResult) {
@@ -63,7 +64,9 @@ function ContentPane({ lesson, quizMode, onStartQuiz, onSubmitQuiz, quizResult, 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <h2 className="text-3xl font-bold text-gray-900">{lesson.title}</h2>
           <div className="mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <button className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 flex items-center justify-center gap-2">
+            <button 
+              onClick={onSelectPreviousLesson}
+              disabled={isFirstLesson}className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 flex items-center justify-center gap-2">
               <i className="fa-solid fa-arrow-left"></i> Previous Lesson
             </button>
 

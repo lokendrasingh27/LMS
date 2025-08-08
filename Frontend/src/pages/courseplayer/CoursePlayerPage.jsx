@@ -32,6 +32,19 @@ function CoursePlayerPage() {
     }
   };
 
+  // --- New handler for selecting the previous lesson ---
+  const handleSelectPreviousLesson = () => {
+    const allLessons = course.curriculum.flatMap(s => s.lessons);
+    const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+
+    // If this is not the first lesson, go to the previous one
+    if (currentIndex > 0) {
+      const previousLesson = allLessons[currentIndex - 1];
+      // We don't need to check for a lock, as a previous lesson is always unlocked
+      setCurrentLesson(previousLesson);
+    }
+  };
+
   const handleStartQuiz = () => {
     setQuizMode(true);
   };
@@ -88,44 +101,6 @@ function CoursePlayerPage() {
     }
   };
 
-  const handleAssignmentSubmit = (file) => {
-    console.log("Simulating upload for assignment:", file.name);
-
-    const allLessons = course.curriculum.flatMap(s => s.lessons);
-    const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson.id);
-
-    if (allLessons[currentLessonIndex].isCompleted) return;
-
-    let nextLesson = null;
-    if (currentLessonIndex + 1 < allLessons.length) {
-      nextLesson = allLessons[currentLessonIndex + 1];
-    }
-
-    const newCurriculum = course.curriculum.map(section => ({
-      ...section,
-      lessons: section.lessons.map(lesson => {
-        if (lesson.id === currentLesson.id) {
-          return { ...lesson, assignmentStatus: 'submitted', isCompleted: true };
-        }
-        if (nextLesson && lesson.id === nextLesson.id) {
-          return { ...lesson, isLocked: false };
-        }
-        return lesson;
-      })
-    }));
-
-    const completedCount = newCurriculum.flatMap(s => s.lessons).filter(l => l.isCompleted).length;
-    const newProgress = Math.round((completedCount / allLessons.length) * 100);
-
-    setCourse({
-      ...course,
-      curriculum: newCurriculum,
-      progress: newProgress,
-    });
-    
-    setCurrentLesson(prev => ({ ...prev, isCompleted: true, assignmentStatus: 'submitted' }));
-  };
-
   const handleContinue = () => {
     const allLessons = course.curriculum.flatMap(s => s.lessons);
     const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson.id);
@@ -153,7 +128,7 @@ function CoursePlayerPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-white font-sans">
+    <div className="flex flex-col h-screen bg-gray-50 font-sans">
       <CourseHeader title={course.title} progress={course.progress} />
       <div className="flex flex-grow overflow-hidden">
         <ContentPane
@@ -165,7 +140,7 @@ function CoursePlayerPage() {
           onRetakeQuiz={handleRetakeQuiz}
           onToggleComplete={handleToggleLessonComplete}
           onContinue={handleContinue}
-          onAssignmentSubmit={handleAssignmentSubmit}
+          onSelectPreviousLesson={handleSelectPreviousLesson} // Pass the new handler down
         />
         <CourseSidebar
           curriculum={course.curriculum}

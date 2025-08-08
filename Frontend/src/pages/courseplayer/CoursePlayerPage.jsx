@@ -153,7 +153,7 @@ function CoursePlayerPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 font-sans">
+    <div className="flex flex-col h-screen bg-white font-sans">
       <CourseHeader title={course.title} progress={course.progress} />
       <div className="flex flex-grow overflow-hidden">
         <ContentPane

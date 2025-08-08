@@ -55,7 +55,7 @@ function ContentPane({ lesson, quizMode, onStartQuiz, onSubmitQuiz, quizResult, 
   };
 
   return (
-    <main className="flex-grow p-4 md:p-8 overflow-y-auto">
+    <main className="flex-grow p-4 bg-whi.te md:p-8 overflow-y-auto">
       {renderContent()}
 
       {/* The bottom navigation does not show for assignments */}

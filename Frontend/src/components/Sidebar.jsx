@@ -120,6 +120,52 @@ const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest 
             </nav>
           </div>
         )}
+        {
+          isUser && (
+           <div className='space-y-4'>
+             <div className="bg-[#15315B] p-4 rounded-2xl text-center">
+              <img
+              
+                src="/images/userimage.jpeg"
+                alt="Instructor"
+                className="w-16 h-16 rounded-full mx-auto mb-2"
+              />
+              <p className="text-sm">Hi, Alex</p>
+              <p className="text-xs">Instructor Panel</p>
+            </div>
+             <nav className="space-y-2 flex flex-col">
+              <Link to="/">
+                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
+                  <FaHome /> <span>Home</span>
+                </button>
+              </Link>
+             
+                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
+                  <FaHome /> <span>Enrolled Courses</span>
+                </button>
+              
+             
+                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
+                  <FaChalkboardTeacher /> <span>
+                    Password Change
+                  </span>
+                </button>
+              
+              
+                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
+                  <FaCog /> <span>Payment  method</span>
+                </button>
+           
+              
+                <button onClick={()=>Navigate('/')}  className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
+                  <FaUsers /> <span>logOut</span>
+                </button>
+              
+             
+            </nav>
+           </div>
+          )
+        }
       </div>
     </div>
   );

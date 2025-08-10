@@ -2,9 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setUser } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
   const [input , setInput ] = useState({
     email: '',
     password: ''
@@ -31,6 +34,7 @@ const LoginPage = () => {
       if(res.data.success){
         alert(res.data.message);
         Navigate('/');
+        dispatch(setUser(res.data.user));
       }
       else{
         alert("something went wrong");

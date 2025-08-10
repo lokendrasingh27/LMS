@@ -10,17 +10,33 @@ import {
   FaSignInAlt,
   FaUserPlus,
 } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { setUser } from '../redux/authSlice';
 
 const Sidebar = () => {
-  const Navigate=useNavigate();
-  const location = useLocation();
-  const path = location.pathname;
+  const dispatch = useDispatch();
+  const {user}= useSelector(store => store.auth);
+   
 
- const isInstructor = path.startsWith('/instructor');
-const isAdmin = path.startsWith('/admin');
-const isUser = path.startsWith('/user'); // or '/student'
+  const logoutHandler = async(e)=>{
+    try{
+           const res=await axios.get('http://localhost:5000/api/auth/logout', {
+          withCredentials: true
+        });
+        if(res.data.success){
+          dispatch(setUser(null));
+          alert(res.data.message);
+          
+        }
+        else{
+          alert("something went wrong");
+        }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
 
-const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest (like "/", "/login", etc.)
+  }
 
   return (
     <div className=" w-72 bg-[#001f3f] text-white flex flex-col h-[100vh] justify-between rounded-r-3xl p-4  overflow-hidden">
@@ -30,110 +46,51 @@ const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest 
           {/* <img src="/images/logo.jpg" alt="Logo" className="w-20 h-20 mb-2 rounded-full" /> */}
           <FaGraduationCap className='text-6xl' />
           <h1 className='text-2xl font-bold text-white'>Gradix</h1>
+         
         </div>
 
-        {/* GUEST SIDEBAR */}
-        {isGuest && (
+      
+       
           <div className="space-y-4">
             {/* Auth Buttons */}
-            <div className="space-y-2 flex gap-2 justify-center items-center">
+            {
+              !user ? (
+            <div className="space-y-2 flex gap-2 items-center">
               <Link to="/login">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full justify-center">
+                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full ">
                   <FaSignInAlt /> <span>Login</span>
                 </button>
               </Link>
               <Link to="/signup">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full justify-center">
+                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
                   <FaUserPlus /> <span>Sign Up</span>
                 </button>
               </Link>
-            </div>
-
-            {/* Optional guest greeting or static section */}
-            <div className="bg-[#15315B] p-4 rounded-2xl text-center">
-              <p className="text-sm">Welcome, Guest!</p>
-              <p className="text-xs">Explore our LMS platform</p>
-            </div>
-
-            <nav className="space-y-2 flex flex-col gap-2">
-              <Link to="/">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>Home</span>
-                </button>
-              </Link>
-              <Link to="/All-Courses">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>All courses</span>
-                </button>
-              </Link>
-               <Link to="/Category">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>Category</span>
-                </button>
-              </Link>
-               <Link to="/Contact-Us">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>Contact</span>
-                </button>
-              </Link>
-            </nav>
-          </div>
-        )}
-
-        {/* INSTRUCTOR SIDEBAR */}
-        {isInstructor && (
-          <div className="space-y-4">
-            {/* User Info */}
-            <div className="bg-[#15315B] p-4 rounded-2xl text-center">
-              <img
               
-                src="/images/userimage.jpeg"
-                alt="Instructor"
-                className="w-16 h-16 rounded-full mx-auto mb-2"
-              />
-              <p className="text-sm">Hi, Alex</p>
-              <p className="text-xs">Instructor Panel</p>
             </div>
+            
 
-            <nav className="space-y-2 flex flex-col">
-              <Link to="/instructor">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>Dashboard</span>
-                </button>
-              </Link>
-              <Link to="/instructor/courses">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaChalkboardTeacher /> <span>Courses</span>
-                </button>
-              </Link>
-              <Link to="/settings">
-                <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaCog /> <span>Settings</span>
-                </button>
-              </Link>
-              
-                <button onClick={()=>Navigate('/')}  className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
-                  <FaUsers /> <span>logOut</span>
-                </button>
-              
-             
-            </nav>
-          </div>
-        )}
-        {
-          isUser && (
-           <div className='space-y-4'>
+              ):(
+                 <div className='space-y-4'>
              <div className="bg-[#15315B] p-4 rounded-2xl text-center">
+            <Link to='/profile'>
               <img
               
                 src="/images/userimage.jpeg"
                 alt="Instructor"
                 className="w-16 h-16 rounded-full mx-auto mb-2"
+                
               />
-              <p className="text-sm">Hi, Alex</p>
-              <p className="text-xs">Instructor Panel</p>
+            </Link>
+              <p className="text-sm">{user.name}</p>
+              <p className="text-xs">{user.role}</p>
             </div>
-             <nav className="space-y-2 flex flex-col">
+             
+           </div>
+           
+              )
+            }
+          <nav className="space-y-2 flex flex-col">
               <Link to="/">
                 <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaHome /> <span>Home</span>
@@ -141,13 +98,13 @@ const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest 
               </Link>
              
                 <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
-                  <FaHome /> <span>Enrolled Courses</span>
+                  <FaHome /> <span>{user ? "Enrolled Course":"All  Course"}</span>
                 </button>
               
              
                 <button className="flex items-center gap-2 w-full py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl">
                   <FaChalkboardTeacher /> <span>
-                    Password Change
+                    {user ? "Change Password":"Category"}
                   </span>
                 </button>
               
@@ -156,16 +113,27 @@ const isGuest = !isInstructor && !isAdmin && !isUser; // anything else is guest 
                   <FaCog /> <span>Payment  method</span>
                 </button>
            
-              
-                <button onClick={()=>Navigate('/')}  className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
+              {
+                !user ?(
+               ""
+
+                ):(
+                   <button onClick={logoutHandler} className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl">
                   <FaUsers /> <span>logOut</span>
                 </button>
+                )
+              }
               
              
             </nav>
-           </div>
-          )
-        }
+
+            {/* Optional guest greeting or static section */}
+           
+          </div>
+      
+
+       
+         
       </div>
     </div>
   );

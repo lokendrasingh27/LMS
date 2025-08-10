@@ -7,7 +7,7 @@ import LoginPage from './pages/auth/LoginPage';
 import Signup from './pages/auth/Signup';
 
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
-
+import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 import Courses from './pages/instructor/Courses';
 import CreateCourse from './pages/instructor/CreateCourse';
 import ProfilePage from './pages/profile/ProfilePage';
@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
-      
+        <Route path="/course-player" element={<CoursePlayerPage />} />
         <Route path="/instructor" element={<InstructorDashboard/>} />
         <Route path="/instructor/courses" element={<Courses/>} />
         <Route path="/instructor/create-course" element={<CreateCourse/>} />

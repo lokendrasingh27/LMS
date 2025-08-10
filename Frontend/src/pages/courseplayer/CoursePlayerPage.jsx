@@ -32,49 +32,55 @@ function CoursePlayerPage() {
     }
   };
 
+  // --- New handler for selecting the previous lesson ---
+  const handleSelectPreviousLesson = () => {
+    const allLessons = course.curriculum.flatMap(s => s.lessons);
+    const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
+
+    // If this is not the first lesson, go to the previous one
+    if (currentIndex > 0) {
+      const previousLesson = allLessons[currentIndex - 1];
+      // We don't need to check for a lock, as a previous lesson is always unlocked
+      setCurrentLesson(previousLesson);
+    }
+  };
+
   const handleStartQuiz = () => {
     setQuizMode(true);
   };
-  
+
   const handleToggleLessonComplete = () => {
     const allLessons = course.curriculum.flatMap(s => s.lessons);
     const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson.id);
     const lessonToToggle = allLessons[currentLessonIndex];
-    
     const isNowCompleted = !lessonToToggle.isCompleted;
 
     let nextLesson = null;
     if (currentLessonIndex + 1 < allLessons.length) {
-        nextLesson = allLessons[currentLessonIndex + 1];
+      nextLesson = allLessons[currentLessonIndex + 1];
     }
 
     const newCurriculum = course.curriculum.map(section => ({
-        ...section,
-        lessons: section.lessons.map(lesson => {
-            // Toggle the current lesson's completion status
-            if (lesson.id === lessonToToggle.id) {
-                return { ...lesson, isCompleted: isNowCompleted };
-            }
-            
-            // If marking as complete, unlock the next lesson. The re-lock functionality is removed.
-            if (isNowCompleted && nextLesson && lesson.id === nextLesson.id) {
-              return { ...lesson, isLocked: false };
-            }
-            
-            return lesson;
-        })
+      ...section,
+      lessons: section.lessons.map(lesson => {
+        if (lesson.id === lessonToToggle.id) {
+          return { ...lesson, isCompleted: isNowCompleted };
+        }
+        if (isNowCompleted && nextLesson && lesson.id === nextLesson.id) {
+          return { ...lesson, isLocked: false };
+        }
+        return lesson;
+      })
     }));
 
-    // Recalculate progress
     const completedCount = newCurriculum.flatMap(s => s.lessons).filter(l => l.isCompleted).length;
     const newProgress = Math.round((completedCount / allLessons.length) * 100);
 
     setCourse({
-        ...course,
-        curriculum: newCurriculum,
-        progress: newProgress,
+      ...course,
+      curriculum: newCurriculum,
+      progress: newProgress,
     });
-    
     setCurrentLesson(prev => ({ ...prev, isCompleted: isNowCompleted }));
   };
 
@@ -85,28 +91,26 @@ function CoursePlayerPage() {
         correctCount++;
       }
     });
-    
+
     const score = Math.round((correctCount / currentLesson.questions.length) * 100);
     setQuizResult({ score, answers });
     setQuizMode(false);
 
-    // If they pass and the lesson isn't already complete, mark it as complete
     if (score >= 70 && !currentLesson.isCompleted) {
-        handleToggleLessonComplete();
+      handleToggleLessonComplete();
     }
   };
-  
+
   const handleContinue = () => {
     const allLessons = course.curriculum.flatMap(s => s.lessons);
     const currentLessonIndex = allLessons.findIndex(l => l.id === currentLesson.id);
     const nextLessonId = allLessons[currentLessonIndex + 1]?.id;
 
     if (nextLessonId) {
-        // Find the lesson from the most recent state to ensure lock status is up-to-date
-        const nextLesson = course.curriculum.flatMap(s => s.lessons).find(l => l.id === nextLessonId);
-        if (nextLesson && !nextLesson.isLocked) {
-            setCurrentLesson(nextLesson);
-        }
+      const nextLesson = course.curriculum.flatMap(s => s.lessons).find(l => l.id === nextLessonId);
+      if (nextLesson && !nextLesson.isLocked) {
+        setCurrentLesson(nextLesson);
+      }
     }
   };
 
@@ -136,6 +140,7 @@ function CoursePlayerPage() {
           onRetakeQuiz={handleRetakeQuiz}
           onToggleComplete={handleToggleLessonComplete}
           onContinue={handleContinue}
+          onSelectPreviousLesson={handleSelectPreviousLesson} // Pass the new handler down
         />
         <CourseSidebar
           curriculum={course.curriculum}

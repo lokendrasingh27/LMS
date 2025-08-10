@@ -7,10 +7,14 @@ function QuizResults({ result, questions, onRetakeQuiz, onContinue }) {
   return (
     <div className="p-6 bg-white rounded-lg border">
       <h2 className="text-2xl font-bold mb-2">Quiz Results</h2>
+       {/* --- Add a message if time ran out --- */}
+      {result.timeUp && (
+        <p className="text-center font-semibold text-red-600 mb-4">Time's up! Your quiz was submitted automatically.</p>
+      )}
       <p className={`text-lg font-semibold mb-6 ${isPassed ? 'text-green-600' : 'text-indigo-600'}`}>
         You Scored: {result.score}%
       </p>
-      
+
       {questions.map((q, index) => {
         const userAnswer = result.answers[q.id];
         const isCorrect = userAnswer === q.correctAnswer;

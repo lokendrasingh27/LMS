@@ -1,6 +1,48 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setUser } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [input , setInput ] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleChaneg=(e)=>{
+    const {name, value} = e.target;
+    setInput((prev)=>({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit =async (e)=>{
+    e.preventDefault();
+    console.log(input)
+    try{
+      const res = await axios.post('http://localhost:5000/api/auth/login', input, {
+           headers:{
+                    "Content-Type":"application/json"
+                },
+                withCredentials:true
+      })
+      if(res.data.success){
+        alert(res.data.message);
+        Navigate('/');
+        dispatch(setUser(res.data.user));
+      }
+      else{
+        alert("something went wrong");
+      }
+    } catch (error){
+      console.error("Error during login:", error);
+    }
+  }
   return (
     <div className="min-h-screen bg-[#e8f1f4] flex items-center justify-center px-4">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
@@ -18,6 +60,10 @@ const LoginPage = () => {
           <input
             type="email"
             placeholder="Enter your email"
+            name="email"
+            value={input.email}
+              onChange={handleChaneg}
+            
             className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
@@ -25,6 +71,9 @@ const LoginPage = () => {
           <input
             type="password"
             placeholder="Enter your password"
+            name="password"
+            value={input.password}
+            onChange={handleChaneg}
             className="w-full px-4 py-2 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
@@ -38,6 +87,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
+            onClick={handleSubmit}
             className="w-full bg-[#041E42] text-white py-2 rounded-lg font-semibold hover:bg-[#0a2d5e]"
           >
             Sign In

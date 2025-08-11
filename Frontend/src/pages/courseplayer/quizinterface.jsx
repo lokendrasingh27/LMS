@@ -1,16 +1,13 @@
 // src/pages/courseplayer/quizinterface.jsx
 import React from 'react';
 
-// --- No longer uses its own 'useState' for answers ---
-// --- Receives timeLeft, answers, and onAnswerChange as props ---
 function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerChange }) {
 
-  // --- Calls the onAnswerChange prop to lift state up ---
   const handleOptionChange = (questionId, option) => {
+    // Call the function passed down from the parent to update the state
     onAnswerChange(questionId, option);
   };
 
-  // --- Helper function to format seconds into MM:SS format ---
   const formatTime = (seconds) => {
     if (seconds === null) return '00:00';
     const minutes = Math.floor(seconds / 60);
@@ -20,14 +17,13 @@ function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerCha
 
   return (
     <div className="p-6 bg-white rounded-lg border">
-      {/* --- Header section for the quiz with the timer display --- */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Quiz in Progress...</h2>
         <div className="text-xl font-bold text-red-600 bg-red-100 px-3 py-1 rounded">
           {formatTime(timeLeft)}
         </div>
       </div>
-
+      
       {questions.map((q, index) => (
         <div key={q.id} className="mb-6">
           <p className="font-semibold mb-2">{index + 1}. {q.text}</p>
@@ -38,8 +34,9 @@ function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerCha
                   type="radio"
                   name={q.id}
                   value={option}
-                  // --- 'checked' status is now determined by the 'answers' prop ---
+                  // The checked status is now determined by the 'answers' prop from the parent
                   checked={answers[q.id] === option}
+                  // The onChange handler calls the function from the parent
                   onChange={() => handleOptionChange(q.id, option)}
                   className="mr-3"
                 />
@@ -51,7 +48,7 @@ function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerCha
       ))}
 
       <button
-        // --- Now calls onSubmitQuiz without arguments ---
+        // The onSubmitQuiz function no longer needs arguments
         onClick={onSubmitQuiz}
         className="w-full mt-4 px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700"
       >

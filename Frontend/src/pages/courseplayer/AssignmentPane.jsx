@@ -25,7 +25,7 @@ function AssignmentPane({ lesson, onAssignmentSubmit }) {
       {lesson.assignmentStatus === 'submitted' ? (
         <div className="p-4 bg-green-100 text-green-800 rounded-md">
           <p className="font-semibold">Assignment Submitted!</p>
-          <p>Your assignment has been received and will be reviewed shortly.</p>
+          <p>Your assignment has been received. You can now proceed to the next lesson.</p>
         </div>
       ) : (
         <div>

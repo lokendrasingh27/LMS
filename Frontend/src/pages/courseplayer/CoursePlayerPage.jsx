@@ -20,7 +20,7 @@ function CoursePlayerPage() {
   const [currentLesson, setCurrentLesson] = useState(null);
   const [quizMode, setQuizMode] = useState(false);
   const [quizResult, setQuizResult] = useState(null);
-  const [answers, setAnswers] = useState({}); // State for quiz answers is managed here
+  const [answers, setAnswers] = useState({});
   const [timeLeft, setTimeLeft] = useState(null);
 
   useEffect(() => {
@@ -29,13 +29,11 @@ function CoursePlayerPage() {
   
   useEffect(() => {
     const allLessons = course.curriculum.flatMap((s) => s.lessons);
-    const firstLesson = allLessons.find((l) => !l.isLocked);
-
-    // If there is no current lesson set, or if the current one is locked (e.g., after a reset)
-    if (!currentLesson || allLessons.find(l => l.id === currentLesson.id)?.isLocked) {
-        if(firstLesson) setCurrentLesson(firstLesson);
+    // If there is no current lesson, set it to the first lesson of the course.
+    if (!currentLesson && allLessons.length > 0) {
+        setCurrentLesson(allLessons[0]);
     }
-  }, [course.curriculum]);
+  }, [course.curriculum, currentLesson]);
 
   useEffect(() => {
     if (quizMode && timeLeft > 0) {
@@ -52,7 +50,7 @@ function CoursePlayerPage() {
   }, [currentLesson]);
   
   const handleSelectLesson = (lesson) => {
-    if (!lesson.isLocked) setCurrentLesson(lesson);
+    setCurrentLesson(lesson);
   };
 
   const handleSelectPreviousLesson = () => {
@@ -68,7 +66,7 @@ function CoursePlayerPage() {
   };
 
   const handleStartQuiz = () => {
-    setAnswers({}); // Reset answers before starting
+    setAnswers({});
     setTimeLeft(currentLesson.timeLimit);
     setQuizMode(true);
     setQuizResult(null);
@@ -105,7 +103,7 @@ function CoursePlayerPage() {
     const currentIndex = allLessons.findIndex(l => l.id === currentLesson.id);
     if (currentIndex + 1 < allLessons.length) {
       const nextLesson = allLessons[currentIndex + 1];
-      if (!nextLesson.isLocked) setCurrentLesson(nextLesson);
+      setCurrentLesson(nextLesson);
     }
   };
 
@@ -116,8 +114,6 @@ function CoursePlayerPage() {
 
   const updateLessonCompletion = (lessonId, isCompleted, isAssignment = false) => {
     const allLessons = course.curriculum.flatMap(s => s.lessons);
-    const currentLessonIndex = allLessons.findIndex(l => l.id === lessonId);
-    let nextLesson = allLessons[currentLessonIndex + 1] || null;
 
     const newCurriculum = course.curriculum.map(section => ({
       ...section,
@@ -127,12 +123,9 @@ function CoursePlayerPage() {
           if (isAssignment) updatedLesson.assignmentStatus = 'submitted';
           return updatedLesson;
         }
-        if (nextLesson && lesson.id === nextLesson.id && isCompleted) {
-          return { ...lesson, isLocked: false };
-        }
         return lesson;
       })
-    }));
+    }));  
 
     const completedCount = newCurriculum.flatMap(s => s.lessons).filter(l => l.isCompleted).length;
     const newProgress = Math.round((completedCount / allLessons.length) * 100);

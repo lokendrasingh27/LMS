@@ -31,12 +31,6 @@ export const courseData = {
             { id: 'q2', text: 'Which hook is used to add state to a functional component?', options: ['useEffect', 'useState', 'useContext'], correctAnswer: 'useState' }
           ]
         },
-      ],
-    },
-    {
-      id: "s3",
-      title: "Section 3: Advanced Topics",
-      lessons: [
         {
           id: 7,
           title: "Submit Your First Component",
@@ -47,8 +41,24 @@ export const courseData = {
           assignmentStatus: 'pending',
           pdfUrl: null,
         },
-        { id: 8, title: "Context API", type: "video", isCompleted: false, isLocked: true, pdfUrl: null },
-        { id: 9, title: "Performance Optimization", type: "text", isCompleted: false, isLocked: true, pdfUrl: null },
+      ],
+    },
+    {
+      id: "s3",
+      title: "Section 3: Advanced Topics",
+      lessons: [
+        {
+          id: 8,
+          title: "Submit Your First Component",
+          type: "assignment",
+          instructions: "Please create a simple 'HelloWorld' React component, zip the file, and submit it here.",
+          isCompleted: false,
+          isLocked: true,
+          assignmentStatus: 'pending',
+          pdfUrl: null,
+        },
+        { id: 9, title: "Context API", type: "video", isCompleted: false, isLocked: true, pdfUrl: null },
+        { id: 10, title: "Performance Optimization", type: "text", isCompleted: false, isLocked: true, pdfUrl: null },
       ],
     },
   ],

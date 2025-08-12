@@ -1,5 +1,4 @@
 // src/mock-data.js
-
 export const courseData = {
   title: "The Ultimate Guide to React",
   progress: 0,
@@ -16,30 +15,30 @@ export const courseData = {
       id: "s2",
       title: "Section 2: React Basics",
       lessons: [
-        { id: 3, title: "Components & Props", type: "video", isCompleted: false, isLocked: false, pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
-        { id: 4, title: "State & Hooks", type: "text", isCompleted: false, isLocked: false , pdfUrl: null },
-        { id: 5, title: "Handling Events", type: "video", isCompleted: false, isLocked: false, pdfUrl: null },
+        { id: 3, title: "Components & Props", type: "video", isCompleted: false, isLocked: true, pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { id: 4, title: "State & Hooks", type: "text", isCompleted: false, isLocked: true, pdfUrl: null },
+        { id: 5, title: "Handling Events", type: "video", isCompleted: false, isLocked: true, pdfUrl: null },
         {
           id: 6,
           title: "Your First Quiz",
           type: "quiz",
           isCompleted: false,
-          isLocked: false,
+          isLocked: true,
           pdfUrl: null,
+          timeLimit: 120, // Time limit in seconds
           questions: [
             { id: 'q1', text: 'What does JSX stand for?', options: ['JavaScript XML', 'JavaScript Extension', 'JSON Syntax'], correctAnswer: 'JavaScript XML' },
-            { id: 'q2', text: 'Which hook is used to add state to a functional component?', options: ['useEffect', 'useState', 'useContext'], correctAnswer: 'useState' },
-            
+            { id: 'q2', text: 'Which hook is used to add state to a functional component?', options: ['useEffect', 'useState', 'useContext'], correctAnswer: 'useState' }
           ]
         },
         {
           id: 7,
           title: "Submit Your First Component",
           type: "assignment",
-          instructions: "Please create a simple 'calculator' React component, zip the file, and submit it here.",
+          instructions: "Please create a simple 'HelloWorld' React component, zip the file, and submit it here.",
           isCompleted: false,
-          isLocked: false,
-          assignmentStatus: 'pending', // Can be 'pending' or 'submitted'
+          isLocked: true,
+          assignmentStatus: 'pending',
           pdfUrl: null,
         },
       ],
@@ -54,12 +53,12 @@ export const courseData = {
           type: "assignment",
           instructions: "Please create a simple 'HelloWorld' React component, zip the file, and submit it here.",
           isCompleted: false,
-          isLocked: false,
-          assignmentStatus: 'pending', // Can be 'pending' or 'submitted'
+          isLocked: true,
+          assignmentStatus: 'pending',
           pdfUrl: null,
         },
-        { id: 9, title: "Context API", type: "video", isCompleted: false, isLocked: false, pdfUrl: null },
-        { id: 10, title: "Performance Optimization", type: "text", isCompleted: false, isLocked: false, pdfUrl: null },
+        { id: 9, title: "Context API", type: "video", isCompleted: false, isLocked: true, pdfUrl: null },
+        { id: 10, title: "Performance Optimization", type: "text", isCompleted: false, isLocked: true, pdfUrl: null },
       ],
     },
   ],

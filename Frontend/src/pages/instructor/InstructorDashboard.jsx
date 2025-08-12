@@ -1,11 +1,15 @@
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaGraduationCap, FaUsers } from 'react-icons/fa6';
+import { FaChalkboardTeacher, FaCog, FaHome } from 'react-icons/fa';
 
 const InstructorDashboard = () => {
+   const Navigate = useNavigate();
   return (
     <div className=" flex h-[100vh] overflow-hidden  bg-[#e3f1f1]  ">
-         <Sidebar/>
+         <Sidebar />
+         
       {/* Header */}
    <div className="flex-1 p-6">
        <div className="mb-6">

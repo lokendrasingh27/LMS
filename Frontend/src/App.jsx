@@ -8,9 +8,10 @@ import Signup from './pages/auth/Signup';
 
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
-import Courses from './pages/instructor/Courses';
-import CreateCourse from './pages/instructor/CreateCourse';
+// import Courses from './pages/instructor/Courses';
+// import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from './pages/profile/ProfilePage';
+import CourseList from './pages/instructor/CourseList';
 
 
 
@@ -27,8 +28,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/course-player" element={<CoursePlayerPage />} />
         <Route path="/instructor" element={<InstructorDashboard/>} />
-        <Route path="/instructor/courses" element={<Courses/>} />
-        <Route path="/instructor/create-course" element={<CreateCourse/>} />
+        <Route path="/instructor/courses" element={<CourseList/>} />
+        {/* <Route path="/instructor/create-course" element={<CreateCourse/>} /> */}
         <Route path="/profile" element={<ProfilePage/>} />
 
 

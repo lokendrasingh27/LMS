@@ -71,8 +71,6 @@ function CoursePlayerPage() {
     setQuizMode(true);
     setQuizResult(null);
   };
-  
-  const handleRetakeQuiz = () => handleStartQuiz();
 
   const handleToggleLessonComplete = () => {
     updateLessonCompletion(currentLesson.id, !currentLesson.isCompleted);
@@ -88,7 +86,9 @@ function CoursePlayerPage() {
     setQuizResult({ score, answers, timeUp: timeLeft === 0 });
     setQuizMode(false);
     setTimeLeft(null);
-    if (score >= 70 && !currentLesson.isCompleted) {
+    
+    // Mark the lesson as complete upon submission, regardless of score
+    if (!currentLesson.isCompleted) {
       updateLessonCompletion(currentLesson.id, true);
     }
   };
@@ -125,7 +125,7 @@ function CoursePlayerPage() {
         }
         return lesson;
       })
-    }));  
+    }));
 
     const completedCount = newCurriculum.flatMap(s => s.lessons).filter(l => l.isCompleted).length;
     const newProgress = Math.round((completedCount / allLessons.length) * 100);
@@ -163,7 +163,6 @@ function CoursePlayerPage() {
           timeLeft={timeLeft}
           onStartQuiz={handleStartQuiz}
           onSubmitQuiz={handleSubmitQuiz}
-          onRetakeQuiz={handleRetakeQuiz}
           onContinue={handleContinue}
           onToggleComplete={handleToggleLessonComplete}
           onSelectPreviousLesson={handleSelectPreviousLesson}

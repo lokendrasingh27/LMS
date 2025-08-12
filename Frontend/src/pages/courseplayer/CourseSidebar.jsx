@@ -21,12 +21,12 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson }) {
                     <ul className="space-y-1">
                         {section.lessons.map(lesson => {
                             const isCurrent = lesson.id === currentLessonId;
-                            let lessonClasses = "flex items-center justify-between bg-[#C2E8F8] p-2 rounded-md text-sm transition-colors relative overflow-hidden";
+                            let lessonClasses = "flex items-center justify-between bg-[#C2E8F8] p-2 rounded-md text-sm font-medium transition-colors relative overflow-hidden";
 
                             if (isCurrent) {
                                 lessonClasses += " bg-indigo-100 font-black text-xl font-bold";
                             } else {
-                                lessonClasses += " text-gray-600 hover:bg-gray-100 cursor-pointer";
+                                lessonClasses += " text-black-600 hover:bg-gray-100 cursor-pointer";
                             }
                             
                             return (

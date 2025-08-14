@@ -5,7 +5,7 @@ import { FaChalkboardTeacher, FaGraduationCap, FaHome, FaUsers } from "react-ico
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 
-export default function CourseList() {
+const CourseList=()=> {
   const [courses, setCourses] = useState(   [
   {
     id: 1,
@@ -145,3 +145,5 @@ export default function CourseList() {
     </div>
   </>);
 }
+
+export default CourseList

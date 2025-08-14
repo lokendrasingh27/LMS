@@ -12,6 +12,10 @@ import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 // import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from './pages/profile/ProfilePage';
 import CourseList from './pages/instructor/CourseList';
+import StudentManagement from './pages/instructor/StudentManagement';
+import CourseCreate from './pages/instructor/CreateCourse';
+import Reviews from './pages/instructor/Review';
+import Instructor from './pages/instructor/Instructor';
 
 
 
@@ -29,7 +33,8 @@ function App() {
         <Route path="/course-player" element={<CoursePlayerPage />} />
         <Route path="/instructor" element={<InstructorDashboard/>} />
         <Route path="/instructor/courses" element={<CourseList/>} />
-        {/* <Route path="/instructor/create-course" element={<CreateCourse/>} /> */}
+        
+        <Route path='/ins' element={<Instructor/>}/>
         <Route path="/profile" element={<ProfilePage/>} />
 
 

@@ -32,7 +32,7 @@ function App() {
         <Route path="/instructor/courses" element={<CourseList/>} />
         {/* <Route path="/instructor/create-course" element={<CreateCourse/>} /> */}
         <Route path="/profile" element={<ProfilePage/>} />
-        <Route path="/courseviewpage" element ={<CourseViewPage />} />
+        {/*<Route path="/courseviewpage" element ={<CourseViewPage />} />/*}
 
         {/* <Route path="/student-profile" element={<Student />} /> */}
 

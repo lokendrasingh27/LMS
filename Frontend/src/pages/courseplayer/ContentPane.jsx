@@ -12,7 +12,6 @@ function ContentPane({
   timeLeft,
   onStartQuiz, 
   onSubmitQuiz, 
-  onRetakeQuiz, 
   onContinue, 
   onToggleComplete,
   onSelectPreviousLesson,
@@ -26,7 +25,7 @@ function ContentPane({
   const renderContent = () => {
     if (lesson.type === 'quiz') {
       if (quizResult) {
-        return <QuizResults result={quizResult} questions={lesson.questions} onRetakeQuiz={onRetakeQuiz} onContinue={onContinue}/>;
+        return <QuizResults result={quizResult} questions={lesson.questions} onContinue={onContinue}/>;
       }
       if (quizMode) {
         // Pass all the necessary props to the QuizInterface

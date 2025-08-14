@@ -1,7 +1,7 @@
 // src/pages/courseplayer/quizresults.jsx
 import React from 'react';
 
-function QuizResults({ result, questions, onRetakeQuiz, onContinue }) {
+function QuizResults({ result, questions, onContinue }) {
   const isPassed = result.score >= 70;
 
   return (
@@ -30,21 +30,12 @@ function QuizResults({ result, questions, onRetakeQuiz, onContinue }) {
         );
       })}
 
-      {isPassed ? (
-        <button
-          onClick={onContinue}
-          className="w-full mt-6 px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700"
-        >
-          Continue to Next Lesson
-        </button>
-      ) : (
-        <button
-          onClick={onRetakeQuiz}
-          className="w-full mt-6 px-6 py-3 text-lg font-semibold text-white bg-gray-700 rounded-lg shadow-sm hover:bg-gray-800"
-        >
-          Retake Quiz
-        </button>
-      )}
+      <button
+        onClick={onContinue}
+        className="w-full mt-6 px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700"
+      >
+        Continue to Next Lesson
+      </button>
     </div>
   );
 }

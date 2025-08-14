@@ -5,8 +5,18 @@ function AssignmentPane({ lesson, onAssignmentSubmit }) {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      const selectedFile = e.target.files[0];
+      
+      // Check if the selected file type is PDF
+      if (selectedFile.type === "application/pdf") {
+        setFile(selectedFile);
+      } else {
+        // If not a PDF, alert the user and clear the selection
+        alert("Invalid file format. Please upload a PDF file only.");
+        setFile(null);
+        e.target.value = null; // Reset the file input field
+      }
     }
   };
 
@@ -32,13 +42,14 @@ function AssignmentPane({ lesson, onAssignmentSubmit }) {
           <p className="mb-4 prose">{lesson.instructions}</p>
           <div className="border-2 border-dashed rounded-lg p-6 text-center mt-6">
             <label htmlFor="file-upload" className="cursor-pointer text-indigo-600 font-semibold">
-                Select a file to upload
+                Select a pdf file to upload
             </label>
             <input 
               id="file-upload"
               type="file" 
               onChange={handleFileChange} 
               className="hidden"
+              accept="application/pdf" // Restrict file selection to PDFs
             />
             {file && <p className="text-sm text-gray-600 mt-4">Selected file: {file.name}</p>}
             <button

@@ -12,6 +12,7 @@ import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 // import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from './pages/profile/ProfilePage';
 import CourseList from './pages/instructor/CourseList';
+import CourseViewPage from './pages/courseviewpage/CourseViewPage';
 
 
 
@@ -31,7 +32,7 @@ function App() {
         <Route path="/instructor/courses" element={<CourseList/>} />
         {/* <Route path="/instructor/create-course" element={<CreateCourse/>} /> */}
         <Route path="/profile" element={<ProfilePage/>} />
-
+        <Route path="/courseviewpage" element ={<CourseViewPage />} />
 
         {/* <Route path="/student-profile" element={<Student />} /> */}
 

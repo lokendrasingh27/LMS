@@ -57,4 +57,4 @@ const Instructor=()=> {
     </div>
   );
 }
-export default Instructor
+export default Instructor;

@@ -13,6 +13,7 @@ import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import CourseList from './pages/instructor/CourseList';
 import CourseViewPage from './pages/courseviewpage/CourseViewPage';
+import Instructor from './pages/instructor/Instructor';
 
 
 

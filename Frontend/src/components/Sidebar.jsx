@@ -4,6 +4,7 @@ import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUsers, FaCog, FaSignInA
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../redux/authSlice';
+import userLogo from   '/images/userimage.jpeg'
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const Sidebar = () => {
               <div className="bg-[#15315B] p-4 rounded-2xl text-center">
                 <Link to="/profile">
                   <img
-                    src="/images/userimage.jpeg"
+                    src={user?.photoUrl || userLogo}
                     alt="User"
                     className="w-16 h-16 rounded-full mx-auto mb-2"
                   />

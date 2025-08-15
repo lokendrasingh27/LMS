@@ -26,11 +26,17 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:""
     },
+      academicDetails: {
+        course: { type: String, default: "" },  // e.g. "BCA", "B.Tech CSE"
+        year: { type: Number, min: 1, max: 5 }, // e.g. 1, 2, 3, 4
+        cgpa: { type: Number, min: 0, max: 10 } // e.g. 8.5
+    },
     enrolledCourses: [
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'Course'
-        }
+        },
+        
     ]
 },{timestamps:true})
 

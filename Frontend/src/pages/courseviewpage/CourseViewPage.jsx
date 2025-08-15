@@ -1,5 +1,6 @@
 import React from "react";
 import Banner from "./banner";
+import Sidebar from "../../components/Sidebar";
 import { availableCourses, upcomingCourses } from "./demodata";
 import CourseCard from "./coursecard";
 import UpcomingCard from "./upcomingcard";
@@ -7,6 +8,7 @@ import UpcomingCard from "./upcomingcard";
 const CourseViewPage = () => {
   return (
     <>
+    <Sidebar />
     <Banner />
     <div className="p-6">
        {/* Available Courses */}

@@ -6,6 +6,8 @@ import { FaChalkboardTeacher, FaCog, FaHome } from 'react-icons/fa';
 
 const InstructorDashboard = () => {
    const Navigate = useNavigate();
+   
+   
   return (
     <div className=" flex h-[100vh] overflow-hidden  bg-[#e3f1f1]  ">
          <Sidebar />
@@ -52,16 +54,20 @@ const InstructorDashboard = () => {
         <h2 className="text-2xl font-bold mb-3 text-[#011638]">Quick Actions</h2>
         <div className="flex flex-wrap gap-4">
          <Link to='/instructor/create-course'>
-          <button className="bg-[#011638] hover:bg-[#02204d] text-white px-4 py-2 rounded-2xl shadow">
+          <button className="bg-[#011638] hover:bg-[#006D77] text-white px-4 py-2 rounded-2xl shadow">
             Create New Course
           </button>
          </Link>
-          <button className="border border-[#011638] text-[#011638] px-4 py-2 rounded-2xl shadow">
+          <Link to='/instructor/manage-student'>
+          <button className="border bg-[#011638] hover:bg-[#006D77] text-white px-4 py-2 rounded-2xl shadow">
             Manage Students
           </button>
-          <button className="border border-[#011638] text-[#011638] px-4 py-2 rounded-2xl shadow">
+          </Link>
+         <Link to='/instructor/review'>
+          <button className="border bg-[#011638] hover:bg-[#006D77] text-white px-4 py-2 rounded-2xl shadow">
             View Reviews
           </button>
+         </Link>
         </div>
       </div>
 

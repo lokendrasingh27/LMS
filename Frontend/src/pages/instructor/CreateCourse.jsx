@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 
-export default function CourseCreate({ onCreate, onCancel }) {
+const CourseCreate=({ onCreate, onCancel })=> {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [thumbnail, setThumbnail] = useState( null);
+
+ const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setThumbnail(URL.createObjectURL(file));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && description) {
-      onCreate({ title, description });
+    if (title && thumbnail) {
+      onCreate({ title, thumbnail });
       setTitle("");
-      setDescription("");
-    }``
+      setThumbnail("");
+    }
   };
 
   return (
@@ -25,12 +32,22 @@ export default function CourseCreate({ onCreate, onCancel }) {
             onChange={(e) => setTitle(e.target.value)}
             className="border p-2 w-full rounded"
           />
-          <textarea
-            placeholder="Course Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="border p-2 w-full rounded"
-          ></textarea>
+          <div>
+            <label className="block font-semibold mb-1">Course Thumbnail</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="border p-2 w-full rounded"
+            />
+            {thumbnail && (
+              <img
+                src={thumbnail}
+                alt="Thumbnail Preview"
+                className="mt-2 w-32 h-20 object-cover rounded border"
+              />
+            )}
+          </div>
           <div className="flex justify-end space-x-2">
             <button
               type="button"
@@ -51,3 +68,4 @@ export default function CourseCreate({ onCreate, onCancel }) {
     </div>
   );
 }
+export default  CourseCreate

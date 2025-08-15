@@ -30,7 +30,8 @@ function App() {
         <Route path="/course-player" element={<CoursePlayerPage />} />
         <Route path="/instructor" element={<InstructorDashboard/>} />
         <Route path="/instructor/courses" element={<CourseList/>} />
-        {/* <Route path="/instructor/create-course" element={<CreateCourse/>} /> */}
+        
+        <Route path='/ins' element={<Instructor/>}/>
         <Route path="/profile" element={<ProfilePage/>} />
         {/*<Route path="/courseviewpage" element ={<CourseViewPage />} />/*}
 

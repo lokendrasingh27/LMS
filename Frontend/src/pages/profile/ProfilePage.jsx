@@ -81,7 +81,7 @@ const ProfilePage = () => {
       <Sidebar />
 
       <div className="flex-1 overflow-y-auto bg-gray-50 p-10">
-        <h1 className="text-4xl font-bold text-[#001F3F] mb-6 text-left">Welcome , {user?.name}</h1>
+        <h1 className="text-4xl font-bold text-[#001F3F] mb-6 text-left">Welcome , {user?.name.split(" ")[0]|| "user"}</h1>
 
         {/* About Section */}
         <div className="bg-white p-6 rounded-xl shadow-md mb-6">
@@ -145,7 +145,7 @@ const ProfilePage = () => {
 
           <div className="mb-6">
             <label className="block font-medium mb-1 text-left">GPA</label>
-            <h1>{user?.academicDetails}</h1>
+           
           </div>
               <Dialog open={open} onOpenChange={setOpen}>
                             <Button onClick={()=>setOpen(true)} className="bg-blue-500">Edit Profile</Button>

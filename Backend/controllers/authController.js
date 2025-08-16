@@ -1,6 +1,8 @@
 import {User} from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import getDataUri from '../utils/dataUri.js';
+import cloudinary from '../utils/cloudinary.js';
 
 
 export const register = async(req, res) => {
@@ -63,7 +65,7 @@ export const login = async(req ,res)=>{
 
             const isPasswordMatch =await bcrypt.compare(password,user.password);
             if(!isPasswordMatch){
-                return res,status(400).json({
+                return res.status(400).json({
                     success: false,
                     message: "Invalid email or password"
                 })
@@ -103,3 +105,44 @@ export const logout = async(req ,res)=>{
     }
 }
 
+export const  updateProfile =async (req,res)=>{
+              
+    try{
+           const userId =req.id
+           const {name ,description,course,year,cgpa}=req.body
+           const file = req.file
+
+           
+           const fileUri=getDataUri(file)
+
+           let cloudinaryResponse = await cloudinary.uploader.upload(fileUri)
+        const user = await User.findById(userId)
+        if(!user){
+            return res.status(401).json({
+                success:false,
+                message:"user not found"
+            })
+        }
+
+        //updating data
+        if(name) user.name=name
+        if(description) user.description = description
+        if(file) user.photoUrl = cloudinary.secure_url
+        if(course)  user.academicDetails.course= course
+        if(year)  user.academicDetails.year = year
+        if(cgpa)  user.academicDetails.cgpa=cgpa
+
+        await user.save()
+        return res.status(200).json({
+            success:true,
+            message:"profile updated successfully",
+            user
+        })
+    } catch(error){
+        console.log(error)
+        return res.status(500).json({
+            success:false,
+            message:"Failed to update profile"
+        })
+    }
+}

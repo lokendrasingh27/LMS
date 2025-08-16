@@ -12,7 +12,8 @@ import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 // import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from './pages/profile/ProfilePage';
 import CourseList from './pages/instructor/CourseList';
-
+import Instructor from './pages/instructor/Instructor';
+import PrivateRoute from '@/utils/PrivateRoute';
 
 
 
@@ -26,11 +27,17 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/course-player" element={<CoursePlayerPage />} />
-        <Route path="/instructor" element={<InstructorDashboard/>} />
+        {/* <Route path="/instructor" element={<InstructorDashboard/>} /> */}
         <Route path="/instructor/courses" element={<CourseList/>} />
         
         <Route path='/ins' element={<Instructor />}/>
-        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/profile" element={
+          <PrivateRoute>
+
+            <ProfilePage/>
+          </PrivateRoute>
+        } 
+          />
         {/*<Route path="/courseviewpage" element ={<CourseViewPage />} />/*}
 
 

@@ -105,44 +105,43 @@ export const logout = async(req ,res)=>{
     }
 }
 
-export const  updateProfile =async (req,res)=>{
-              
-    try{
-           const userId =req.id
-           const {name ,description,course,year,cgpa}=req.body
-           const file = req.file
+export const updateProfile = async(req, res) => {
+    try {
+        const userId= req.id
+        const {name, description,course,year} = req.body;
+        const file = req.file;
 
-           
-           const fileUri=getDataUri(file)
+        const fileUri = getDataUri(file)
+        let cloudResponse = await cloudinary.uploader.upload(fileUri)
 
-           let cloudinaryResponse = await cloudinary.uploader.upload(fileUri)
-        const user = await User.findById(userId)
+        const user = await User.findById(userId).select("-password")
+        
         if(!user){
-            return res.status(401).json({
-                success:false,
-                message:"user not found"
+            return res.status(404).json({
+                message:"User not found",
+                success:false
             })
         }
 
-        //updating data
-        if(name) user.name=name
+        // updating data
+        if(name) user.name = name
         if(description) user.description = description
-        if(file) user.photoUrl = cloudinary.secure_url
-        if(course)  user.academicDetails.course= course
-        if(year)  user.academicDetails.year = year
-        if(cgpa)  user.academicDetails.cgpa=cgpa
+        if(course) user.academicDetails.course=course
+        if(year) user.academicDetails.year=year
+        if(file) user.photoUrl = cloudResponse.secure_url
 
         await user.save()
         return res.status(200).json({
-            success:true,
             message:"profile updated successfully",
+            success:true,
             user
         })
-    } catch(error){
-        console.log(error)
+        
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
-            success:false,
-            message:"Failed to update profile"
+            success: false,
+            message: "Failed to update profile"
         })
     }
 }

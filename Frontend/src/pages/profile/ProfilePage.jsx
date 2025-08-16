@@ -29,33 +29,39 @@ const ProfilePage = () => {
     const [input, setInput] = useState({
         name:user?.name,
         description: user?.description,
+        course:user?.academicDetails.course,
+        year:user?.academicDetails.year,
         file:user?.photoUrl
     })
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
 
-    const changeEventHandler = (e) => {
-        const {name, value} = e.target;
-        setInput((prev)=> ({
-            ...prev,
-            [name]:value,
-        }))
+    const changeEventHandler =(e)=>{
+      const {name,value}=e.target
+      setInput((prev)=>({
+        ...prev,
+        [name]:value
+      }))
     }
-    const changeFileHandler =(e)=>{
-        setInput({...input, file:e.target.files?.[0]})
-    }
-    const submitHandler = async(e)=>{
+
+   const changeFileHandler= (e)=>{
+    setInput({...input,file:e.target.files?.[0]})
+   }
+    
+   const submitHandler = async(e)=>{
         e.preventDefault()
        const formData = new FormData();
        formData.append("name", input.name);
        formData.append("description", input.description);
+       formData.append("course",input.course);
+       formData.append("year",input.year)
        if(input?.file){
         formData.append("file", input?.file)
        }
 
        try {
         setLoading(true)
-        const res = await axios.put('https://lms-nswg.onrender.com/api/v1/user/profile/update',formData, {
+        const res = await axios.put('http://localhost:5000/api/auth/profile/update',formData, {
             headers:{
               "Content-Type":"multipart/form-data"
             },
@@ -80,7 +86,7 @@ const ProfilePage = () => {
       {/* <Navbar /> */}
       <Sidebar />
 
-      <div className="flex-1 overflow-y-auto bg-gray-50 p-10">
+      <div className="flex-1 overflow-y-auto bg-gray-50 p-6">
         <h1 className="text-4xl font-bold text-[#001F3F] mb-6 text-left">Welcome , {user?.name.split(" ")[0]|| "user"}</h1>
 
         {/* About Section */}
@@ -90,7 +96,7 @@ const ProfilePage = () => {
             <div className="w-full md:w-2/3">
               <h2 className="text-2xl font-semibold text-[#001F3F] mb-4 text-left">About</h2>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-4">
+              <div className="grid md:grid-cols-3 gap-20 mb-4">
                 <div>
                   <label className="block font-medium mb-1 text-left">First Name</label>
                   <h1>{user?.name}</h1>
@@ -99,10 +105,14 @@ const ProfilePage = () => {
                   <label className="block font-medium mb-1 text-left">Email </label>
                   <p>{user?.email || "email is not available"}</p>
                 </div>
+                  <div>
+                  <label className="block font-medium mb-1 text-left">Role </label>
+                  <p>{user?.role || "email is not available"}</p>
+                </div>
               </div>
               <div>
                   <label className="block font-medium mb-1 text-left">Add your Bio : </label>
-                  <p className='h-20 w-50 bg-gray-100'>{user?.description || "" }</p> 
+                  <p className='h-20 w-50 bg-gray-100 p-3 rounded-xl'>{user?.description || "" }</p> 
                 </div>
             </div>
 
@@ -129,24 +139,15 @@ const ProfilePage = () => {
 
           <div className="mb-4">
             <label className="block font-medium mb-1 text-left">Program</label>
-            <input
-              type="text"
-              className="w-full border rounded-md px-3 py-2 text-left"
-            />
+           <h1>{user?.academicDetails.course}</h1>
           </div>
 
-          <div className="mb-4">
-            <label className="block font-medium mb-1 text-left">Year</label>
-            <input
-              type="text"
-              className="w-full border rounded-md px-3 py-2 text-left"
-            />
+          <div className="mb-4 flex gap-2">
+            <label className="block font-medium mb-1 text-left">Year <span className='pl-2'>:</span> </label>
+           <h1>{user?.academicDetails.year}</h1>
           </div>
 
-          <div className="mb-6">
-            <label className="block font-medium mb-1 text-left">GPA</label>
-           
-          </div>
+         
               <Dialog open={open} onOpenChange={setOpen}>
                             <Button onClick={()=>setOpen(true)} className="bg-blue-500">Edit Profile</Button>
                             <DialogContent className="sm:max-w-[425px]">
@@ -174,7 +175,7 @@ const ProfilePage = () => {
                                             Description
                                         </Label>
                                         <Input
-                                        id="name"
+                                        id="description"
                                         value={input.description}
                                         onChange={changeEventHandler}
                                         name="description"
@@ -182,11 +183,36 @@ const ProfilePage = () => {
                                         />
                                     </div>
                                     <div className='grid grid-cols-4 items-center gap-4'>
+                                        <Label htmlFor="course" className="text-right">
+                                            Course
+                                        </Label>
+                                        <Input
+                                        id="course"
+                                        value={input.course}
+                                        onChange={changeEventHandler}
+                                        name="course"
+                                        className="col-span-3 text-gray-500"
+                                        />
+                                    </div>
+                                    <div className='grid grid-cols-4 items-center gap-4'>
+                                        <Label htmlFor="year" className="text-right">
+                                            Year
+                                        </Label>
+                                        <Input
+                                        id="year"
+                                        value={input.year}
+                                        onChange={changeEventHandler}
+                                        name="year"
+                                        className="col-span-3 text-gray-500"
+                                        />
+                                    </div>
+
+                                    <div className='grid grid-cols-4 items-center gap-4'>
                                         <Label htmlFor="name" className="text-right">
                                             Picture
                                         </Label>
                                         <Input
-                                        id="file"
+                                          id="file"
                                         type="file"
                                         accept="image/*"
                                         onChange={changeFileHandler}
@@ -195,10 +221,11 @@ const ProfilePage = () => {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    {
-                                        loading ? <Button className="bg-blue-400"><Loader2 className='mr-2 w-4 h-4 animate-spin'/> Please wait</Button> : <Button
+                                  {
+                                    loading ? <Button className="bg-blue-400"><Loader2 className='mr-2 w-4 h-4 animate-spin'/>Please wait</Button> :<Button
                                         onClick={submitHandler} className="bg-blue-500">Save Changes</Button>
-                                    }
+                                  }
+                                   
                                     
                                 </DialogFooter>
                             </DialogContent>

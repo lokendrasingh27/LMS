@@ -29,7 +29,12 @@ function App() {
         <Route path="/course-player" element={<CoursePlayerPage />} />
         {/* <Route path="/instructor" element={<InstructorDashboard/>} /> */}
         <Route path="/instructor/courses" element={<CourseList/>} />
-        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/profile" element={
+          <PrivateRoute>
+
+            <ProfilePage/>
+          </PrivateRoute>
+          } />
         {/*<Route path="/courseviewpage" element ={<CourseViewPage />} />/*}
 
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 const LoginPage = () => {
   const Navigate = useNavigate();
@@ -32,12 +33,12 @@ const LoginPage = () => {
                 withCredentials:true
       })
       if(res.data.success){
-        alert(res.data.message);
+         toast.success(res.data.message)
         Navigate('/');
         dispatch(setUser(res.data.user));
       }
       else{
-        alert("something went wrong");
+        toast.error("something went wrong");
       }
     } catch (error){
       console.error("Error during login:", error);

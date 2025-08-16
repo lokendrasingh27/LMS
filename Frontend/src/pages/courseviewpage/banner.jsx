@@ -43,7 +43,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative w-full h-[30vh] overflow-hidden">
+    <div className="relative w-full h-[40vh] rounded-xl mb-12 overflow-hidden">
       {/* Slider container */}
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"

@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUsers, FaCog, FaSignInAlt, FaUserPlus } from 'react-icons/fa';
+import { CiLogout } from "react-icons/ci";
+import { ImBook } from "react-icons/im";
+import { MdOutlinePayment } from "react-icons/md";
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { setUser } from '../redux/authSlice';
 import userLogo from   '/images/userimage.jpeg'
-
+import { toast } from 'sonner';
 const Sidebar = () => {
+  const Navigate =useNavigate()
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
 
@@ -16,8 +20,9 @@ const Sidebar = () => {
         withCredentials: true,
       });
       if (res.data.success) {
+          Navigate('/')
         dispatch(setUser(null));
-        alert(res.data.message);
+        toast.success(res.data.message)
       } else {
         alert('Something went wrong');
       }
@@ -31,7 +36,7 @@ const Sidebar = () => {
     if (!user) {
       return [
         { label: 'Home', icon: <FaHome />, link: '/' },
-        { label: 'All Course', icon: <FaHome />, link: '/courses' },
+        { label: 'All Course', icon: <ImBook />, link: '/courses' },
         { label: 'Category', icon: <FaChalkboardTeacher />, link: '/category' },
         { label: 'Payment Method', icon: <FaCog />, link: '/payment' },
       ];
@@ -41,9 +46,9 @@ const Sidebar = () => {
       case 'student':
         return [
           { label: 'Home', icon: <FaHome />, link: '/' },
-          { label: 'Enrolled Course', icon: <FaHome />, link: '/my-courses' },
+          { label: 'Enrolled Course', icon: <ImBook />, link: '/my-courses' },
           { label: 'Change Password', icon: <FaChalkboardTeacher />, link: '/change-password' },
-          { label: 'Payment Method', icon: <FaCog />, link: '/payment' },
+          { label: 'Payment Method', icon: <MdOutlinePayment />, link: '/payment' },
         ];
       case 'instructor':
       case 'admin':
@@ -110,9 +115,9 @@ const Sidebar = () => {
             {user && (
               <button
                 onClick={logoutHandler}
-                className="flex items-center gap-2 w-full py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl"
+                className="flex items-center gap-2 w-full font-bold py-2 px-4 bg-red-500 text-[#001f3f] rounded-xl"
               >
-                <FaUsers /> <span>Logout</span>
+                <CiLogout/> <span>Logout</span>
               </button>
             )}
           </nav>

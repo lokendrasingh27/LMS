@@ -6,7 +6,7 @@ import React from 'react';
 import LoginPage from './pages/auth/LoginPage';
 import Signup from './pages/auth/Signup';
 import CourseViewPage from "./pages/courseviewpage/CourseViewPage";
-import InstructorDashboard from './pages/instructor/InstructorDashboard';
+import InstructorDashboard from './pages/instructor/Dashboard';
 import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 // import Courses from './pages/instructor/Courses';
 // import CreateCourse from './pages/instructor/CourseCreate';
@@ -27,8 +27,16 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/course-player" element={<CoursePlayerPage />} />
-        <Route path="/instructor" element={<InstructorDashboard/>} />
-        <Route path="/instructor/courses" element={<CourseList/>} />
+          
+        <Route path="/instructor" element={<Instructor/>} >
+        
+        <Route path='dashboard' element={<InstructorDashboard/>} />
+       
+        <Route path="course" element={<CourseList/>} />
+        </Route>
+
+
+        
         <Route path="/profile" element={
           
 

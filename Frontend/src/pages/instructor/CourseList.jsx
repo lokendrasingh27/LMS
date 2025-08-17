@@ -81,7 +81,6 @@ const CourseList=()=> {
     <>
     <div className="flex h-[100vh] w-full bg-[#E3F1F1] overflow-hidden">
 
-   <Sidebar />
     
     <div className="p-6 w-[80vw] overflow-hidden ">
           

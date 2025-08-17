@@ -11,8 +11,9 @@ import CoursePlayerPage from './pages/courseplayer/CoursePlayerPage';
 // import Courses from './pages/instructor/Courses';
 // import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from './pages/profile/ProfilePage';
-import CourseList from './pages/instructor/CourseList';
 import Instructor from './pages/instructor/Instructor';
+import Courses from './pages/instructor/Courses';
+import CreateCourse from './pages/instructor/CreateCourse';
 
 
 
@@ -29,10 +30,11 @@ function App() {
         <Route path="/course-player" element={<CoursePlayerPage />} />
           
         <Route path="/instructor" element={<Instructor/>} >
-        
+           {/* children route */}
         <Route path='dashboard' element={<InstructorDashboard/>} />
+        <Route path="course" element={<Courses/>} />
+        <Route path="course/create" element={<CreateCourse/>} />
        
-        <Route path="course" element={<CourseList/>} />
         </Route>
 
 

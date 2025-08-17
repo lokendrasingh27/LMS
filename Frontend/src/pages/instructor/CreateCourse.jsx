@@ -1,71 +1,101 @@
-import React, { useState } from "react";
 
-const CourseCreate=({ onCreate, onCancel })=> {
-  const [title, setTitle] = useState("");
-  const [thumbnail, setThumbnail] = useState( null);
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import axios from 'axios'
+import { Loader2 } from 'lucide-react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
- const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setThumbnail(URL.createObjectURL(file));
+const CreateCourse = () => {
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
+    const [courseTitle, setCourseTitle] = useState("")
+    const [category, setCategory] = useState("")
+
+    const getSelectedCategory = (value)=> {
+        setCategory(value)
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (title && thumbnail) {
-      onCreate({ title, thumbnail });
-      setTitle("");
-      setThumbnail("");
+    const createCourseHandler = async ()=> {
+        console.log(courseTitle, category);
+        
+        try {
+            setLoading(true)
+            const res = await axios.post('http://localhost:5000/api/course/', {courseTitle,category}, {
+                headers: {
+                    "Content-Type":"application/json"
+                },
+                withCredentials:true
+            })
+            if(res.data.success){
+               navigate('/instructor/course')
+               toast.success(res.data.message)
+            }
+        } catch (error) {
+            console.log(error);
+            
+        } finally {
+            setLoading(false)
+        }
     }
-  };
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
-        <h2 className="text-xl font-bold mb-4">Create Course</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Course Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="border p-2 w-full rounded"
-          />
-          <div>
-            <label className="block font-semibold mb-1">Course Thumbnail</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="border p-2 w-full rounded"
-            />
-            {thumbnail && (
-              <img
-                src={thumbnail}
-                alt="Thumbnail Preview"
-                className="mt-2 w-32 h-20 object-cover rounded border"
-              />
-            )}
-          </div>
-          <div className="flex justify-end space-x-2">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="bg-gray-400 text-white px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+    return (
+        <div className='p-10 md:pr-20 h-screen'>
+            <h1 className='text-2xl font-bold'>Lets Add <span className='text-blue-500'>Courses</span></h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius necessitatibus fugit vel distinctio architecto, ut ratione rem nobis eaque?</p>
+            <div className='mt-10'>
+                <div>
+                    <Label>Title</Label>
+                    <Input 
+                    type="text" 
+                    value={courseTitle} 
+                    onChange={(e)=>setCourseTitle(e.target.value)} 
+                    placeholder="Your Course Name" 
+                    className="bg-white" 
+                    />
+                </div>
+                <div className='mt-4 mb-5'>
+                    <Label>Category</Label>
+                    <Select onValueChange={getSelectedCategory}>
+                        <SelectTrigger className="w-[180px] bg-white">
+                            <SelectValue placeholder="Select a category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Category</SelectLabel>
+                                <SelectItem value="Next Js">Next Js</SelectItem>
+                                <SelectItem value="Data Science">Data Science</SelectItem>
+                                <SelectItem value="Frontend Development">Frontend Development</SelectItem>
+                                <SelectItem value="Backend Development">Backend Development</SelectItem>
+                                <SelectItem value="MernStack Development">MernStack Development</SelectItem>
+                                <SelectItem value="Javascript">Javascript</SelectItem>
+                                <SelectItem value="Python">Python</SelectItem>
+                                <SelectItem value="Docker">Docker</SelectItem>
+                                <SelectItem value="MongoDB">MongoDB</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className='flex gap-2'>
+                    <Button onClick={()=>navigate('/instructor/course')} variant="outline">Cancel</Button>
+                    <Button className="bg-blue-500 hover:bg-blue-600 " disabled={loading} onClick={createCourseHandler}>
+                    {
+                        loading ? <><Loader2 className='animate-spin mr-1 h-4 w-4 '/>Please wait</> : "Create"
+                    }
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )
 }
-export default  CourseCreate
+
+export default CreateCourse

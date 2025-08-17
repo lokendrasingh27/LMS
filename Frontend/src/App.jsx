@@ -14,6 +14,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import Instructor from './pages/instructor/Instructor';
 import Courses from './pages/instructor/Courses';
 import CreateCourse from './pages/instructor/CreateCourse';
+import UpdateCourse from './pages/instructor/UpdateCourse';
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='dashboard' element={<InstructorDashboard/>} />
         <Route path="course" element={<Courses/>} />
         <Route path="course/create" element={<CreateCourse/>} />
+        <Route path="course/:courseId" element={<UpdateCourse/>} />
        
         </Route>
 

@@ -86,10 +86,11 @@ const Courses = () => {
   return (
     <div className='md:p-10 p-4 w-full h-screen'>
       <Button className="bg-[#006D77]" onClick={()=>Navigate('create')} >Create Course</Button>
-      <Table className='mt-10'>
+      <div className='w-full  mt-10 rounded-xl border  '>
+        <Table className='  '>
       <TableCaption>A list of your recent Courses.</TableCaption>
-      <TableHeader>
-        <TableRow>
+      <TableHeader className="">
+        <TableRow className="bg-[#006D77] hover:bg-[#006D77] rounded-xl ">
           <TableHead className="w-[100px]">Course</TableHead>
           <TableHead className="text-right">Price</TableHead>
           <TableHead className="text-center">Status</TableHead>
@@ -98,7 +99,7 @@ const Courses = () => {
       </TableHeader>
       <TableBody>
         {course?.map((course) => (
-          <TableRow key={course._id}>
+          <TableRow className="hover:bg-[#15315B] hover:text-white rounded-xl" key={course._id}>
             <TableCell className="md:w-[300px] flex items-center gap-1">
               <img className='' src={course?.courseThumbnail} alt="thumbnail" />
               {course.courseTitle}</TableCell>
@@ -107,18 +108,14 @@ const Courses = () => {
                 <Badge className={course.isPublished ? "bg-green-400":"bg-red-400"}>
                   {course.isPublished ?"Publisjed":"Draft"}</Badge>
                   </TableCell>
-                  <TableCell className='text-right'><Button variant='ghost'><Edit /></Button></TableCell>
+                  <TableCell className='text-right'><Button variant='ghost'onClick={()=>Navigate(`/instructor/course/${course._id}`)} ><Edit /></Button></TableCell>
           
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
+     
     </Table>
+      </div>
     </div>
   )
 }

@@ -4,7 +4,8 @@ import React from 'react';
 function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerChange }) {
 
   const handleOptionChange = (questionId, option) => {
-    // Call the function passed down from the parent to update the state
+    // Prevent changing the answer if it's already been answered
+    if (answers[questionId]) return;
     onAnswerChange(questionId, option);
   };
 
@@ -24,31 +25,53 @@ function QuizInterface({ questions, onSubmitQuiz, timeLeft, answers, onAnswerCha
         </div>
       </div>
       
-      {questions.map((q, index) => (
-        <div key={q.id} className="mb-6">
-          <p className="font-semibold mb-2">{index + 1}. {q.text}</p>
-          <div className="flex flex-col gap-2">
-            {q.options.map((option, i) => (
-              <label key={i} className="flex items-center p-2 rounded-md hover:bg-gray-100 cursor-pointer">
-                <input
-                  type="radio"
-                  name={q.id}
-                  value={option}
-                  // The checked status is now determined by the 'answers' prop from the parent
-                  checked={answers[q.id] === option}
-                  // The onChange handler calls the function from the parent
-                  onChange={() => handleOptionChange(q.id, option)}
-                  className="mr-3"
-                />
-                {option}
-              </label>
-            ))}
+      {questions.map((q, index) => {
+        const userAnswer = answers[q.id];
+        const questionIsAttempted = userAnswer !== undefined;
+
+        return (
+          <div key={q.id} className="mb-6">
+            <p className="font-semibold mb-2">{index + 1}. {q.text}</p>
+            <div className="flex flex-col gap-2">
+              {q.options.map((option, i) => {
+                const isCorrectAnswer = option === q.correctAnswer;
+                const isSelectedAnswer = option === userAnswer;
+
+                let labelClasses = "flex items-center p-2 rounded-md border transition-colors";
+
+                if (questionIsAttempted) {
+                  if (isCorrectAnswer) {
+                    labelClasses += " bg-green-100 border-green-300 text-green-800 font-semibold";
+                  } else if (isSelectedAnswer) {
+                    labelClasses += " bg-red-100 border-red-300 text-red-800 line-through";
+                  } else {
+                    labelClasses += " border-gray-200";
+                  }
+                } else {
+                  labelClasses += " border-gray-200 hover:bg-gray-100 cursor-pointer";
+                }
+
+                return (
+                  <label key={i} className={labelClasses}>
+                    <input
+                      type="radio"
+                      name={q.id}
+                      value={option}
+                      checked={isSelectedAnswer}
+                      onChange={() => handleOptionChange(q.id, option)}
+                      disabled={questionIsAttempted}
+                      className="mr-3"
+                    />
+                    {option}
+                  </label>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       <button
-        // The onSubmitQuiz function no longer needs arguments
         onClick={onSubmitQuiz}
         className="w-full mt-4 px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700"
       >

@@ -12,14 +12,81 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Subtitles } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const CourseTab = () => {
 
-     
+     const param =useParams()
+     const id =param.courseId
+     const Naviagte=useNavigate()
 
-    const Naviagte=useNavigate()
+     const [selectedCourse , setSelectedCourse ] = useState()
+
+     const getCourseById= async()=>{
+        try{
+            
+            const res = await axios.get(`http://localhost:5000/api/course/${id}`,{withCredentials:true})
+
+            if(res.data.success){
+                setSelectedCourse(res.data.course)
+            }
+
+        } catch(error){
+            console.log(error)
+        }
+     }
+
+     useEffect(()=>{
+        getCourseById()
+     })
+
+     const [input , setInput ] = useState({
+        courseTitle:selectedCourse?.courseTitle,
+        Subtitle:selectedCourse?.subTitle,
+        description:selectedCourse?.description,
+        category:selectedCourse?.category,
+        courseLevel:selectedCourse?.courseLevel,
+        coursePrice:selectedCourse?.coursePrice,
+        file:""
+     })
+
+     const [previewThumbnail , setPreviewThumbnail ] = useState(selectedCourse?.Thumbnail)
+
+
+     const chnageEventHandler =(e)=>{
+    const {name,value}=e.target
+    setInput({...input,[name]:value})
+}
+
+        const selectCategory =(value)=>{
+                
+          setInput({...input,category:value})
+
+        }
+        
+        const selectCourseLevel=(value)=>{
+
+          setInput(  {  ...input,courseLevel:value})
+        }
+                
+        //get File
+
+        const selectThumbnail=(e)=>{
+            const file =e.target.file?.[0];
+            if(file){
+                setInput({...input,courseThumbnail:file});
+                const fileReader =new FileReader()
+                fileReader.onloadend =()=> setPreviewThumbnail(fileReader.result)
+                fileReader.readAsDataURL(file)  
+            }
+
+        }
+        
+
+
+
   return (
     <Card>
     <CardHeader className="flex md:flex-row justify-between overflow-hidden ">
@@ -30,8 +97,8 @@ const CourseTab = () => {
             </CardDescription>
         </div>
         <div className='space-x-2'>
-            <Button>Publish</Button>
-            <Button >Remove Course</Button>
+            <Button className="bg-[#006D77]  hover:bg-[#001F3F]">Publish</Button>
+            <Button className="bg-red-400  hover:bg-[#001F3F]" >Remove Course</Button>
         </div>
     </CardHeader>
     <CardContent>
@@ -109,7 +176,7 @@ const CourseTab = () => {
                 </div>
                 <div className='flex gap-2'>
                     <Button onClick={()=>Naviagte('/instructor/course')} variant="outline">Cancel</Button>
-                    <Button className="">Save</Button>
+                    <Button className="bg-[#006D77]  hover:bg-[#001F3F]">Save</Button>
                 </div>
         </div>
     </CardContent>

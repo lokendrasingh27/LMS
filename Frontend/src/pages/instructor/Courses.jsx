@@ -90,21 +90,21 @@ const Courses = () => {
         <Table className='  '>
       <TableCaption>A list of your recent Courses.</TableCaption>
       <TableHeader className="">
-        <TableRow className="bg-[#006D77] hover:bg-[#006D77] rounded-xl ">
-          <TableHead className="w-[100px]">Course</TableHead>
-          <TableHead className="text-right">Price</TableHead>
-          <TableHead className="text-center">Status</TableHead>
-          <TableHead className="text-right">Action</TableHead>
+        <TableRow className="bg-[#006D77] p text-white  hover:bg-[#006D77]  ">
+          <TableHead className="w-[100px] px-4 text-white rounded-l-lg">Course</TableHead>
+          <TableHead className="text-right text-white">Price</TableHead>
+          <TableHead className="text-end text-white">Status</TableHead>
+          <TableHead className="text-right px-4 text-white rounded-r-lg">Action</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody  >
         {course?.map((course) => (
-          <TableRow className="hover:bg-[#15315B] hover:text-white rounded-xl" key={course._id}>
+          <TableRow className="hover:bg-[#15315B] bg- hover:text-white rounded-xl" key={course._id}>
             <TableCell className="md:w-[300px] flex items-center gap-1">
               <img className='' src={course?.courseThumbnail} alt="thumbnail" />
               {course.courseTitle}</TableCell>
               <TableCell className="text-right font-medium">{course?.coursePrice || "NA"}</TableCell>
-              <TableCell className="text-center">
+              <TableCell className="text-end">
                 <Badge className={course.isPublished ? "bg-green-400":"bg-red-400"}>
                   {course.isPublished ?"Publisjed":"Draft"}</Badge>
                   </TableCell>

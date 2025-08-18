@@ -22,6 +22,9 @@ function CoursePlayerPage() {
   const [quizResult, setQuizResult] = useState(null);
   const [answers, setAnswers] = useState({});
   const [timeLeft, setTimeLeft] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     localStorage.setItem('courseProgress', JSON.stringify(course));
@@ -29,7 +32,6 @@ function CoursePlayerPage() {
   
   useEffect(() => {
     const allLessons = course.curriculum.flatMap((s) => s.lessons);
-    // If there is no current lesson, set it to the first lesson of the course.
     if (!currentLesson && allLessons.length > 0) {
         setCurrentLesson(allLessons[0]);
     }
@@ -51,6 +53,9 @@ function CoursePlayerPage() {
   
   const handleSelectLesson = (lesson) => {
     setCurrentLesson(lesson);
+    if (window.innerWidth < 768) { // md breakpoint
+      setSidebarOpen(false);
+    }
   };
 
   const handleSelectPreviousLesson = () => {
@@ -87,7 +92,6 @@ function CoursePlayerPage() {
     setQuizMode(false);
     setTimeLeft(null);
     
-    // Mark the lesson as complete upon submission, regardless of score
     if (!currentLesson.isCompleted) {
       updateLessonCompletion(currentLesson.id, true);
     }
@@ -107,14 +111,8 @@ function CoursePlayerPage() {
     }
   };
 
-  const handleResetProgress = () => {
-    localStorage.removeItem('courseProgress');
-    window.location.reload();
-  };
-
   const updateLessonCompletion = (lessonId, isCompleted, isAssignment = false) => {
     const allLessons = course.curriculum.flatMap(s => s.lessons);
-
     const newCurriculum = course.curriculum.map(section => ({
       ...section,
       lessons: section.lessons.map(lesson => {
@@ -126,16 +124,13 @@ function CoursePlayerPage() {
         return lesson;
       })
     }));
-
     const completedCount = newCurriculum.flatMap(s => s.lessons).filter(l => l.isCompleted).length;
     const newProgress = Math.round((completedCount / allLessons.length) * 100);
-
     setCourse(prevCourse => ({
       ...prevCourse,
       curriculum: newCurriculum,
       progress: newProgress
     }));
-    
     setCurrentLesson(prev => ({
         ...prev,
         isCompleted,
@@ -153,8 +148,8 @@ function CoursePlayerPage() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50 font-sans">
-      <CourseHeader title={course.title} progress={course.progress} onResetProgress={handleResetProgress} />
-      <div className="flex flex-grow overflow-hidden">
+      <CourseHeader title={course.title} progress={course.progress} onToggleSidebar={toggleSidebar}/>
+      <div className="relative flex flex-grow overflow-hidden">
         <ContentPane
           lesson={currentLesson}
           quizMode={quizMode}
@@ -173,7 +168,11 @@ function CoursePlayerPage() {
           curriculum={course.curriculum}
           currentLessonId={currentLesson.id}
           onSelectLesson={handleSelectLesson}
+          isOpen={isSidebarOpen}
+          onClose={toggleSidebar}
         />
+         {/* This transparent overlay captures outside clicks to close the sidebar */}
+         {isSidebarOpen && <div onClick={toggleSidebar} className="md:hidden fixed inset-0 z-40"></div>}
       </div>
     </div>
   );

@@ -10,12 +10,32 @@ const getIcon = (lesson, isCurrent) => {
     return <i className={`fa-regular fa-circle ${baseClasses} text-gray-400`}></i>;
 };
 
-function CourseSidebar({ curriculum, currentLessonId, onSelectLesson }) {
+function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, onClose }) {
+
+    const sidebarClasses = `
+      w-80 md:w-96 bg-[#00173D] border-l border-gray-200 overflow-y-auto p-4 flex-shrink-0
+      fixed top-0 right-0 h-full z-50 transform transition-transform duration-300 ease-in-out
+      md:static md:transform-none md:rounded-none
+      ${isOpen ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
+    `;
+
     return (
-        <aside className="w-full md:w-96 bg-[#00173D] border-l border-gray-200 overflow-y-auto p-4 flex-shrink-0 rounded-lg">
+        <aside className={sidebarClasses}>
+            <div className="flex justify-between items-center mb-6 md:hidden">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider px-2">
+                    Course Content
+                </h3>
+                <button 
+                    onClick={onClose} 
+                    className="text-white hover:text-indigo-200"
+                    aria-label="Close sidebar"
+                >
+                    <i className="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
             {curriculum.map(section => (
                 <div key={section.id} className="mb-6">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 px-2">
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 px-2 hidden md:block">
                         {section.title}
                     </h3>
                     <ul className="space-y-1">

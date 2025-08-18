@@ -171,7 +171,8 @@ function CoursePlayerPage() {
           isOpen={isSidebarOpen}
           onClose={toggleSidebar}
         />
-         {isSidebarOpen && <div onClick={toggleSidebar} className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity"></div>}
+         {/* This transparent overlay captures outside clicks to close the sidebar */}
+         {isSidebarOpen && <div onClick={toggleSidebar} className="md:hidden fixed inset-0 z-40"></div>}
       </div>
     </div>
   );

@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import {TextStyle} from "@tiptap/extension-text-style";
+import {TextStyle} from "@tiptap/extension-text-style"; // fix import (no curly braces)
 import BulletList from "@tiptap/extension-bullet-list";
 import OrderedList from "@tiptap/extension-ordered-list";
 
-const RichTextEditor=()=> {
+const RichTextEditor = ({ input, setInput }) => {
   const editor = useEditor({
-    extensions: [StarterKit, Underline, Link, TextStyle, BulletList, OrderedList],
-    content: "<p>Start writing your description...</p>",
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      TextStyle,
+      BulletList,
+      OrderedList,
+    ],
+    content: input.description || "<p>Start writing your description...</p>", // load existing value
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML(); // get live HTML value
+      setInput({ ...input, description: html });
+    },
   });
+
+  // ✅ Update editor if input.description changes from outside (DB fetch, reset, etc.)
+  useEffect(() => {
+    if (editor && input.description !== editor.getHTML()) {
+      editor.commands.setContent(input.description || "<p></p>");
+    }
+  }, [input.description, editor]);
 
   if (!editor) return null;
 
@@ -49,19 +67,15 @@ const RichTextEditor=()=> {
         >
           🔗
         </button>
-
-        
-
-
       </div>
 
       {/* Editor */}
       <EditorContent
         editor={editor}
-        className="p-3 min-h-[150px] focus:outline-none"
+        className="p-4 h-[80px]  break-words [&_.ProseMirror]:focus:outline-none overflow-y-auto [&_.ProseMirror]:min-h-[15px] [&_.ProseMirror]:px-4"
       />
     </div>
   );
-}
+};
 
-export default RichTextEditor
+export default RichTextEditor;

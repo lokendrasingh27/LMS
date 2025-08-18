@@ -100,8 +100,8 @@ const Courses = () => {
       <TableBody  >
         {course?.map((course) => (
           <TableRow className="hover:bg-[#15315B] bg- hover:text-white rounded-xl" key={course._id}>
-            <TableCell className="md:w-[300px] flex items-center gap-1">
-              <img className='' src={course?.courseThumbnail} alt="thumbnail" />
+            <TableCell className="md:w-[300px] flex items-center gap-3 font-semibold">
+              <img className='w-20 hidden md:block rounded-sm ' src={course?.courseThumbnail} alt="thumbnail"  />
               {course.courseTitle}</TableCell>
               <TableCell className="text-right font-medium">{course?.coursePrice || "NA"}</TableCell>
               <TableCell className="text-end">

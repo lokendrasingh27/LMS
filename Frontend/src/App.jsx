@@ -15,6 +15,7 @@ import Instructor from './pages/instructor/Instructor';
 import Courses from './pages/instructor/Courses';
 import CreateCourse from './pages/instructor/CreateCourse';
 import UpdateCourse from './pages/instructor/UpdateCourse';
+import CreateLecture from './pages/instructor/CreateLecture';
 
 
 
@@ -36,6 +37,8 @@ function App() {
         <Route path="course" element={<Courses/>} />
         <Route path="course/create" element={<CreateCourse/>} />
         <Route path="course/:courseId" element={<UpdateCourse/>} />
+        <Route path="course/:courseId/lecture" element={<CreateLecture/>} />
+
        
         </Route>
 

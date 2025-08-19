@@ -27,8 +27,8 @@ const CreateLecture = () => {
         
             
                  <div  className='flex items-center justify-between bg-[#F7F9FA] px-4 py-2 rounded-md my-2'>
-                  <h1 className='font-bold text-gray-800'>Lecture -1:</h1>
-                  <Edit   className='cursor-pointer text-gray-600 hover:text-blue-600'/>
+                  <h1 className='font-bold text-gray-800'>Lecture -1:<span> Introduction</span> </h1>
+                  <Edit   className='cursor-pointer text-gray-600 hover:text-[#006D77]'/>
                 </div>
           
         

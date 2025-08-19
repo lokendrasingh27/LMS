@@ -1,5 +1,6 @@
 // src/pages/courseplayer/CourseSidebar.jsx
-import React from 'react';
+import React, { useRef } from 'react';
+import { FaFilePdf } from "react-icons/fa6";
 
 const getIcon = (lesson, isCurrent) => {
     const baseClasses = "w-5 text-center";
@@ -11,6 +12,36 @@ const getIcon = (lesson, isCurrent) => {
 };
 
 function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, onClose }) {
+    const touchStartX = useRef(null);
+    const touchEndX = useRef(null);
+
+    // Minimum swipe distance in pixels
+    const minSwipeDistance = 50; 
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.targetTouches[0].clientX;
+        touchEndX.current = null; // Reset end position on new touch
+    };
+
+    const handleTouchMove = (e) => {
+        touchEndX.current = e.targetTouches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+
+        const distance = touchEndX.current - touchStartX.current;
+        const isRightSwipe = distance > minSwipeDistance;
+
+        // Since the sidebar is on the right, a swipe to the right should close it.
+        if (isRightSwipe) {
+            onClose();
+        }
+
+        // Reset values
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
 
     const sidebarClasses = `
       w-80 md:w-96 bg-[#00173D] border-l border-gray-200 overflow-y-auto p-4 flex-shrink-0
@@ -20,7 +51,12 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
     `;
 
     return (
-        <aside className={sidebarClasses}>
+        <aside 
+            className={sidebarClasses}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             <div className="flex justify-between items-center mb-6 md:hidden">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider px-2">
                     Course Content
@@ -65,12 +101,8 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
                                             className="p-1 rounded-full text-gray-500 hover:text-indigo-600"
                                             title="Download PDF"
                                         >
-                                            <i className="fa-solid fa-download">📄</i>
+                                            <i className="fa-solid fa-download"><FaFilePdf className='text-xl'/></i>
                                         </a>
-                                    )}
-
-                                    {lesson.isCompleted && (
-                                        <div className="absolute bottom-0 left-0 h-2.5 w-full bg-green-500"></div>
                                     )}
                                 </li>
                             );

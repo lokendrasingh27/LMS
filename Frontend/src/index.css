@@ -12,6 +12,9 @@
 .courseView::-webkit-scrollbar{
     display: none;
 }
+.contentpane::-webkit-scrollbar{
+    display: none;
+}
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);

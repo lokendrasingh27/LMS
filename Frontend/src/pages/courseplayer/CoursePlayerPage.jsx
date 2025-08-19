@@ -147,7 +147,7 @@ function CoursePlayerPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 font-sans">
+    <div className="flex flex-col h-screen bg-[#E3F1F1] font-sans">
       <CourseHeader title={course.title} progress={course.progress} onToggleSidebar={toggleSidebar}/>
       <div className="relative flex flex-grow overflow-hidden">
         <ContentPane

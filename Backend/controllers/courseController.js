@@ -1,4 +1,5 @@
 import { Course } from "../models/Course.js"
+import { Lecture } from "../models/LectureModel.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
@@ -138,4 +139,44 @@ export const getCourseById = async (req, res)=> {
         })
     }
 }
+
+
+//Lecture controllers
+
+export const createLecture=async(req,res)=>{
+  
+     try{
+
+        const {lectureTitle}= req.body;
+        const {courseId}=req.params
+        
+        if(!lectureTitle || !courseId){
+            return res.status(400).json({
+                message:"Lecture Title is required"
+            })
+        }
+
+        const lecture= await Lecture.create({lectureTitle});
+        const course = await Course.findById(courseId)
+
+        if(course){
+            course.lectures.push(lecture._id)
+            await course.save()
+        }
+
+        return res.status(201).json({
+            success:true,
+            lecture,
+            message:"Lecture created successfully"
+        })
+
+     }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            message:"Failed to create lecture"
+        })
+     }
+}
+
+
 

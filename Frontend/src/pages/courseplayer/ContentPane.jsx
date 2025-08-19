@@ -79,17 +79,17 @@ function ContentPane({
   };
 
   return (
-    <main className="flex-grow p-4 md:p-8 overflow-y-auto">  
+    <main className="contentpane flex-grow p-4 md:p-8 overflow-y-auto">  
       {renderContent()}   
       
       {!(lesson.type === 'quiz' && (quizMode || quizResult)) && lesson.type !== 'assignment' && (
         <div className="mt-8 pt-6 border-t border-gray-200">
-          <h2 className="text-3xl font-bold text-gray-900">{lesson.title}</h2>
+          <h2 className="text-3xl font-bold text-[#00173D]">{lesson.title}</h2>
           <div className="mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
             <button
               onClick={onSelectPreviousLesson}
               disabled={isFirstLesson}
-              className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className=" md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
             >
               <i className="fa-solid fa-arrow-left"></i> Previous Lesson
             </button>
@@ -97,14 +97,14 @@ function ContentPane({
             {lesson.isCompleted ? (
               <button 
                 onClick={onToggleComplete}
-                className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-green-800 bg-green-100 border border-green-300 rounded-md shadow-sm hover:bg-green-200 flex items-center justify-center gap-2"
+                className="md:w-auto px-4 py-2 text-sm font-semibold text-green-800 bg-green-100 border border-green-300 rounded-md shadow-sm hover:bg-green-200 flex items-center justify-center gap-2"
               >
                 Completed <i className="fa-solid fa-check-circle"></i>
               </button>
             ) : (
               <button 
                 onClick={onToggleComplete}
-                className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 flex items-center justify-center gap-2">
+                className="md:w-auto px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 flex items-center justify-center gap-2">
                 Mark as Complete <i className="fa-solid fa-check"></i>
               </button>
             )}

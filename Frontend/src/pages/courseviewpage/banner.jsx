@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // Correct path to public images
 const images = [
-  '/images/image1.jfif',
-  '/images/image2.jfif',
-  '/images/image3.jfif'
+  '/images/images1.jpeg',
+  '/images/images2.jpeg',
+  '/images/images3.jpeg'
 ];
 
 const Banner = () => {
@@ -54,7 +54,7 @@ const Banner = () => {
             <img
               src={image}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fit"
             />
           </div>
         ))}

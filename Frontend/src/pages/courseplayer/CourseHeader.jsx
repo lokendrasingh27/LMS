@@ -1,35 +1,40 @@
 // src/pages/courseplayer/CourseHeader.jsx
-import React from 'react';
+import React from "react";
 
 import { RxHamburgerMenu } from "react-icons/rx";
 
 function CourseHeader({ title, progress, onResetProgress, onToggleSidebar }) {
   return (
-    <header className="p-4 bg-white border-b border-gray-200 flex-shrink-0">
+    <header className="p-4 bg-[#E3F1F1] border-b border-gray-200 flex-shrink-0">
       <div className="flex justify-between items-center flex-wrap gap-2">
         <h1 className="text-xl font-bold text-gray-800">{title}</h1>
-        
+
         <div className="flex items-center gap-4">
-          <a 
-            href="#dashboard" 
-            className="text-sm font-medium text-gray-600 hover-text-indigo-600 hidden md:block"
+          <a
+            href="#dashboard"
+            className="text-lg font-medium text-gray-600 hover-text-indigo-600 hidden md:block"
           >
             Back to Dashboard
           </a>
-          <button 
-            onClick={onToggleSidebar} 
+          <button
+            onClick={onToggleSidebar}
             className="text-gray-600 hover-text-indigo-600 md:hidden"
             aria-label="Toggle sidebar"
           >
-            <RxHamburgerMenu />
+            <RxHamburgerMenu className="text-3xl"/>
           </button>
         </div>
       </div>
       <div className="flex justify-start i  tems-center gap-3 mt-2">
-        <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-          <div className="h-full bg-indigo-600" style={{ width: `${progress}%` }}></div>
+        <div className="w-48 h-2 bg-[#00173D] rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[#006D77]"
+            style={{ width: `${progress}%` }} 
+          ></div>
         </div>
-        <span className="text-sm font-medium text-gray-600 w-25 text-right">{progress}% Complete</span>
+        <span className="text-sm font-medium text-gray-600 w-25 text-right">
+          {progress}% Complete
+        </span>
       </div>
     </header>
   );

@@ -1,6 +1,6 @@
 // src/pages/courseplayer/CourseSidebar.jsx
 import React from 'react';
-
+import { FaFilePdf } from "react-icons/fa6";    
 const getIcon = (lesson, isCurrent) => {
     const baseClasses = "w-5 text-center";
     if (lesson.isCompleted) return <i className={`fa-solid fa-check-circle ${baseClasses} text-green-500`}></i>;
@@ -65,7 +65,7 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
                                             className="p-1 rounded-full text-gray-500 hover:text-indigo-600"
                                             title="Download PDF"
                                         >
-                                            <i className="fa-solid fa-download">📄</i>
+                                            <i className="fa-solid fa-download"><FaFilePdf className='text-xl'/></i>
                                         </a>
                                     )}
 

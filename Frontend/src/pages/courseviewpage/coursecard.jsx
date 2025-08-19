@@ -35,7 +35,7 @@ export default function CourseCard({ course }) {
           <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{course.duration ?? "—"}</span>
           <StarRating rating={course.rating ?? 0} />
         </div>
-        <button className="mt-1 w-full rounded-xl border border-zinc-200 bg-[#006D77] py-2 text-xs font-medium text-white hover:bg-zinc-100">View details</button>
+        <button className="mt-1 w-full rounded-xl border border-zinc-200 bg-[#006D77] py-2 text-xs font-medium text-white hover:bg-zinc-100"><a href="#courseviewpage ">View details</a></button>
       </div>
     </motion.div>
   );

@@ -139,20 +139,20 @@ const CourseTab = () => {
     <CardContent>
         <div className='space-y-4 mt-5'>
             <div>
-               <Label>Title</Label> 
+               <Label className='mb-1'>Title</Label> 
                <Input value={input.courseTitle} onChange={chnageEventHandler} type="text" name="courseTitle" placeholder="Ex. FullStack developer" />
              </div> 
               <div>
-               <Label>Subtitle</Label> 
+               <Label className='mb-1'>Subtitle</Label> 
                <Input value={input.subtitle} onChange={chnageEventHandler} type="text" name="subTitle" placeholder="Ex. become a  FullStack developer from zero to hero in 2 months" />
              </div> 
              <div>
-               <Label>Description</Label> 
+               <Label className='mb-1'>Description</Label> 
                <RichTextEditor  input={input} setInput={setInput} />
              </div> 
              <div className='flex md:flex-row flex-wrap gap-1 items-center md:gap-5'>
                 <div>
-                    <Label>Category</Label>
+                    <Label className='mb-1'>Category</Label>
                          <Select defaultValue={input.category} onChange={selectCategory} >
                         <SelectTrigger className="w-[180px] bg-white">
                             <SelectValue placeholder="Select a category" />
@@ -174,7 +174,7 @@ const CourseTab = () => {
                     </Select>
                 </div>
                 <div>
-                    <Label>Course Level</Label>
+                    <Label className='mb-1'>Course Level</Label>
                      <Select defaultValue={input.courseLevel} onChange={selectCourseLevel} >
                         <SelectTrigger className="w-[180px] bg-white">
                             <SelectValue placeholder="Select a Course Level" />
@@ -191,7 +191,7 @@ const CourseTab = () => {
                     </Select>
                 </div>
                 <div>
-                    <Label>Price in (INR)</Label>
+                    <Label className='mb-1'>Price in (INR)</Label>
                     <Input value={input.coursePrice} onChange={chnageEventHandler} type="Number" name="coursePrice"
                     placeholder="199"
                     className="w-fit"
@@ -199,7 +199,7 @@ const CourseTab = () => {
                 </div>
              </div>
                 <div className=''>
-                    <Label>Course Thumbnail</Label>
+                    <Label className='mb-1'>Course Thumbnail</Label>
                      <Input
                       type="file"
                       id="file"

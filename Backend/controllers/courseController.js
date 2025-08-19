@@ -1,3 +1,4 @@
+import { json } from "express";
 import { Course } from "../models/Course.js"
 import { Lecture } from "../models/LectureModel.js";
 import cloudinary from "../utils/cloudinary.js";
@@ -176,6 +177,34 @@ export const createLecture=async(req,res)=>{
             message:"Failed to create lecture"
         })
      }
+}
+
+
+export const getCourseLecture=async(req,res)=>{
+    try{
+           const{ courseId}=req.params
+
+           const course = await Course.findById(courseId)
+
+           if(!course){
+            return res.status(404),json({
+                success:false,
+                message:"course not found"
+
+            })
+           }
+
+           return res.status(201).json({
+            success:true,
+            lectures:course.lectures
+           })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            message:"failed to get lecture",
+            
+        })
+    }
 }
 
 

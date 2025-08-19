@@ -1,7 +1,7 @@
 // src/pages/courseplayer/CourseHeader.jsx
 import React from 'react';
 
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 function CourseHeader({ title, progress, onResetProgress, onToggleSidebar }) {
   return (
@@ -21,7 +21,7 @@ function CourseHeader({ title, progress, onResetProgress, onToggleSidebar }) {
             className="text-gray-600 hover-text-indigo-600 md:hidden"
             aria-label="Toggle sidebar"
           >
-            <FontAwesomeIcon icon={faBars} className="text-xl" />
+            <RxHamburgerMenu />
           </button>
         </div>
       </div>

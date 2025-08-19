@@ -54,7 +54,7 @@ function App() {
 
 
         {/* <Route path="/student-profile" element={<Student />} /> */}
-        <Route path="/courses" element={<CourseViewPage />} />
+        {/* <Route path="/courses" element={<CourseViewPage />} /> */}
     
       </Routes>
   

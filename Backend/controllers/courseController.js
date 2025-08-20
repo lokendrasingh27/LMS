@@ -1,6 +1,6 @@
 import { json } from "express";
 import { Course } from "../models/Course.js"
-import { Lecture } from "../models/LectureModel.js";
+import { Lecture } from "../models/Lecture.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 

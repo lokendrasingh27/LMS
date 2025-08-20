@@ -4,9 +4,21 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const LectureTab = () => {
-    
+    const params=useParams()
+    const {courseId,lectureId}=params
+    const {lecture}=useSelector(store=>store.lecture)
+
+    const selectedLecture = lecture.find(lecture =>lecture._id === lectureId)
+    const [lectureTitle , setLectureTitle ] = useState(selectedLecture.lectureTitle)
+
+    const [uploadvideoInfo , setUploadVideoInfo ] = useState(null)
+    const [isFree , setIsFree ] = useState(selectedLecture.isPreviewFree)
+    const [mediaProgress , setMediaProgress ] = useState(false)
+    const [uploadProgress , setUploadProgress ] = useState(0)
 
   return (
    <Card>

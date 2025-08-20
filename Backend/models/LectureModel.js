@@ -6,7 +6,14 @@ const lectureSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-    videoUrl:{type:String},
+    description: {
+        type: String,
+        trim: true,
+    },
+    videoUrl:{
+        type:String,
+        required:true
+    },
     publicId:{type:String},
     isPreviewFree:{type:Boolean}
 },{timestamps:true});

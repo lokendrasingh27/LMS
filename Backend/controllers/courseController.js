@@ -180,32 +180,87 @@ export const createLecture=async(req,res)=>{
 }
 
 
-export const getCourseLecture=async(req,res)=>{
-    try{
-           const{ courseId}=req.params
-
-           const course = await Course.findById(courseId)
-
-           if(!course){
-            return res.status(404),json({
-                success:false,
+export const getCourseLecture = async (req, res) => {
+    try {
+        const {courseId} = req.params;
+        const course = await Course.findById(courseId).populate('lectures');
+        if(!course){
+            return res.status(404).json({
                 message:"course not found"
-
             })
-           }
-
-           return res.status(201).json({
+        }
+        return res.status(200).json({
             success:true,
             lectures:course.lectures
-           })
-    }catch(error){
-        console.log(error)
+        })
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
-            message:"failed to get lecture",
-            
+            message:"Failed to get Lectures"
         })
     }
 }
 
+export const editLecture=async(req,res)=>{
+    try{
+             const {courseId,lectureId}= req.params;
+             const lecture = await Lecture.findById(lectureId)
 
+             if(!lecture){
+                return res.status(404).json({
+                    message:"Lecture not found"
+                })
+             }
+             //update lecture
+
+             if(lectureTitle) lecture.lectureTitle=lectureTitle
+             if(videoInfo?.videoUrl) lecture.videoUrl =videoInfo.videoUrl;
+             if(videoInfo?.publicId) lecture.publicId =videoInfo.publicId;
+             lecture.isPreviewFree = isPreviewFree;
+
+             await lecture.save();const course = await Course.findById(courseId)
+             if(course && course.lectures.includes(lecture._id)){
+                course.lectures.push(lecture._id)
+                await course.save()
+             }
+            return res.status(200).json({
+                message:"Lecture update successfully",
+                success:true,
+                lecture
+            })
+    } catch(error){
+        console.log(error)
+        return res.status(500).json({
+            message:"Failed to edit lectures",
+            success:true
+        })
+    }
+}
+
+export const removeLecture=async(req,res)=>{
+    try{
+         const {lectureId}= req.params;
+        const lecture=await Lecture.findByIdAndDelete(lectureId);
+        if(!lecture){
+            return res.status(404).json({
+                message:"lecture not found"
+            })
+        }
+        // Remove the lecture refference from the associated course
+
+        await Course.updateOne(
+            {lectures:lectureId}, // find the course contains the lecture
+            {$pull:{lectures:lectureId}} // Remove the lectures id from the lecture array
+        )
+        return res.status(200).json({
+            success:true,
+            message:"Lecture remove successfully"
+        })
+    } catch(error){
+        console.log(error)
+        res.status(500).json({
+            message:"Failed to remove Lecture"
+        })
+    }
+}
 

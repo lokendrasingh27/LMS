@@ -17,6 +17,7 @@ import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import EditLecture from "./pages/instructor/EditLecture";
+import CourseDetail from "./pages/CourseDetail";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
       </Route>
 
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/courses/:courseId" element={<CourseDetail />} />
 
       {/* <Route path="/student-profile" element={<Student />} /> */}
     </Routes>

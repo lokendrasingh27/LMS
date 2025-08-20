@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "./banner";
 import { availableCourses, upcomingCourses } from "./demodata";
 import CourseCard from "./coursecard";
@@ -13,14 +13,34 @@ import {
   Linkedin, 
   Instagram 
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setCourse } from "@/redux/courseSlice";
 
 const CourseViewPage = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
-
+ const dispatch=useDispatch()
+ const {course}=useSelector(store=>store.course)
   // Filter available courses based on the search query
   const filteredAvailableCourses = availableCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+   useEffect(()=>{
+    const getAllPublishedCourse = async()=>{
+      try{
+        const res = await axios.get(`http://localhost:5000/api/course/published-courses`,{withCredentials:true})
+
+        if(res.data.success){
+          dispatch(setCourse(res.data.courses))
+        }
+      } catch(error){
+        console.log(error)
+      }
+    }
+    getAllPublishedCourse()
+   })
+
 
   return (
     <div className="courseView w-[81vw] p-6 h-[100vh] overflow-y-auto">
@@ -59,8 +79,8 @@ const CourseViewPage = () => {
 
           {/* Course Grid */}
           <div className="flex gap-4 overflow-x-auto snap-x">
-            {filteredAvailableCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+            {course.map((course,index) => (
+              <CourseCard key={index} course={course} />
             ))}
           </div>
         </section>

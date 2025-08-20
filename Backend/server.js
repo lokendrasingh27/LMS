@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import courseRoutes from  './routes/courseRoutes.js'
+import mediaRoutes from  './routes/mediaRoutes.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors({
 
 app.use('/api/auth', authRoutes);
 app.use('/api/course', courseRoutes);
+app.use('/api/media', mediaRoutes);
 
 
 

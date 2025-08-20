@@ -203,6 +203,7 @@ export const getCourseLecture = async (req, res) => {
 
 export const editLecture=async(req,res)=>{
     try{
+            const {lectureTitle, videoInfo, isPreviewFree} = req.body
              const {courseId,lectureId}= req.params;
              const lecture = await Lecture.findById(lectureId)
 
@@ -260,6 +261,32 @@ export const removeLecture=async(req,res)=>{
         console.log(error)
         res.status(500).json({
             message:"Failed to remove Lecture"
+        })
+    }
+}
+
+export const togglePublishedCourse = async (req, res)=>{
+    try {
+        const {courseId} = req.params;
+        const {publish} = req.query; // true , false
+        const course = await Course.findById(courseId);
+        if(!course){
+            return res.status(404).json({
+                message:"Course not found!"
+            })
+        }
+        course.isPublished = !course.isPublished
+        await course.save()
+
+        const statusMessage = course.isPublished ? "Published":"Unpublished";
+        return res.status(200).json({
+          success:true,
+          message:`Course is ${statusMessage}`
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:"Failed to update status"
         })
     }
 }

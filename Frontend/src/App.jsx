@@ -33,24 +33,19 @@ function App() {
         <Route path="course/:courseId" element={<UpdateCourse />} />
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
         <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
-      </Route>
-
-      <Route path="/profile" element={<ProfilePage />} />
-
-      <Header />
-
-      <Routes>
         <Route path="/student/catalog" element={<Catalog />} />
         <Route path="/student/course-details/:courseId" element={<CourseDetails />} />
         <Route path="/student/my-courses" element={<MyCourses />} />
         <Route path="/student/add-course" element={<AddCourse />} />
         <Route path="/student/payments" element={<Payments />} />
         <Route path="/student/course-list" element={<CourseListing />} />
-      
-      </Routes>
+      </Route>
 
-      <Footer />
-      <Drawer />
+      <Route path="/profile" element={<ProfilePage />} />
+
+      
+
+      
     </Routes>
   );
 }

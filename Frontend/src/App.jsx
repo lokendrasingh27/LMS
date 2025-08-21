@@ -16,8 +16,6 @@ import Courses from "./pages/instructor/Courses";
 import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
-import EditLecture from "./pages/instructor/EditLecture";
-import CourseDetail from "./pages/CourseDetail";
 
 function App() {
   return (
@@ -38,9 +36,21 @@ function App() {
       </Route>
 
       <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/courses/:courseId" element={<CourseDetail />} />
 
-      {/* <Route path="/student-profile" element={<Student />} /> */}
+      <Header />
+
+      <Routes>
+        <Route path="/student/catalog" element={<Catalog />} />
+        <Route path="/student/course-details/:courseId" element={<CourseDetails />} />
+        <Route path="/student/my-courses" element={<MyCourses />} />
+        <Route path="/student/add-course" element={<AddCourse />} />
+        <Route path="/student/payments" element={<Payments />} />
+        <Route path="/student/course-list" element={<CourseListing />} />
+      
+      </Routes>
+
+      <Footer />
+      <Drawer />
     </Routes>
   );
 }

@@ -76,7 +76,7 @@ const LectureTab = () => {
             })
             if (res.data.success) {
                 dispatch([...lecture, setLecture(res.data.lecture)]) 
-                console.log([...lecture, setLecture(res.data.lecture)]);
+                // console.log([...lecture, setLecture(res.data.lecture)]);
                              
                 toast.success(res.data.message)                
             }

@@ -22,8 +22,8 @@ const CourseViewPage = () => {
  const dispatch=useDispatch()
  const {course}=useSelector(store=>store.course)
   // Filter available courses based on the search query
-  const filteredAvailableCourses = availableCourses.filter((course) =>
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredAvailableCourses = course.filter((course) =>
+    course.courseTitle.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
    useEffect(()=>{
@@ -79,7 +79,7 @@ const CourseViewPage = () => {
 
           {/* Course Grid */}
           <div className="flex gap-4 overflow-x-auto snap-x">
-            {course.map((course,index) => (
+            {filteredAvailableCourses.map((course,index) => (
               <CourseCard key={index} course={course} />
             ))}
           </div>

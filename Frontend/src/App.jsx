@@ -16,6 +16,16 @@ import Courses from "./pages/instructor/Courses";
 import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
+import { Header, Footer } from "./pages/student/HeaderFooter";
+import Catalog from "./pages/student/Catalog";
+import Drawer from "./pages/student/Drawer";
+import CourseDetails from "./pages/student/CourseDetails";
+import MyCourses from "./pages/student/MyCourses";
+import AddCourse from "./pages/student/AddCourse";
+import Payments from "./pages/student/Payments";
+import CourseCard from "./pages/student/CourseCard";
+import EnrollModal from "./pages/student/EnrollModal";
+
 
 function App() {
   return (
@@ -34,9 +44,23 @@ function App() {
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
       </Route>
 
-      <Route path="/profile" element={<ProfilePage />} />
+      <Routes>
+        {/* Existing routes */}
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
 
-      {/* <Route path="/student-profile" element={<Student />} /> */}
+      <Header />
+
+      <Routes>
+        <Route path="/student/catalog" element={<Catalog />} />
+        <Route path="/student/course-details/:courseId" element={<CourseDetails />} />
+        <Route path="/student/my-courses" element={<MyCourses />} />
+        <Route path="/student/add-course" element={<AddCourse />} />
+        <Route path="/student/payments" element={<Payments />} />
+      </Routes>
+
+      <Footer />
+      <Drawer />
     </Routes>
   );
 }

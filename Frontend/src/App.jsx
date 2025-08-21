@@ -25,7 +25,7 @@ import AddCourse from "./pages/student/AddCourse";
 import Payments from "./pages/student/Payments";
 import CourseCard from "./pages/student/CourseCard";
 import EnrollModal from "./pages/student/EnrollModal";
-
+import CourseListing from "./pages/student/CourseListing";
 
 function App() {
   return (
@@ -57,6 +57,7 @@ function App() {
         <Route path="/student/my-courses" element={<MyCourses />} />
         <Route path="/student/add-course" element={<AddCourse />} />
         <Route path="/student/payments" element={<Payments />} />
+        <Route path="/student/course-list" element={<CourseListing />} />
       </Routes>
 
       <Footer />

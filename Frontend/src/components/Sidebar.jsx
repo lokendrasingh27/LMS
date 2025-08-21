@@ -33,7 +33,7 @@ const Sidebar = () => {
     }
   };
 
-  // Role-based navigation items
+  
   // const getNavItems = () => {
   //   if (!user) {
   //     return [

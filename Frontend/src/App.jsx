@@ -16,17 +16,6 @@ import Courses from "./pages/instructor/Courses";
 import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
-import { Header, Footer } from "./pages/student/HeaderFooter";
-import Catalog from "./pages/student/Catalog";
-import Drawer from "./pages/student/Drawer";
-import CourseDetails from "./pages/student/CourseDetails";
-import MyCourses from "./pages/student/MyCourses";
-import AddCourse from "./pages/student/AddCourse";
-import Payments from "./pages/student/Payments";
-import CourseCard from "./pages/student/CourseCard";
-import EnrollModal from "./pages/student/EnrollModal";
-import CourseListing from "./pages/student/CourseListing";
-
 
 function App() {
   return (
@@ -43,12 +32,10 @@ function App() {
         <Route path="course/create" element={<CreateCourse />} />
         <Route path="course/:courseId" element={<UpdateCourse />} />
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
+        <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
       </Route>
 
-      <Routes>
-        {/* Existing routes */}
-        <Route path="/profile" element={<ProfilePage />} />
-      </Routes>
+      <Route path="/profile" element={<ProfilePage />} />
 
       <Header />
 

@@ -106,7 +106,7 @@ const Courses = () => {
               <TableCell className="text-right font-medium">{course?.coursePrice || "NA"}</TableCell>
               <TableCell className="text-end">
                 <Badge className={course.isPublished ? "bg-green-400":"bg-red-400"}>
-                  {course.isPublished ?"Publisjed":"Draft"}</Badge>
+                  {course.isPublished ?"Published":"Draft"}</Badge>
                   </TableCell>
                   <TableCell className='text-right'><Button variant='ghost'onClick={()=>Navigate(`/instructor/course/${course._id}`)} ><Edit /></Button></TableCell>
           

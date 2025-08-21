@@ -27,7 +27,7 @@ const CreateCourse = () => {
         setCategory(value)
     }
     const createCourseHandler = async ()=> {
-        console.log(courseTitle, category);
+       
         
         try {
             setLoading(true)

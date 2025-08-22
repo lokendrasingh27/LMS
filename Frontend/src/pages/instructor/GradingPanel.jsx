@@ -5,11 +5,10 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
   const [grade, setGrade] = useState("");
   const [feedback, setFeedback] = useState("");
 
-  // Update form fields when a new submission is selected
   useEffect(() => {
     if (submission) {
       setGrade(submission.grade || "");
-      setFeedback(submission.feedback || "");
+      setFeedback(submission.feedback || ""); 
     }
   }, [submission]);
 
@@ -19,14 +18,14 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
 
   if (!submission) {
     return (
-      <div className="w-2/3 h-full flex items-center justify-center bg-zinc-50">
+      <div className="w-full h-full flex items-center justify-center bg-zinc-50">
         <p className="text-zinc-500">Select a submission to begin grading.</p>
       </div>
     );
   }
 
   return (
-    <div className="w-2/3 h-full overflow-y-auto p-8">
+    <div className="w-full md:w-2/3 h-full overflow-y-auto p-8 bg-zinc-50">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-start justify-between mb-6">

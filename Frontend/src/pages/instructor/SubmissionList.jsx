@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckCircle, Clock, AlertTriangle } from "lucide-react";
+import { CheckCircle, Clock, AlertTriangle, X } from "lucide-react"; // Import X icon
 
 // Helper to format dates
 const formatDate = (dateString) => {
@@ -10,14 +10,24 @@ const formatDate = (dateString) => {
   });
 };
 
-const SubmissionList = ({ submissions, selectedSubmission, onSelect }) => {
+const SubmissionList = ({ submissions, selectedSubmission, onSelect, onClose }) => {
   return (
-    <div className="w-1/3 h-full bg-white border-r border-zinc-200 overflow-y-auto">
-      <div className="p-4 border-b border-zinc-200">
-        <h2 className="text-lg font-semibold text-zinc-800">Submissions</h2>
-        <p className="text-sm text-zinc-500">{submissions.length} students</p>
+    <div className="w-full h-full bg-white overflow-y-auto flex flex-col">
+      <div className="p-4 border-b border-zinc-200 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-semibold text-zinc-800">Submissions</h2>
+          <p className="text-sm text-zinc-500">{submissions.length} students</p>
+        </div>
+        {/* Close Button - Visible only on mobile */}
+        <button 
+          className="md:hidden p-2 text-zinc-500 hover:text-zinc-800" 
+          onClick={onClose}
+          aria-label="Close submission list"
+        >
+          <X className="h-6 w-6" />
+        </button>
       </div>
-      <ul>
+      <ul className="flex-grow">
         {submissions.map((sub) => {
           const isSelected = selectedSubmission && selectedSubmission.id === sub.id;
           return (

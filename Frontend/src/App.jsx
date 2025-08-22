@@ -18,6 +18,7 @@ import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import EditLecture from "./pages/instructor/EditLecture";
+import Payments from "./pages/student/Payments";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
 
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/payment" element={<Payments/>}/>
 
      
     </Routes>

@@ -25,7 +25,7 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
   }
 
   return (
-    <div className="w-full md:w-2/3 h-full overflow-y-auto p-8 bg-zinc-50">
+    <div className="w-full md:w-2/3 h-full overflow-y-auto p-8 bg-[#E3F1F1]">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-start justify-between mb-6">
@@ -41,7 +41,7 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
         
         {/* Grading Form */}
         <div className="space-y-6">
-          <div>
+          <div className="bg-white">
             <label htmlFor="grade" className="block text-sm font-medium text-zinc-700 mb-1">Grade</label>
             <input
               id="grade"
@@ -53,7 +53,7 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
             />
           </div>
 
-          <div>
+          <div className="bg-white">
             <label htmlFor="feedback" className="block text-sm font-medium text-zinc-700 mb-1">Feedback</label>
             <textarea
               id="feedback"
@@ -61,7 +61,7 @@ const GradingPanel = ({ submission, onSaveGrade }) => {
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="Provide detailed feedback for the student..."
-              className="w-full rounded-md border-zinc-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="w-full rounded-md border-black-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             />
           </div>
 

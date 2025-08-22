@@ -51,7 +51,7 @@ const AssignmentGradingPage = () => {
           <Menu className="h-6 w-6" />
         </button>
       </header>
-      
+
       {/* Main Content Area */}
       <div className="flex flex-grow overflow-hidden relative">
         {/* Grading Panel (Right Panel) */}
@@ -59,13 +59,17 @@ const AssignmentGradingPage = () => {
           submission={selectedSubmission}
           onSaveGrade={handleSaveGrade}
         />
-        {/* Submission List (Left Panel on Desktop, Hidden Overlay on Mobile) */}
+        {/* Submission List (right Panel on Desktop, Hidden Overlay on Mobile) */}
         <div
           className={`
             h-full w-4/5 max-w-xs absolute top-0 right-0 z-20 bg-white border-l border-zinc-200
             transform transition-transform duration-300 ease-in-out
             md:relative md:w-1/3 md:max-w-none md:translate-x-0 md:border-l-0 md:border-r md:z-auto
-            ${isListVisible ? 'translate-x-0' : 'translate-x-full md:translate-x-0'}
+            ${
+              isListVisible
+                ? "translate-x-0"
+                : "translate-x-full md:translate-x-0"
+            }
           `}
         >
           <SubmissionList
@@ -75,8 +79,6 @@ const AssignmentGradingPage = () => {
             onClose={() => setIsListVisible(false)} // Pass close handler for the 'X' button
           />
         </div>
-        
-        
       </div>
     </div>
   );

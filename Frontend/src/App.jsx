@@ -1,11 +1,9 @@
 // src/App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-
 import React from "react";
 import LoginPage from "./pages/auth/LoginPage";
 import Signup from "./pages/auth/Signup";
-import CourseViewPage from "./pages/courseviewpage/CourseViewPage";
 import InstructorDashboard from "./pages/instructor/Dashboard";
 import CoursePlayerPage from "./pages/courseplayer/CoursePlayerPage";
 // import Courses from './pages/instructor/Courses';

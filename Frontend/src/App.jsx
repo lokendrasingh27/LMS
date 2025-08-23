@@ -18,6 +18,7 @@ import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import EditLecture from "./pages/instructor/EditLecture";
+import CoursePayment from "./pages/student/CoursePayment";
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
 
       <Route path="/profile" element={<ProfilePage />} />
 
-     
+      <Route path="/payment" element={<CoursePayment/>} /> 
     </Routes>
   );
 }

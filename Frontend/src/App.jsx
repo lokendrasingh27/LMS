@@ -1,11 +1,9 @@
 // src/App.js
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-
 import React from "react";
 import LoginPage from "./pages/auth/LoginPage";
 import Signup from "./pages/auth/Signup";
-import CourseViewPage from "./pages/courseviewpage/CourseViewPage";
 import InstructorDashboard from "./pages/instructor/Dashboard";
 import CoursePlayerPage from "./pages/courseplayer/CoursePlayerPage";
 // import Courses from './pages/instructor/Courses';
@@ -17,7 +15,9 @@ import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
+import StudentDashboard from "./pages/courseplayer/StudentDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
+import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 
 function App() {
@@ -42,11 +42,9 @@ function App() {
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
 
       <Route path="/profile" element={<ProfilePage />} />
-     
-
+      <Route path="/payment" element={<CoursePayment/>} />
      
     </Routes>
   );
 }
-
 export default App;

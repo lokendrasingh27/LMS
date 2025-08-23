@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCreditCard, FaMobileAlt, FaLock, FaCheck } from 'react-icons/fa';
 
-const Payments = () => {
+const CoursePayment = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
@@ -50,7 +50,7 @@ const Payments = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-2">
       <div className="bg-white rounded-lg shadow-md w-full max-w-sm">
         <div className="bg-indigo-600 text-white p-4">
-          <h1 className="text-lg font-bold">Gradix LMS</h1>
+          <h1 className="text-lg font-bold">Gradix </h1>
           <p className="text-sm">Secure Payment Gateway</p>
         </div>
 
@@ -118,7 +118,7 @@ const Payments = () => {
                   />
                   <input
                     type="text"
-                    className="flex-1 p-2 border border-gray-300 rounded"
+                    className="w-24 flex-1 p-2 border border-gray-300 rounded"
                     placeholder="CVV"
                     value={cvv}
                     onChange={(e) => setCvv(e.target.value)}
@@ -167,4 +167,4 @@ const Payments = () => {
   );
 };
 
-export default Payments;
+export default CoursePayment;

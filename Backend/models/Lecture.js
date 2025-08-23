@@ -7,7 +7,14 @@ const lectureSchema = new mongoose.Schema({
     },
     videoUrl:{type:String},
     publicId:{type:String},
-    isPreviewFree : {type:Boolean}
+    isPreviewFree : {type:Boolean},
+        
+     assignments: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }
+  ],
+  quizzes: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Quiz" }
+  ]
 },{timestamps:true});
 
 export const Lecture = mongoose.model("Lecture", lectureSchema)

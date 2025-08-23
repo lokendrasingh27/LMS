@@ -112,7 +112,7 @@ const CourseDetails = () => {
                                     width="100%" 
                                     height="100%"
                                   
-                                    url={courseLecture ? courseLecture[0]?.videoUrl : null}
+                                    url="https://youtu.be/UmnCZ7-9yDY?si=KJTg2ZoYGmmEyl30"
                                     controls={true}
                                     />
                                    </div>

@@ -17,6 +17,7 @@ import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
+import StudentDashboard from "./pages/courseplayer/StudentDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Payments from "./pages/student/Payments";
@@ -43,7 +44,7 @@ function App() {
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
 
       <Route path="/profile" element={<ProfilePage />} />
-
+      <Route path="/studentdashboard" element={<StudentDashboard />} />
      
     </Routes>
   );

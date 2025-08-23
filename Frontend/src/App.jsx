@@ -19,8 +19,6 @@ import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import StudentDashboard from "./pages/courseplayer/StudentDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
-import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-import Payments from "./pages/student/Payments";
 import CoursePayment from "./pages/student/CoursePayment";
 
 function App() {
@@ -45,10 +43,9 @@ function App() {
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
 
       <Route path="/profile" element={<ProfilePage />} />
-
+      <Route path="/payment" element={<CoursePayment/>} />
      
     </Routes>
   );
 }
-
 export default App;

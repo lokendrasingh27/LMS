@@ -31,6 +31,46 @@ const CourseDetails = () => {
         }
         getCourseLecture()
     })
+    const handlePayment = async () => {
+  // Step 1: Create Order
+  const { data } = await axios.post("http://localhost:5000/api/payment/create-order", {
+    amount: 499,
+    currency: "INR",
+  });
+
+  // Step 2: Razorpay Checkout Options
+  const options = {
+    key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+    amount: data.order.amount,
+    currency: data.order.currency,
+    name: "My LMS",
+    description: "Course Purchase",
+    order_id: data.order.id,
+    handler: async function (response) {
+      // Step 3: Verify Payment
+      const verify = await axios.post("http://localhost:5000/api/payment/verify", response);
+
+      if (verify.data.success) {
+        alert("Payment Successful 🎉");
+        // ✅ Yaha course enrollment API call karo
+      } else {
+        alert("Payment Failed ❌");
+      }
+    },
+    prefill: {
+      name: "Test User",
+      email: "test@example.com",
+      contact: "9999999999",
+    },
+    theme: {
+      color: "#3399cc",
+    },
+  };
+
+  // Step 4: Open Razorpay Window
+  const razorpay = new window.Razorpay(options);
+  razorpay.open();
+};
     // console.log(courseLecture[0]?.videoUrl)
     return (
         <div className='bg-gray-100 h-screen flex overflow-hidden '>
@@ -46,7 +86,7 @@ const CourseDetails = () => {
                             <h1 className='md:text-2xl font-bold text-gray-800'>{selectedCourse.courseTitle}</h1>
                         </div>
                         <div className='flex space-x-4'>
-                            <Button className="bg-blue-500 hover:bg-blue-600">Enroll Now</Button>
+                            <Button onClick={handlePayment} className="bg-blue-500 hover:bg-blue-600">Enroll Now</Button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaGraduationCap } from 'react-icons/fa';
  
 
 const Signup = () => {
@@ -45,9 +46,10 @@ const Signup = () => {
   return (
     <div className="min-h-screen bg-[#edf7f7] flex items-center justify-center px-4">
       <div className="bg-white p-8 rounded-3xl shadow-md w-full max-w-sm">
-        <div className="flex justify-center mb-4">
-          <img src="/logo.png" alt="Oxford Logo" className="w-20 h-20" />
-        </div>
+       <div className="flex flex-col items-center mb-8">
+                 <FaGraduationCap className="text-6xl" />
+                 <h1 className="text-2xl font-bold text-black">Gradix</h1>
+               </div>
         <h2 className="text-center text-lg font-medium mb-6">Signup Your Account</h2>
 
         <form>

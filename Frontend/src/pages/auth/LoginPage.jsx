@@ -5,6 +5,7 @@ import axios from "axios";
 import { setUser } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { FaGraduationCap } from "react-icons/fa";
 
 const LoginPage = () => {
   const Navigate = useNavigate();
@@ -47,13 +48,10 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen bg-[#e8f1f4] flex items-center justify-center px-4">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <div className="flex justify-center mb-6">
-          <img
-            src="/logo.png" // place your logo in public folder
-            alt="Logo"
-            className="h-20"
-          />
-        </div>
+        <div className="flex flex-col items-center mb-8">
+                  <FaGraduationCap className="text-6xl" />
+                  <h1 className="text-2xl font-bold text-black">Gradix</h1>
+                </div>
         <h2 className="text-xl font-semibold text-center mb-6">Sign in Your Account</h2>
 
         <form>

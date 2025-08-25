@@ -24,30 +24,7 @@ const Instructors = () => {
     <div className="p-6 md:p-10 bg-[#E8F1F2] min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-[#00173D]">Instructor Management</h1>
 
-      {/* Add New Instructor */}
-      <div className="mb-6 bg-white p-4 rounded shadow-md max-w-md">
-        <h2 className="text-xl font-semibold mb-2">Add New Instructor</h2>
-        <input
-          type="text"
-          placeholder="Name"
-          className="border p-2 rounded w-full mb-2"
-          value={newInstructor.name}
-          onChange={(e) => setNewInstructor({ ...newInstructor, name: e.target.value })}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded w-full mb-2"
-          value={newInstructor.email}
-          onChange={(e) => setNewInstructor({ ...newInstructor, email: e.target.value })}
-        />
-        <button
-          onClick={handleAddInstructor}
-          className="bg-[#0A5F6F] text-white px-4 py-2 rounded hover:bg-[#084e5b]"
-        >
-          Add Instructor
-        </button>
-      </div>
+    
 
       {/* Instructor Table */}
       <div className="overflow-x-auto">

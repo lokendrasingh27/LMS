@@ -5,7 +5,7 @@ import EnrolledCourseCard from './EnrolledCourseCard';
 import { studentData } from './demodata';
 import { Menu, X, Book, CheckCircle, Clock } from 'lucide-react';
 
-const StudentDashboard = () => {
+const EnrolledDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const coursesInProgress = studentData.enrolledCourses.filter(c => c.progress < 100);
@@ -99,4 +99,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default EnrolledDashboard;

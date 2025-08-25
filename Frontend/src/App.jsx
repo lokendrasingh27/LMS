@@ -15,7 +15,7 @@ import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
-import StudentDashboard from "./pages/courseplayer/StudentDashboard";
+import EnrolledDashboard from "./pages/courseplayer/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
@@ -30,7 +30,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/course-player" element={<CoursePlayerPage />} />
-      <Route path="/courseplayer/student-dashboard" element={<StudentDashboard />} />
+      <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
 
       <Route path="/instructor" element={<Instructor />}>
         {/* children route */}

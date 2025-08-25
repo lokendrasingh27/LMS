@@ -28,6 +28,8 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/course-player" element={<CoursePlayerPage />} />
+      <Route path="/courseplayer/student-dashboard" element={<StudentDashboard />} />
 
       <Route path="/instructor" element={<Instructor />}>
         {/* children route */}

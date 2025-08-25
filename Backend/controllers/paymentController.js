@@ -1,5 +1,9 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
+import dotenv from 'dotenv'
+import { Course } from "../models/Course.js";
+import { User } from "../models/User.js";
+dotenv.config();
 
 // Razorpay instance create
 const razorpay = new Razorpay({
@@ -10,11 +14,17 @@ const razorpay = new Razorpay({
 // ✅ Create Order
 export const createOrder = async (req, res) => {
   try {
-    
+        const {courseId} = req.body
+        const course =await Course.findById(courseId)
+        if(!course){
+            return res.status(404).json({
+                message:"Course is not found"
+            })
+        }
     const options = {
-      amount: req.body.amount * 100, // paise me bhejna hai (499 Rs = 49900 paise)
-      currency: req.body.currency,
-      receipt: "receipt_order_" + new Date().getTime(),
+      amount: course.coursePrice*100, // paise me bhejna hai (499 Rs = 49900 paise)
+      currency: "INR",
+      receipt: `${courseId}.toString()`
     };
 
     const order = await razorpay.orders.create(options);
@@ -28,20 +38,30 @@ export const createOrder = async (req, res) => {
 // ✅ Verify Payment
 export const verifyPayment = async (req, res) => {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+    const { razorpay_order_id, courseId,userId } = req.body;
 
-    const sign = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSign = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(sign.toString())
-      .digest("hex");
+       const orderInfo= await razorpay.orders.fetch(razorpay_order_id)
 
-    if (razorpay_signature === expectedSign) {
-      // yaha tum course enrollment logic likhoge
-      return res.status(200).json({ success: true, message: "Payment verified ✅" });
-    } else {
-      return res.status(400).json({ success: false, message: "Payment verification failed ❌" });
-    }
+       if(orderInfo.status === 'paid'){
+        const user = await User.findById(userId)
+        if(!user.enrolledCourses.includes(courseId)){
+            await user.enrolledCourses.push(courseId)
+            await user.save()
+        }
+        const course = await Course.findById(courseId).populate("lectures")
+        if(!course.enrolledStudents.includes(userId)){
+            await course.enrolledStudents.push(userId)
+            await course.save()
+        }
+        return res.status(200).json({
+            message:"payment verified and enrollement successful"
+        })
+       }
+       else{
+         return res.status(400).json({
+            message:"payment failed "
+        })
+       }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

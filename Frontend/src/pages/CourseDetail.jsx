@@ -3,20 +3,29 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import axios from 'axios'
-import { ArrowLeft, Lock, PlayCircle } from 'lucide-react'
+import { ArrowLeft, Currency, Lock, PlayCircle } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import { use } from 'react'
 import ReactPlayer from 'react-player'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const CourseDetails = () => {
     const navigate = useNavigate()
-    const params = useParams()
-    const courseId = params.courseId
+    const  {courseId}=useParams()
     const { course } = useSelector(store => store.course)
+    const {user}= useSelector(store=>store.auth)
     const selectedCourse = course.find(course => course._id === courseId)
     const [courseLecture, setCourseLecture] = useState(null)
+    const [isEnrolled , setIsEnrolled ] = useState(false)
 
+    const checkEnrollment =()=>{
+        const verify=user?.enrolledCourses?.some( c =>( typeof c === 'string' ? c : c._id).toString()===courseId?.toString())
+            if(verify){
+                setIsEnrolled(true)
+            }
+    }
     useEffect(()=> {
         const getCourseLecture = async()=> {
             try {
@@ -30,50 +39,58 @@ const CourseDetails = () => {
             }
         }
         getCourseLecture()
+     
     })
-    const handlePayment = async () => {
+
+    const handlePayment = async (userId,courseId) => {
   // Step 1: Create Order
-  const { data } = await axios.post("http://localhost:5000/api/payment/create-order", {
-    amount: 499,
-    currency: "INR",
-  });
+  try{
+            const orderData = await axios.post("http://localhost:5000/api/payment/create-order", {userId,courseId},
+    {withCredentials:true});
+    console.log(orderData)
 
-  // Step 2: Razorpay Checkout Options
-  const options = {
-    key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-    amount: data.order.amount,
-    currency: data.order.currency,
-    name: "My LMS",
-    description: "Course Purchase",
-    order_id: data.order.id,
-    handler: async function (response) {
-      // Step 3: Verify Payment
-      const verify = await axios.post("http://localhost:5000/api/payment/verify", response);
+        const options={
+            key:import.meta.env.VITE_RAZORPAY_KEY_ID,
+            amount:orderData.data.order.amount,
+            currency:'INR',
+            name:"Gradix Course",
+            description:"course Enrollment Payemnt",
+            order_id:orderData.data.order.id,
+            handler:async function(response){
+                console.log("RazorPay Response",response)
+                try{
+                    const verifyPayment = await axios.post('http://localhost:5000/api/payment/verify',
+                        {
+                            ...response,
+                            courseId,
+                            userId
+                        },{withCredentials:true})
+                        setIsEnrolled(true)
+                        toast.success(verifyPayment.data.message)
+                } catch(error){
+                    console.log(error)
+                    toast.error(error.response.data.message)
+                }
+            }
 
-      if (verify.data.success) {
-        alert("Payment Successful 🎉");
-        // ✅ Yaha course enrollment API call karo
-      } else {
-        alert("Payment Failed ❌");
-      }
-    },
-    prefill: {
-      name: "Test User",
-      email: "test@example.com",
-      contact: "9999999999",
-    },
-    theme: {
-      color: "#3399cc",
-    },
-  };
+        }    
+        
+        const rzp = new window.Razorpay(options)
+        rzp.open()
 
-  // Step 4: Open Razorpay Window
-  const razorpay = new window.Razorpay(options);
-  razorpay.open();
+  }catch(error){
+    console.log(error)
+    toast.error("something went wrong while enrolling")
+  }
+  
 };
+
+useEffect(()=>{
+    checkEnrollment()
+},[user])
     // console.log(courseLecture[0]?.videoUrl)
     return (
-        <div className='bg-gray-100 h-screen flex overflow-hidden '>
+        <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
             <Sidebar/>
             <Card className="max-w-7xl overflow-y-auto rounded-md mx-auto bg-white shadow-md pt-5 ">
                 {/* Header section */}
@@ -86,7 +103,9 @@ const CourseDetails = () => {
                             <h1 className='md:text-2xl font-bold text-gray-800'>{selectedCourse.courseTitle}</h1>
                         </div>
                         <div className='flex space-x-4'>
-                            <Button onClick={handlePayment} className="bg-blue-500 hover:bg-blue-600">Enroll Now</Button>
+                            { !isEnrolled ? <Button onClick={()=>handlePayment(user._id,courseId)} className="bg-blue-500 hover:bg-blue-600">Enroll Now</Button>
+                             : <Button onClick={()=>navigate(`/course-player/${courseId}`)}  className="bg-green-500 hover:bg-gray-600">Watch Now</Button> 
+                        }
                         </div>
                     </div>
                 </div>
@@ -147,15 +166,17 @@ const CourseDetails = () => {
                         <div className='w-full lg:w-1/3'>
                         <Card>
                             <CardContent className="p-4 flex flex-col">
-                                   <div className='w-full aspect-video mb-4'>
+                                   {
+                                    courseLecture?.videoUrl ?<div className='w-full aspect-video mb-4'>
                                     <ReactPlayer 
                                     width="100%" 
                                     height="100%"
                                   
-                                    url="https://youtu.be/UmnCZ7-9yDY?si=KJTg2ZoYGmmEyl30"
+                                    url={courseLecture?.videoUrl}
                                     controls={true}
                                     />
-                                   </div>
+                                   </div> :""
+                                   }
                                    <h1>{courseLecture ? courseLecture[0]?.lectureTitle : "Lecture Title"}</h1>
                                    <Separator className="my-2"/>
                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, aspernatur a sed dolores possimus inventore amet quos ab rerum illo.</p>

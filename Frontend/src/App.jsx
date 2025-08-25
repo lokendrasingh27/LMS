@@ -19,6 +19,8 @@ import StudentDashboard from "./pages/courseplayer/StudentDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
+import Instructors from "./apages/Instructors";
+import Students from "./apages/Students";
 
 function App() {
   return (
@@ -26,7 +28,6 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/course-player" element={<CoursePlayerPage />} />
 
       <Route path="/instructor" element={<Instructor />}>
         {/* children route */}
@@ -40,9 +41,12 @@ function App() {
 
       </Route>
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
+      <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
 
       <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/payment" element={<CoursePayment/>} />
+      <Route path="/free" element={<CreateCour />} />
+      
+     
      
     </Routes>
   );

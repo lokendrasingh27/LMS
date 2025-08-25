@@ -18,11 +18,28 @@ import axios from "axios";
 import { setCourse } from "@/redux/courseSlice";
 
 const CourseViewPage = () => {
-  
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+ const dispatch=useDispatch()
+ const {course}=useSelector(store=>store.course)
   // Filter available courses based on the search query
- 
+  const filteredAvailableCourses = course.filter((course) =>
+    course.courseTitle.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-   
+   useEffect(()=>{
+    const getAllPublishedCourse = async()=>{
+      try{
+        const res = await axios.get(`http://localhost:5000/api/course/published-courses`,{withCredentials:true})
+
+        if(res.data.success){
+          dispatch(setCourse(res.data.courses))
+        }
+      } catch(error){
+        console.log(error)
+      }
+    }
+    getAllPublishedCourse()
+   })
 
 
   return (
@@ -47,6 +64,8 @@ const CourseViewPage = () => {
                 <input
                   type="text"
                   placeholder="Search courses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-64 rounded-xl border border-zinc-300 bg-white py-2 pl-9 pr-3 text-sm text-zinc-800 placeholder:text-zinc-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                 />
               </div>
@@ -60,7 +79,7 @@ const CourseViewPage = () => {
 
           {/* Course Grid */}
           <div className="flex gap-4 overflow-x-auto snap-x">
-            {availableCourses.map((course,index) => (
+            {filteredAvailableCourses.map((course,index) => (
               <CourseCard key={index} course={course} />
             ))}
           </div>

@@ -47,9 +47,7 @@ function App() {
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
 
       <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/free" element={<Dashboard />} />
-      <Route path="/instructors" element={<Instructors />} />
-      <Route path="/free-g" element={<Students />} />
+   
       
      
      

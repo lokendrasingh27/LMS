@@ -111,8 +111,7 @@ export const updateProfile = async(req, res) => {
         const {name, description,course,year} = req.body;
         const file = req.file;
 
-        const fileUri = getDataUri(file)
-        let cloudResponse = await cloudinary.uploader.upload(fileUri)
+      
 
         const user = await User.findById(userId).select("-password")
         
@@ -122,13 +121,18 @@ export const updateProfile = async(req, res) => {
                 success:false
             })
         }
-
+           
+        // agar nayi photo hai tabhi cloudinary pe upload karo
+    if (file) {
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri);
+      user.photoUrl = cloudResponse.secure_url;
+    }
         // updating data
         if(name) user.name = name
         if(description) user.description = description
         if(course) user.academicDetails.course=course
         if(year) user.academicDetails.year=year
-        if(file) user.photoUrl = cloudResponse.secure_url
 
         await user.save()
         return res.status(200).json({

@@ -6,10 +6,10 @@ const questionSchema = new mongoose.Schema({
   correctAnswer: { type: String, required: true }
 });
 
-const quizSchema = new mongoose.Schema({
+const assignmentSchema = new mongoose.Schema({
   title: { type: String, required: true },
   lecture: { type: mongoose.Schema.Types.ObjectId, ref: "Lecture" },
   questions: [questionSchema]
 }, { timestamps: true });
 
-export const Quiz = mongoose.model("Quiz", quizSchema);
+export const Assignment = mongoose.model("Assignment", assignmentSchema);

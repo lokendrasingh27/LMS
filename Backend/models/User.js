@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default:""
+        default:"",
+        required:false
     },
       academicDetails: {
         course: { type: String, default: "" },  // e.g. "BCA", "B.Tech CSE"

@@ -31,8 +31,10 @@ const ProfilePage = () => {
         description: user?.description,
         course:user?.academicDetails.course,
         year:user?.academicDetails.year,
-        file:user?.photoUrl
+        file:null
     })
+    const [Preview , setPreview ] = useState(user?.photoUrl)
+
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
 
@@ -45,8 +47,16 @@ const ProfilePage = () => {
     }
 
    const changeFileHandler= (e)=>{
-    setInput({...input,file:e.target.files?.[0]})
+   const file = e.target.files?.[0];
+     if(file){
+            setInput({...input, file:file});
+            const fileReader = new FileReader()
+            fileReader.onloadend = () => setPreview(fileReader.result);
+            fileReader.readAsDataURL(file)
+        }
    }
+
+   
     
    const submitHandler = async(e)=>{
         e.preventDefault()
@@ -55,16 +65,15 @@ const ProfilePage = () => {
        formData.append("description", input.description);
        formData.append("course",input.course);
        formData.append("year",input.year)
-       if(input?.file){
-        formData.append("file", input?.file)
+       if(input.file){
+        formData.append("file", input.file)
        }
+       
 
        try {
         setLoading(true)
         const res = await axios.put('http://localhost:5000/api/auth/profile/update',formData, {
-            headers:{
-              "Content-Type":"multipart/form-data"
-            },
+           
             withCredentials:true,
         })
         if(res.data.success){
@@ -155,9 +164,15 @@ const ProfilePage = () => {
                                           id="file"
                                         type="file"
                                         accept="image/*"
+                                        name="file"
                                         onChange={changeFileHandler}
                                         className="w-[277px]"
                                         />
+                                        {
+                                          Preview && (
+                                            <img src={Preview} alt="Preview" className='w-64 my-2' />
+                                          )
+                                        }
                                     </div>
                                 </div>
                                 <DialogFooter>

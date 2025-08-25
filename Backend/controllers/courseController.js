@@ -1,5 +1,7 @@
+import { Assignment } from "../models/Assignment.js";
 import {Course} from "../models/Course.js"
 import { Lecture } from "../models/Lecture.js";
+import { Quiz } from "../models/Quiz.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
@@ -276,3 +278,62 @@ export const togglePublishedCourse = async (req, res)=>{
         })
     }
 }
+
+export const addAssignment = async (req, res) => {
+  try {
+    const {  title, questions } = req.body;
+    const {lectureId}=req.params
+
+    if (!lectureId || !title || !questions || questions.length === 0) {
+      return res.status(400).json({ message: "Lecture ID and questions are required" });
+    }
+
+    const lecture = await Lecture.findById(lectureId);
+    if (!lecture) {
+      return res.status(404).json({ message: "Lecture not found" });
+    }
+
+    const assignment = new Assignment({
+      title,
+      questions
+    });
+
+    await assignment.save();
+
+    lecture.assignments.push(assignment._id);
+    await lecture.save();
+
+    res.status(201).json({ message: "Assignment created successfully", assignment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+export const addQuiz = async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+    const { questions, title, } = req.body;
+
+   if (!lectureId || !title || !questions || questions.length === 0) {
+      return res.status(400).json({ message: "Lecture ID and questions are required" });
+    }
+
+    const quiz = await Quiz.create({
+     title,
+      questions
+    });
+    await Lecture.findByIdAndUpdate(lectureId, {
+      $push: { quizzes: quiz._id },
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Quiz added successfully",
+      quiz,
+    });
+    } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

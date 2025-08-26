@@ -26,33 +26,7 @@ const Students = () => {
       <h1 className="text-3xl font-bold mb-6 text-[#00173D]">Student Management</h1>
 
       {/* Add New Student */}
-<<<<<<< Updated upstream
    
-=======
-      {/* <div className="mb-6 bg-white p-4 rounded shadow-md max-w-md">
-        <h2 className="text-xl font-semibold mb-2">Add New Student</h2>
-        <input
-          type="text"
-          placeholder="Name"
-          className="border p-2 rounded w-full mb-2"
-          value={newStudent.name}
-          onChange={(e) => setNewStudent({ ...newStudent, name: e.target.value })}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 rounded w-full mb-2"
-          value={newStudent.email}
-          onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
-        />
-        <button
-          onClick={handleAddStudent}
-          className="bg-[#0A5F6F] text-white px-4 py-2 rounded hover:bg-[#084e5b]"
-        >
-          Add Student
-        </button>
-      </div> */}
->>>>>>> Stashed changes
 
       {/* Student Table */}
       <div className="overflow-x-auto">

@@ -24,11 +24,8 @@ const Instructors = () => {
     <div className="p-6 md:p-10 bg-[#E8F1F2] min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-[#00173D]">Instructor Management</h1>
 
-<<<<<<< Updated upstream
     
 
-=======
->>>>>>> Stashed changes
       {/* Instructor Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white rounded shadow">

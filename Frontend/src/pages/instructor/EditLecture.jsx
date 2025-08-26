@@ -4,15 +4,9 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom' 
 import Createassignment from './Createassignment'
 import Createquiz from './CreateQuiz';
+import LectureTab from './LectureTab'
 
-const LectureTab = () => {
-    return (
-        <div className="p-4 border rounded-lg bg-slate-50">
-            <h2 className="text-lg font-semibold text-slate-700">Lecture Content Area</h2>
-            <p className="text-slate-500 mt-2">This is where the lecture tabs and their content would be displayed.</p>
-        </div>
-    );
-};
+
 
 
 const EditLecture = () => {
@@ -42,7 +36,7 @@ const EditLecture = () => {
                         </div>
                     </div>
                 </div>
-                <LectureTab />
+               <LectureTab/>
             </div>
 
             <Createassignment

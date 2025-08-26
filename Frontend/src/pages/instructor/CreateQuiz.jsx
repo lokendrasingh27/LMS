@@ -31,19 +31,20 @@ const hardcodedQuestion = {
 const Createquiz = ({ isOpen, onClose }) => {
   if (!isOpen) return null; // 🚀 Only render if modal is open
 
-  // --- State Management ---
-  const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
-  const [dueDate, setDueDate] = useState('2025-10-15');
-  const [timeLimit, setTimeLimit] = useState(30); // in minutes
-  const [questions, setQuestions] = useState([
-    { id: 1, text: 'What is the powerhouse of the cell?', type: 'multiple-choice', options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Chloroplast'], correctAnswer: 'Mitochondria' },
-    { id: 2, text: 'The Earth is flat.', type: 'true-false', options: ['True', 'False'], correctAnswer: 'False' }
-  ]);
-
-  const [newQuestionText, setNewQuestionText] = useState(hardcodedQuestion.text);
-  const [newQuestionType, setNewQuestionType] = useState(hardcodedQuestion.type);
-  const [newOptions, setNewOptions] = useState(hardcodedQuestion.options);
-  const [newCorrectAnswer, setNewCorrectAnswer] = useState(hardcodedQuestion.correctAnswer);
+const Createquiz = ({isOpen,onClose }) => {
+    // --- State Management ---
+    const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
+    const [dueDate, setDueDate] = useState('2025-10-15');
+    const [timeLimit, setTimeLimit] = useState(30); // in minutes
+    const [questions, setQuestions] = useState([
+        { id: 1, text: 'What is the powerhouse of the cell?', type: 'multiple-choice', options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Chloroplast'], correctAnswer: 'Mitochondria' },
+        { id: 2, text: 'The Earth is flat.', type: 'true-false', options: ['True', 'False'], correctAnswer: 'False' }
+    ]);
+    
+    const [newQuestionText, setNewQuestionText] = useState(hardcodedQuestion.text);
+    const [newQuestionType, setNewQuestionType] = useState(hardcodedQuestion.type);
+    const [newOptions, setNewOptions] = useState(hardcodedQuestion.options);
+    const [newCorrectAnswer, setNewCorrectAnswer] = useState(hardcodedQuestion.correctAnswer);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -80,19 +81,16 @@ const Createquiz = ({ isOpen, onClose }) => {
     if (onClose) onClose();
   };
 
-  return (
-    <>
-      <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
-        <div className="bg-[#E3F1F1] min-h-screen font-sans p-4 sm:p-6 md:p-10">
-          <div className="max-w-6xl mx-auto relative">
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-0 right-0 mt-4 mr-4 text-slate-400 hover:text-slate-700 transition-colors z-10"
-              aria-label="Close Quiz Modal"
-            >
-              <XIcon />
-            </button>
+    if (!isOpen) {
+        return null;
+    }
+    return (
+        <>
+            <div className="bg-[#E3F1F1] min-h-screen font-sans p-4 sm:p-6 md:p-10">
+                <div className="max-w-6xl mx-auto relative">
+                    <button onClick={onClose} className="absolute top-0 right-0 mt-4 mr-4 text-slate-400 hover:text-slate-700 transition-colors z-10" aria-label="Go back to previous page">
+                        <XIcon />
+                    </button>
 
             <header className="mb-8">
               <h1 className="text-4xl font-bold text-slate-800 pt-8">Create New Quiz</h1>

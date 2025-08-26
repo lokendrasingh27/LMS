@@ -21,9 +21,9 @@ const EditLecture = () => {
     const [isAssignmentModalOpen, setAssignmentModalOpen] = useState(false);
     const handleOpenModal = () => setAssignmentModalOpen(true);
     const handleCloseModal = () => setAssignmentModalOpen(false);
-    const [isquizmodelopen , setquizmodelopen] = useState(false);
-    const handleopenmodel = () => setquizmodelopen(true);
-    const handleclosemodel = () => setquizmodelopen(false);
+    const [isQuizModalOpen , setquizmodelopen] = useState(false);
+    const handleOpenQuizModal = () => setquizmodelopen(true);
+    const handleCloseQuizModal = () => setquizmodelopen(false);
 
     return (
         <>
@@ -38,7 +38,7 @@ const EditLecture = () => {
                         </div>
                         <div className=' flex gap-2'>
                             <Button onClick={handleOpenModal} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Assignment</Button>
-                            <Button onclick={handleopenmodel} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Quizess</Button>
+                            <Button onClick={handleOpenQuizModal} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Quizes</Button>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@ const EditLecture = () => {
                 onClose={handleCloseModal}
             />
             <Createquiz
-                isOpen={isquizmodelopen}
-                onClose={handleclosemodel}
+                isOpen={isQuizModalOpen}
+                onClose={handleCloseQuizModal}
             />
         </>
     )

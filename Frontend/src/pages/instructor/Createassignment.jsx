@@ -19,7 +19,6 @@ const CreateAssignment = ({ isOpen, onClose }) => {
     const [assignmentTitle, setAssignmentTitle] = useState('Mid-Term Essay on Photosynthesis');
     const [description, setDescription] = useState('Write a 500-word essay detailing the process of photosynthesis.');
     const [dueDate, setDueDate] = useState('2025-09-15');
-    const [points, setPoints] = useState(100); // Added missing points state
     const [fileName, setFileName] = useState('rubric.pdf');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -27,7 +26,7 @@ const CreateAssignment = ({ isOpen, onClose }) => {
         e.preventDefault();
         setIsSubmitting(true);
         // This console.log will now work correctly
-        console.log('Submitting Assignment:', { assignmentTitle, description, dueDate, points, fileName });
+        console.log('Submitting Assignment:', { assignmentTitle, description, dueDate, fileName });
         setTimeout(() => {
             setIsSubmitting(false);
             onClose(); 

@@ -17,8 +17,6 @@ import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import EnrolledDashboard from "./pages/courseplayer/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
-import Createassignment from "./pages/instructor/Createassignment";
-import Createquiz from "./pages/instructor/Createquiz";
 import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Instructors from "./apages/Instructors";
@@ -45,10 +43,9 @@ function App() {
         
 
       </Route>
-      <Route path="/create-quiz" element={<Createquiz />} />
+      
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
-      <Route path="/create-assignment" element={<Createassignment />} />
       <Route path="/profile" element={<ProfilePage />} />
     
    

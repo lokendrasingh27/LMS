@@ -43,7 +43,7 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative w-full h-[40vh] rounded-xl mb-12 overflow-hidden">
+    <div className="relative w-full  max-sm:h-[30vh] lg:h-[40vh]  max-md:h-[40vh] rounded-xl mb-12 overflow-hidden">
       {/* Slider container */}
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
@@ -63,7 +63,7 @@ const Banner = () => {
       {/* Left Arrow */}
       <button
         onClick={handlePrev}
-        className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full z-10 transition-colors"
+        className="absolute hidden lg:block top-1/2 left-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full z-10 transition-colors"
       >
         &#10094;
       </button>
@@ -71,7 +71,7 @@ const Banner = () => {
       {/* Right Arrow */}
       <button
         onClick={handleNext}
-        className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full z-10 transition-colors"
+        className="absolute hidden lg:block top-1/2 right-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-3 rounded-full z-10 transition-colors"
       >
         &#10095;
       </button>
@@ -82,7 +82,7 @@ const Banner = () => {
           <button
             key={slideIndex}
             onClick={() => goToSlide(slideIndex)}
-            className={`h-3 w-3 rounded-full transition-colors ${
+            className={`h-2 w-3 rounded-full transition-colors ${
               currentIndex === slideIndex ? 'bg-white' : 'bg-white/50'
             }`}
           ></button>

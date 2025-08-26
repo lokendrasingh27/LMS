@@ -43,7 +43,7 @@ const CourseViewPage = () => {
 
 
   return (
-    <div className="courseView w-[81vw] p-6 h-[100vh] overflow-y-auto">
+    <div className="courseView lg:w-[81vw] w-[100vw] overflow-hidden max-sm:p-2 max-md:p-2 lg:p-6 h-[100vh] overflow-y-auto">
       {/* Main Content */}
       <div className="overflow-y-auto">
         <Banner />

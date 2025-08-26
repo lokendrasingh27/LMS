@@ -3,6 +3,7 @@ import { ArrowBigLeft } from 'lucide-react'
 import React, { useState } from 'react' 
 import { Link, useParams } from 'react-router-dom' 
 import Createassignment from './Createassignment'
+import Createquiz from './CreateQuiz';
 
 const LectureTab = () => {
     return (
@@ -20,6 +21,9 @@ const EditLecture = () => {
     const [isAssignmentModalOpen, setAssignmentModalOpen] = useState(false);
     const handleOpenModal = () => setAssignmentModalOpen(true);
     const handleCloseModal = () => setAssignmentModalOpen(false);
+    const [isquizmodelopen , setquizmodelopen] = useState(false);
+    const handleopenmodel = () => setquizmodelopen(true);
+    const handleclosemodel = () => setquizmodelopen(false);
 
     return (
         <>
@@ -34,7 +38,7 @@ const EditLecture = () => {
                         </div>
                         <div className=' flex gap-2'>
                             <Button onClick={handleOpenModal} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Assignment</Button>
-                            <Button className='bg-[#001F3F] hover:bg-[#006D77]'>Create Quizess</Button>
+                            <Button onclick={handleopenmodel} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Quizess</Button>
                         </div>
                     </div>
                 </div>
@@ -44,6 +48,10 @@ const EditLecture = () => {
             <Createassignment
                 isOpen={isAssignmentModalOpen}
                 onClose={handleCloseModal}
+            />
+            <Createquiz
+                isOpen={isquizmodelopen}
+                onClose={handleclosemodel}
             />
         </>
     )

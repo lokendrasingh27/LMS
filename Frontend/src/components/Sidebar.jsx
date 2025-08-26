@@ -161,7 +161,7 @@ const Sidebar = () => {
                    <FaHome /> <span>Home</span>
                 </button>
               </Link>
-               <Link to="/courseplayer/student-dashboard">
+               <Link to="/courseplayer/EnrolledDashboard">
                 <button className="flex cursor-pointer items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
                    <ImBook /> <span>Enrolled Course</span>
                 </button>

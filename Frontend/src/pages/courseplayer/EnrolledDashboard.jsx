@@ -5,7 +5,7 @@ import EnrolledCourseCard from './EnrolledCourseCard';
 import { studentData } from './demodata';
 import { Menu, X, Book, CheckCircle, Clock } from 'lucide-react';
 
-const StudentDashboard = () => {
+const EnrolledDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const coursesInProgress = studentData.enrolledCourses.filter(c => c.progress < 100);
@@ -23,12 +23,12 @@ const StudentDashboard = () => {
         <div className="md:hidden">
           {/* Dark overlay */}
           <div
-            className="fixed inset-0 bg-black/60 z-30"
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
             aria-hidden="true"
             onClick={() => setIsSidebarOpen(false)}
           />
           {/* Sidebar Drawer */}
-          <div className="fixed inset-y-0 left-0 w-72 bg-white z-40">
+          <div className="fixed inset-y-0 left-0 w-72 z-40">
             <Sidebar />
             <button
               className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-800"
@@ -99,4 +99,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default EnrolledDashboard;

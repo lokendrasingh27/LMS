@@ -15,12 +15,11 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
     const touchStartX = useRef(null);
     const touchEndX = useRef(null);
 
-    // Minimum swipe distance in pixels
     const minSwipeDistance = 50; 
 
     const handleTouchStart = (e) => {
         touchStartX.current = e.targetTouches[0].clientX;
-        touchEndX.current = null; // Reset end position on new touch
+        touchEndX.current = null;
     };
 
     const handleTouchMove = (e) => {
@@ -33,12 +32,10 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
         const distance = touchEndX.current - touchStartX.current;
         const isRightSwipe = distance > minSwipeDistance;
 
-        // Since the sidebar is on the right, a swipe to the right should close it.
         if (isRightSwipe) {
             onClose();
         }
 
-        // Reset values
         touchStartX.current = null;
         touchEndX.current = null;
     };
@@ -51,66 +48,77 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
     `;
 
     return (
-        <aside 
-            className={sidebarClasses}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-        >
-            <div className="flex justify-between items-center mb-6 md:hidden">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider px-2">
-                    Course Content
-                </h3>
-                <button 
-                    onClick={onClose} 
-                    className="text-white hover:text-indigo-200"
-                    aria-label="Close sidebar"
-                >
-                    <i className="fa-solid fa-xmark text-2xl"></i>
-                </button>
-            </div>
-            {curriculum.map(section => (
-                <div key={section.id} className="mb-6">
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 px-2 hidden md:block">
-                        {section.title}
-                    </h3>
-                    <ul className="space-y-1">
-                        {section.lessons.map(lesson => {
-                            const isCurrent = lesson.id === currentLessonId;
-                            let lessonClasses = "flex items-center justify-between bg-[#C2E8F8] p-2 rounded-md text-sm font-medium transition-colors relative overflow-hidden";
+        <>
+            {/* Overlay */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+                    onClick={onClose}
+                />
+            )}
 
-                            if (isCurrent) {
-                                lessonClasses += " bg-indigo-100 font-black text-xl font-bold";
-                            } else {
-                                lessonClasses += " text-black-600 hover:bg-gray-100 cursor-pointer";
-                            }
-                            
-                            return (
-                                <li key={lesson.id} className={lessonClasses} onClick={() => onSelectLesson(lesson)}>
-                                    <div className="flex items-center gap-3 truncate ">
-                                        {getIcon(lesson, isCurrent)}
-                                        <span className="truncate">{lesson.title}</span>
-                                    </div>
-                                    
-                                    {lesson.pdfUrl && (
-                                        <a
-                                            href={lesson.pdfUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="p-1 rounded-full text-gray-500 hover:text-indigo-600"
-                                            title="Download PDF"
-                                        >
-                                            <i className="fa-solid fa-download"><FaFilePdf className='text-xl'/></i>
-                                        </a>
-                                    )}
-                                </li>
-                            );
-                        })}
-                    </ul>
+            {/* Sidebar */}
+            <aside 
+                className={sidebarClasses}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+            >
+                <div className="flex justify-between items-center mb-6 md:hidden">
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider px-2">
+                        Course Content
+                    </h3>
+                    <button 
+                        onClick={onClose} 
+                        className="text-white hover:text-indigo-200"
+                        aria-label="Close sidebar"
+                    >
+                        <i className="fa-solid fa-xmark text-2xl"></i>
+                    </button>
                 </div>
-            ))}
-        </aside>
+                {curriculum.map(section => (
+                    <div key={section.id} className="mb-6">
+                        <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-3 px-2 hidden md:block">
+                            {section.title}
+                        </h3>
+                        <ul className="space-y-1">
+                            {section.lessons.map(lesson => {
+                                const isCurrent = lesson.id === currentLessonId;
+                                let lessonClasses = "flex items-center justify-between bg-[#C2E8F8] p-2 rounded-md text-sm font-medium transition-colors relative overflow-hidden";
+
+                                if (isCurrent) {
+                                    lessonClasses += " bg-indigo-100 font-black text-xl font-bold";
+                                } else {
+                                    lessonClasses += " text-black-600 hover:bg-gray-100 cursor-pointer";
+                                }
+                                
+                                return (
+                                    <li key={lesson.id} className={lessonClasses} onClick={() => onSelectLesson(lesson)}>
+                                        <div className="flex items-center gap-3 truncate ">
+                                            {getIcon(lesson, isCurrent)}
+                                            <span className="truncate">{lesson.title}</span>
+                                        </div>
+                                        
+                                        {lesson.pdfUrl && (
+                                            <a
+                                                href={lesson.pdfUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) => e.stopPropagation()}
+                                                className="p-1 rounded-full text-gray-500 hover:text-indigo-600"
+                                                title="Download PDF"
+                                            >
+                                                <FaFilePdf className='text-xl' />
+                                            </a>
+                                        )}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                ))}
+            </aside>
+        </>
     );
 }
 

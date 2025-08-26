@@ -30,7 +30,7 @@ const hardcodedQuestion = {
 };
 
 
-const Createquiz = () => {
+const Createquiz = ({isOpen,onClose }) => {
     // --- State Management ---
     const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
     const [dueDate, setDueDate] = useState('2025-10-15');
@@ -94,11 +94,14 @@ const Createquiz = () => {
         handleGoBack(); // Redirect after closing modal
     };
 
+    if (!isOpen) {
+        return null;
+    }
     return (
         <>
             <div className="bg-[#E3F1F1] min-h-screen font-sans p-4 sm:p-6 md:p-10">
                 <div className="max-w-6xl mx-auto relative">
-                    <button onClick={handleGoBack} className="absolute top-0 right-0 mt-4 mr-4 text-slate-400 hover:text-slate-700 transition-colors z-10" aria-label="Go back to previous page">
+                    <button onClick={onClose} className="absolute top-0 right-0 mt-4 mr-4 text-slate-400 hover:text-slate-700 transition-colors z-10" aria-label="Go back to previous page">
                         <XIcon />
                     </button>
 

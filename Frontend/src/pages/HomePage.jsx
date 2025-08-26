@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div className="flex min-h-screen w-full bg-[#E3F1F1]">
       {/* Sidebar (Desktop) */}
-      <aside className="hidden lg:block fixed left-0 top-0 h-full w-72">
+      <aside className=" fixed left-0 top-0 h-full w-72">
         <Sidebar />
       </aside>
 

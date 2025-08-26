@@ -53,7 +53,7 @@ const CourseDetails = () => {
             key:import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount:orderData.data.order.amount,
             currency:'INR',
-            name:"Gradix Course",
+            name:`${selectedCourse.courseTitle}`,
             description:"course Enrollment Payemnt",
             order_id:orderData.data.order.id,
             handler:async function(response){

@@ -17,14 +17,12 @@ import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import EnrolledDashboard from "./pages/courseplayer/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
-import Createassignment from "./pages/instructor/Createassignment";
 
 import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Instructors from "./apages/Instructors";
 import Students from "./apages/Students";
-import Dashboard from "./acomponents/Dashboard";
-import CreateQuiz from "./pages/instructor/CreateQuiz";
+import Dashboard from "./acomponents/Dashboard"; 
 
 
 function App() {

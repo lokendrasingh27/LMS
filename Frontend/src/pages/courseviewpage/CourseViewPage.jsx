@@ -43,7 +43,7 @@ const CourseViewPage = () => {
 
 
   return (
-    <div className="courseView lg:w-[81vw] w-[100vw] overflow-hidden max-sm:p-2 max-md:p-2 lg:p-6 h-[100vh] overflow-y-auto">
+    <div className="courseView lg:w-[81vw] w-[100vw] overflow-x-hidden max-sm:p-2 max-md:p-2 lg:p-6 h-[100vh] overflow-y-auto">
       {/* Main Content */}
       <div className="overflow-y-auto">
         <Banner />
@@ -55,7 +55,7 @@ const CourseViewPage = () => {
             <h2 className="text-xl px-4 py-2 bg-[#006D77] rounded-xl text-white font-semibold">
               Our Courses
             </h2>
-            <div className="flex items-center gap-2">
+            <div className="lg:flex max-sm:flex-col max-md:flex  items-start gap-2">
               {/* Search Bar */}
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -78,7 +78,7 @@ const CourseViewPage = () => {
           </div>
 
           {/* Course Grid */}
-          <div className="flex gap-4 overflow-x-auto snap-x">
+          <div className="flex gap-[2%] flex-wrap ">
             {filteredAvailableCourses.map((course,index) => (
               <CourseCard key={index} course={course} />
             ))}

@@ -30,7 +30,7 @@ const hardcodedQuestion = {
 };
 
 
-const Createquiz = ({isOpen,onClose }) => {
+const CreateQuiz = ({isOpen,onClose }) => {
     // --- State Management ---
     const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
     const [dueDate, setDueDate] = useState('2025-10-15');
@@ -219,4 +219,4 @@ const Createquiz = ({isOpen,onClose }) => {
     );
 };
 
-export default Createquiz;
+export default CreateQuiz;

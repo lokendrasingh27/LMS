@@ -47,11 +47,9 @@ function App() {
         
 
       </Route>
-     
-    
+      <Route path="/create-quiz" element={<Createquiz />} />
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
-      <Route path="/create-assignment" element={<Createassignment />} />
       <Route path="/profile" element={<ProfilePage />} />
     
    

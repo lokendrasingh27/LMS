@@ -109,6 +109,7 @@ const Sidebar = () => {
                   src={user?.photoUrl || userLogo}
                   alt="User"
                   className="w-16 h-16 rounded-full mx-auto mb-2"
+                  onClick={()=>navigate('/profile')}
                 />
                 <p className="text-sm">{user.name}</p>
                 <p className="text-xs">{user.role}</p>

@@ -333,10 +333,15 @@ export const togglePublishedCourse = async (req, res)=>{
 
 export const addAssignment = async (req, res) => {
   try {
-    const {  title, questions } = req.body;
+    const {   assignmentTitle,
+      question,
+      description,
+      pdfUrl,
+      pdfPublicId,
+      submissionDeadline } = req.body;
     const {lectureId}=req.params
 
-    if (!lectureId || !title || !questions || questions.length === 0) {
+    if (!assignmentTitle || !submissionDeadline || !question || lectureId) {
       return res.status(400).json({ message: "Lecture ID and questions are required" });
     }
 
@@ -346,8 +351,10 @@ export const addAssignment = async (req, res) => {
     }
 
     const assignment = new Assignment({
-      title,
-      questions
+      assignmentTitle,
+      question,
+      submissionDeadline
+
     });
 
     await assignment.save();

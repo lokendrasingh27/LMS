@@ -28,22 +28,7 @@ const hardcodedQuestion = {
   correctAnswer: 'Mars',
 };
 
-const Createquiz = ({ isOpen, onClose }) => {
-  if (!isOpen) return null; // 🚀 Only render if modal is open
 
-  // --- State Management ---
-  const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
-  const [dueDate, setDueDate] = useState('2025-10-15');
-  const [timeLimit, setTimeLimit] = useState(30); // in minutes
-  const [questions, setQuestions] = useState([
-    { id: 1, text: 'What is the powerhouse of the cell?', type: 'multiple-choice', options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Chloroplast'], correctAnswer: 'Mitochondria' },
-    { id: 2, text: 'The Earth is flat.', type: 'true-false', options: ['True', 'False'], correctAnswer: 'False' }
-  ]);
-
-  const [newQuestionText, setNewQuestionText] = useState(hardcodedQuestion.text);
-  const [newQuestionType, setNewQuestionType] = useState(hardcodedQuestion.type);
-  const [newOptions, setNewOptions] = useState(hardcodedQuestion.options);
-  const [newCorrectAnswer, setNewCorrectAnswer] = useState(hardcodedQuestion.correctAnswer);
 const CreateQuiz = ({isOpen,onClose }) => {
     // --- State Management ---
     const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');

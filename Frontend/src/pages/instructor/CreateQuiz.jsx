@@ -222,5 +222,5 @@ const CreateQuiz = ({isOpen,onClose }) => {
     </>
   );
 };
-
+}
 export default CreateQuiz;

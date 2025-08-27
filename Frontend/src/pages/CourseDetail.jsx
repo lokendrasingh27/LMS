@@ -88,7 +88,7 @@ const CourseDetails = () => {
 useEffect(()=>{
     checkEnrollment()
 },[user])
-    // console.log(courseLecture[0]?.videoUrl)
+   console.log(courseLecture)
     return (
         <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
             <Sidebar/>
@@ -166,17 +166,11 @@ useEffect(()=>{
                         <div className='w-full lg:w-1/3'>
                         <Card>
                             <CardContent className="p-4 flex flex-col">
-                                   {
-                                    courseLecture?.videoUrl ?<div className='w-full aspect-video mb-4'>
-                                    <ReactPlayer 
-                                    width="100%" 
-                                    height="100%"
-                                  
-                                    url={courseLecture?.videoUrl}
-                                    controls={true}
-                                    />
-                                   </div> :""
-                                   }
+                                 
+                                    <div className='w-full aspect-video mb-4'>
+                                   <video controls autoPlay src={courseLecture ? courseLecture[0]?.videoLink : null}></video>
+                                   </div> 
+                                   
                                    <h1>{courseLecture ? courseLecture[0]?.lectureTitle : "Lecture Title"}</h1>
                                    <Separator className="my-2"/>
                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus, aspernatur a sed dolores possimus inventore amet quos ab rerum illo.</p>

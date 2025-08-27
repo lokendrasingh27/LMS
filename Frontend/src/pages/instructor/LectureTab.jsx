@@ -22,7 +22,7 @@ const LectureTab = () => {
 
     const selectedLecture = lecture.find(lecture =>lecture._id === lectureId)
     const [lectureTitle , setLectureTitle ] = useState(selectedLecture.lectureTitle)
-
+   const [videoLink , setVideoLink ] = useState(selectedLecture.videoLink)
     const [uploadVideoInfo , setUploadVideoInfo ] = useState(null)
     const [isFree , setIsFree ] = useState(selectedLecture.isPreviewFree)
     const [mediaProgress , setMediaProgress ] = useState(false)
@@ -65,6 +65,7 @@ const LectureTab = () => {
             lectureTitle,
             videoInfo: uploadVideoInfo,
             isPreviewFree: isFree,
+            videoLink
         }
         try {
             setLoading(true)
@@ -138,6 +139,17 @@ const LectureTab = () => {
             type="file" 
              accept="video/*"
             onChange={fileChangeHandler}
+
+
+                className='w-fit' ></Input>
+        </div>
+        <div className='my-5'>
+            <Label className="mb-1">Video Link <span className='text-red-500'>*</span> </Label>
+            <Input 
+            type="text" 
+             
+            onChange={(e)=>setVideoLink(e.target.value)}
+            placeholder="Paste video link"
 
 
                 className='w-fit' ></Input>

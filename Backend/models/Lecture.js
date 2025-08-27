@@ -8,7 +8,7 @@ const lectureSchema = new mongoose.Schema({
     videoUrl:{type:String},
     publicId:{type:String},
     isPreviewFree : {type:Boolean},
-        
+     videoLink: { type: String } ,
      assignments: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Assignment" }
   ],

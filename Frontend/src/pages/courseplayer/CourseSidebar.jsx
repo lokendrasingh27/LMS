@@ -1,6 +1,7 @@
 // src/pages/courseplayer/CourseSidebar.jsx
 import React, { useRef } from 'react';
 import { FaFilePdf } from "react-icons/fa6";
+import { RxCross2 } from "react-icons/rx";  // clean cross icon
 
 const getIcon = (lesson, isCurrent) => {
     const baseClasses = "w-5 text-center";
@@ -73,7 +74,7 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
                         className="text-white hover:text-indigo-200"
                         aria-label="Close sidebar"
                     >
-                        <i className="fa-solid fa-xmark text-2xl"></i>
+                        <RxCross2 className="text-2xl" />
                     </button>
                 </div>
                 {curriculum.map(section => (

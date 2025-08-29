@@ -21,12 +21,6 @@ const CheckCircleIcon = () => (
 );
 
 // --- Hardcoded New Question Data ---
-const hardcodedQuestion = {
-  text: 'Which planet is known as the Red Planet?',
-  type: 'multiple-choice',
-  options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
-  correctAnswer: 'Mars',
-};
 
 
 const CreateQuiz = ({isOpen,onClose }) => {
@@ -161,7 +155,7 @@ const CreateQuiz = ({isOpen,onClose }) => {
                     <div className="space-y-3 pt-2">
                       <h3 className="font-medium text-slate-600">Options</h3>
                       {newOptions.map((opt, index) => (
-                        <input key={index} type="text" value={opt} onChange={(e) => handleOptionChange(index, e.target.value)} placeholder={`Option ${index + 1}`} className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
+                        <input key={index} type="text" value={opt} onChange={(e) => handleAddOption(index, e.target.value)} placeholder={`Option ${index + 1}`} className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
                       ))}
                       <button onClick={handleAddOption} className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"><PlusCircleIcon /> Add Option</button>
                     </div>

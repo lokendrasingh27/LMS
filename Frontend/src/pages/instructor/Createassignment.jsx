@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -64,7 +64,9 @@ const CreateAssignment = ({ isOpen, onClose }) => {
         }
      
     };
-
+    useEffect(()=>{
+        
+    })
     if (!isOpen) {
         return null;
     }

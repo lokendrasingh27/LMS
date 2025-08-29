@@ -88,14 +88,14 @@ const CourseDetails = () => {
 useEffect(()=>{
     checkEnrollment()
 },[user])
-   console.log(courseLecture)
+   
     return (
         <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
             <Sidebar/>
-            <Card className="max-w-7xl overflow-y-auto rounded-md mx-auto bg-white shadow-md pt-5 ">
+            <Card className="max-w-7xl overflow-y-auto  rounded-md mx-auto bg-[url('/bgimage.png')] shadow-md pt-5 ">
                 {/* Header section */}
-                <div className='px-4 py-1'>
-                    <div className='flex justify-between items-center'>
+                <div className='px-4 py-2 z-9  shadow-xl fixed w-[80vw] '>
+                    <div className='flex justify-between  items-center'>
                         <div className='flex gap-2 items-center'>
                             <Button size="icon" variant="outline" className="rounded-full" onClick={() => navigate('/')}>
                                 <ArrowLeft size={16} />
@@ -110,8 +110,8 @@ useEffect(()=>{
                     </div>
                 </div>
                 {/* Course overview section */}
-                <div className='p-6'>
-                    <div className='flex flex-col lg:flex-row lg:space-x-8'>
+                <div className='p-6 mt-10'>
+                    <div className='flex flex-col lg:flex-row  lg:space-x-8'>
                         <img src={selectedCourse.courseThumbnail} alt="Thumbnail" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
                         <div>
                             <p className='text-gray-800 mb-4 font-semibold capitalize'>{selectedCourse.subTitle}</p>

@@ -31,28 +31,33 @@ const hardcodedQuestion = {
 
 const CreateQuiz = ({isOpen,onClose }) => {
      if(!isOpen) return null
-    const [quizTitle, setQuizTitle] = useState('Biology Basics Quiz');
-    const [dueDate, setDueDate] = useState('2025-10-15');
-    const [timeLimit, setTimeLimit] = useState(30); // in minutes
-    const [questions, setQuestions] = useState([
-        { id: 1, text: 'What is the powerhouse of the cell?', type: 'multiple-choice', options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Chloroplast'], correctAnswer: 'Mitochondria' },
-        { id: 2, text: 'The Earth is flat.', type: 'true-false', options: ['True', 'False'], correctAnswer: 'False' }
-    ]);
-    
+     const [quizTitle, setQuizTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [timeLimit, setTimeLimit] = useState(""); // minutes
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState({
+    question: "",
+    options: ["", "", "", ""],
+    correctAnswer: "",
+    type: "multiple-choice", // default type
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const handleQuestionChange = (e) => {
+    setCurrentQuestion({ ...currentQuestion, question: e.target.value });
+  };
+   console.log(currentQuestion)
     const [newQuestionText, setNewQuestionText] = useState(hardcodedQuestion.text);
     const [newQuestionType, setNewQuestionType] = useState(hardcodedQuestion.type);
     const [newOptions, setNewOptions] = useState(hardcodedQuestion.options);
     const [newCorrectAnswer, setNewCorrectAnswer] = useState(hardcodedQuestion.correctAnswer);
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // --- Handlers ---
-  const handleAddOption = () => setNewOptions([...newOptions, '']);
-  const handleOptionChange = (index, value) => {
-    const updatedOptions = [...newOptions];
-    updatedOptions[index] = value;
-    setNewOptions(updatedOptions);
+  const handleAddOption = (index, value) => {
+    const newOptions = [...currentQuestion.options];
+    newOptions[index] = value;
+    setCurrentQuestion({ ...currentQuestion, options: newOptions });
   };
   const addQuestion = () => {
     const newQuestion = {
@@ -146,7 +151,7 @@ const CreateQuiz = ({isOpen,onClose }) => {
               <div className="bg-white p-8 rounded-2xl shadow-lg lg:sticky lg:top-10">
                 <h2 className="text-2xl font-bold text-slate-700 mb-6">Add a New Question</h2>
                 <div className="space-y-4">
-                  <textarea value={newQuestionText} onChange={(e) => setNewQuestionText(e.target.value)} placeholder="Type your question here..." className="w-full p-4 bg-slate-100 border-slate-200 rounded-lg" rows="3"></textarea>
+                  <textarea  onChange={handleQuestionChange} placeholder="Type your question here..." className="w-full p-4 bg-slate-100 border-slate-200 rounded-lg" rows="3"></textarea>
                   <select value={newQuestionType} onChange={(e) => setNewQuestionType(e.target.value)} className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg">
                     <option value="multiple-choice">Multiple Choice</option>
                     <option value="true-false">True / False</option>

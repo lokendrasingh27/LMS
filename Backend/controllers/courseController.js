@@ -336,12 +336,11 @@ export const addAssignment = async (req, res) => {
     const {   assignmentTitle,
       question,
       description,
-      pdfUrl,
-      pdfPublicId,
+    
       submissionDeadline } = req.body;
     const {lectureId}=req.params
 
-    if (!assignmentTitle || !submissionDeadline || !question || lectureId) {
+    if (!assignmentTitle || !submissionDeadline || !question ) {
       return res.status(400).json({ message: "Lecture ID and questions are required" });
     }
 
@@ -349,11 +348,28 @@ export const addAssignment = async (req, res) => {
     if (!lecture) {
       return res.status(404).json({ message: "Lecture not found" });
     }
+     // File upload to Cloudinary (req.file)
+   let pdfUrl = null;
+    let pdfPublicId = null;
 
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
+      const result = await cloudinary.uploader.upload(fileUri, {
+        resource_type: "raw", // ⚡ pdf ke liye
+        folder: "assignments",
+         format: "pdf",
+      });
+
+      pdfUrl = result.secure_url;
+      pdfPublicId = result.public_id;
+    }
     const assignment = new Assignment({
       assignmentTitle,
       question,
-      submissionDeadline
+      submissionDeadline,
+      description,
+      pdfUrl,
+      pdfPublicId
 
     });
 
@@ -362,27 +378,75 @@ export const addAssignment = async (req, res) => {
     lecture.assignments.push(assignment._id);
     await lecture.save();
 
-    res.status(201).json({ message: "Assignment created successfully", assignment });
+    res.status(201).json({ message: "Assignment created successfully", assignment,success:true});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
+export const getAssignmentsByLecture = async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+
+    const lecture = await Lecture.findById(lectureId).populate("assignments");
+    if (!lecture) {
+      return res.status(404).json({ message: "Lecture not found" });
+    }
+
+    res.status(200).json({ assignments: lecture.assignments , success:true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 export const addQuiz = async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const { questions, title, } = req.body;
+    const { questions, title, submissionDeadline } = req.body;
 
-   if (!lectureId || !title || !questions || questions.length === 0) {
-      return res.status(400).json({ message: "Lecture ID and questions are required" });
+    // Validation
+    if (!lectureId || !title || !submissionDeadline || !questions || questions.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Lecture ID, title, submissionDeadline, and questions are required" 
+      });
     }
 
+    // Validate each question's type and structure
+    for (let q of questions) {
+      if (!q.type || !["multiple-choice", "true-false"].includes(q.type)) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a valid type: 'multiple-choice' or 'true-false'"
+        });
+      }
+
+      if (q.type === "multiple-choice" && (!q.options || q.options.length < 2)) {
+        return res.status(400).json({
+          success: false,
+          message: "Multiple-choice questions must have at least 2 options"
+        });
+      }
+
+      if (!q.correctAnswer) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a correctAnswer"
+        });
+      }
+    }
+
+    // Create Quiz
     const quiz = await Quiz.create({
-     title,
+      title,
+      
+      submissionDeadline,
       questions
     });
+
+    // Push quiz to lecture
     await Lecture.findByIdAndUpdate(lectureId, {
       $push: { quizzes: quiz._id },
     });
@@ -392,7 +456,26 @@ export const addQuiz = async (req, res) => {
       message: "Quiz added successfully",
       quiz,
     });
-    } catch (error) {
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+export const getQuizzesByLecture = async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+
+    const lecture = await Lecture.findById(lectureId).populate("quizzes");
+    if (!lecture) {
+      return res.status(404).json({ success: false, message: "Lecture not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      quizzes: lecture.quizzes,
+    });
+  } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };

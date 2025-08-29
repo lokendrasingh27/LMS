@@ -404,16 +404,49 @@ export const getAssignmentsByLecture = async (req, res) => {
 export const addQuiz = async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const { questions, title, } = req.body;
+    const { questions, title, submissionDeadline } = req.body;
 
-   if (!lectureId || !title || !questions || questions.length === 0) {
-      return res.status(400).json({ message: "Lecture ID and questions are required" });
+    // Validation
+    if (!lectureId || !title || !submissionDeadline || !questions || questions.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Lecture ID, title, submissionDeadline, and questions are required" 
+      });
     }
 
+    // Validate each question's type and structure
+    for (let q of questions) {
+      if (!q.type || !["multiple-choice", "true-false"].includes(q.type)) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a valid type: 'multiple-choice' or 'true-false'"
+        });
+      }
+
+      if (q.type === "multiple-choice" && (!q.options || q.options.length < 2)) {
+        return res.status(400).json({
+          success: false,
+          message: "Multiple-choice questions must have at least 2 options"
+        });
+      }
+
+      if (!q.correctAnswer) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a correctAnswer"
+        });
+      }
+    }
+
+    // Create Quiz
     const quiz = await Quiz.create({
-     title,
+      title,
+      
+      submissionDeadline,
       questions
     });
+
+    // Push quiz to lecture
     await Lecture.findByIdAndUpdate(lectureId, {
       $push: { quizzes: quiz._id },
     });
@@ -423,10 +456,11 @@ export const addQuiz = async (req, res) => {
       message: "Quiz added successfully",
       quiz,
     });
-    } catch (error) {
+  } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 export const getQuizzesByLecture = async (req, res) => {
   try {

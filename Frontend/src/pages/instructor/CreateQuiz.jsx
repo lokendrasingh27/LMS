@@ -1,4 +1,7 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 
 // --- Icon Components (self-contained) ---
 const PlusCircleIcon = () => (
@@ -20,6 +23,97 @@ const XIcon = () => (
 const CreateQuiz = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
+   const [quizTitle, setQuizTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [timeLimit, setTimeLimit] = useState(""); // minutes
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState({
+    question: "",
+    options: ["", "", "", ""],
+    correctAnswer: "",
+    type: "multiple-choice", // default type
+  });
+  const {courseId,lectureId}=useParams()
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [getQuizess , setGetQuizess ] = useState(null)
+
+  // handle input change for question
+  const handleQuestionChange = (e) => {
+    setCurrentQuestion({ ...currentQuestion, question: e.target.value });
+  };
+ console.log(currentQuestion)
+  // handle option change
+  const handleOptionChange = (index, value) => {
+    const newOptions = [...currentQuestion.options];
+    newOptions[index] = value;
+    setCurrentQuestion({ ...currentQuestion, options: newOptions });
+  };
+
+  // add question to list
+  const addQuestion = () => {
+    if (!currentQuestion.question || !currentQuestion.correctAnswer) {
+      alert("Please fill question and correct answer!");
+      return;
+    }
+    setQuestions([...questions, currentQuestion]);
+    setCurrentQuestion({
+      question: "",
+      options: ["", "", "", ""],
+      correctAnswer: "",
+      type: "multiple-choice",
+    });
+  };
+
+  // submit quiz to backend
+  const handleSubmitQuiz = async () => {
+    if (!quizTitle || questions.length === 0) {
+      alert("Please enter title and at least one question");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const quizData = {
+        title: quizTitle,
+        submissionDeadline: dueDate, // backend field
+        timeLimit,
+        questions,
+      };
+
+      const res = await axios.post(`http://localhost:5000/api/course/:${courseId}/lecture/${lectureId}/quiz`,
+        quizData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // agar auth laga hai
+          },withCredentials:true
+        }
+      );
+
+     if(res.data.success){
+      toast.success(res.data.message)
+       setShowSuccessModal(true);
+       setQuizTitle("");
+       setDueDate("");
+       setTimeLimit("");
+       setQuestions([]);
+     }
+    } catch (error) {
+      console.error("❌ Error creating quiz:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Failed to create quiz");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+   
+      useEffect(()=>{
+        try{
+
+        } catch(error){
+          console.log(error)
+        }
+      })
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       <div className="bg-[#E3F1F1] min-h-screen font-sans p-4 sm:p-6 md:p-10">
@@ -44,15 +138,30 @@ const CreateQuiz = ({ isOpen, onClose }) => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-600 mb-1">Quiz Title</label>
-                <input type="text" placeholder="e.g., Biology Basics" className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
+                <input type="text" 
+               placeholder="Quiz Title"
+              value={quizTitle}
+              onChange={(e) => setQuizTitle(e.target.value)} 
+                className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
               </div>
               <div>
-                <label className="flex items-center text-sm font-medium text-slate-600 mb-1"><CalendarIcon /><span className="ml-2">Due Date</span></label>
-                <input type="date" className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
+                <label className="flex items-center text-sm font-medium text-slate-600 mb-1">
+                  <CalendarIcon /><span className="ml-2">Due Date</span></label>
+                <input 
+                 type="date"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                 className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
               </div>
               <div>
-                <label className="flex items-center text-sm font-medium text-slate-600 mb-1"><ClockIcon /><span className="ml-2">Time Limit (Minutes)</span></label>
-                <input type="number" placeholder="e.g., 30" className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
+                <label className="flex items-center text-sm font-medium text-slate-600 mb-1"><ClockIcon />
+                <span className="ml-2">Time Limit (Minutes)</span></label>
+                <input type="number"
+               
+                placeholder="Time Limit (minutes)"
+                value={timeLimit}
+                onChange={(e) => setTimeLimit(e.target.value)}
+                 className="w-full px-4 py-2 bg-slate-100 border-slate-200 rounded-lg" />
               </div>
             </div>
           </div>
@@ -71,33 +180,66 @@ const CreateQuiz = ({ isOpen, onClose }) => {
             <div className="bg-white p-8 rounded-2xl shadow-lg lg:sticky lg:top-10">
               <h2 className="text-2xl font-bold text-slate-700 mb-6">Add a New Question</h2>
               <div className="space-y-4">
-                <textarea placeholder="Type your question here..." className="w-full p-4 bg-slate-100 border-slate-200 rounded-lg" rows="3"></textarea>
-                <select className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg">
-                  <option value="multiple-choice">Multiple Choice</option>
-                  <option value="true-false">True / False</option>
+                <textarea 
+                  type="text"
+         
+                value={currentQuestion.question}
+                onChange={handleQuestionChange}
+                placeholder="Type your question here..." className="w-full p-4 bg-slate-100 border-slate-200 rounded-lg" rows="3"></textarea>
+                <select 
+                  value={currentQuestion.type}
+                  onChange={(e) =>
+                    setCurrentQuestion({ ...currentQuestion, type: e.target.value })
+                  }
+                   className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg"
+                   >
+                   <option value="multiple-choice">Multiple Choice</option>
+                   <option value="true-false">True / False</option>
                 </select>
-                <div className="space-y-3 pt-2">
+                <div className="space-y-3  pt-2">
                   <h3 className="font-medium text-slate-600">Options</h3>
-                  <input type="text" placeholder="Option 1" className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
-                  <input type="text" placeholder="Option 2" className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
-                  <button className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"><PlusCircleIcon /> Add Option</button>
+                  {currentQuestion.options.map((opt, idx) => (
+                  <input type="text"  placeholder={`Option ${idx + 1}`} 
+                  value={opt}
+                  onChange={(e) => handleOptionChange(idx, e.target.value)}
+                    key={idx}
+                  className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
+                  ))}
+                  {/* <button className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"><PlusCircleIcon /> Add Option</button> */}
                 </div>
                 <div className="pt-2">
                   <h3 className="font-medium text-slate-600 mb-2">Correct Answer</h3>
-                  <select className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg">
-                    <option value="">Select the correct answer</option>
+                  <select
+                   type="text"
+                   placeholder="Correct Answer"
+                    value={currentQuestion.correctAnswer}
+                  onChange={(e) =>
+                 setCurrentQuestion({ ...currentQuestion, correctAnswer: e.target.value })
+                  }
+                  className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg"
+                  >
+                     {currentQuestion.options.map((opt, idx) => (
+                        <option key={idx}  value={opt}> {opt}</option>
+                  ))}
+                    
                   </select>
                 </div>
-                <button className="w-full mt-4 py-3 px-4 bg-[#001F3F] text-white font-semibold rounded-lg hover:bg-[#006D77]">Add Question to List</button>
+                <button onClick={addQuestion} className="w-full mt-4 py-3 px-4 bg-[#001F3F] text-white font-semibold rounded-lg hover:bg-[#006D77]">Add Question to List</button>
               </div>
             </div>
           </div>
 
           {/* Submit */}
           <div className="mt-8">
-            <button onClick={onClose} className="w-full py-4 px-6 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700">
+            <button  onClick={handleSubmitQuiz} className="w-full py-4 px-6 bg-green-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-700">
               Create and Publish Quiz
             </button>
+            {showSuccessModal && (
+        <div className="mt-4 p-4 bg-green-100 border border-green-400 rounded">
+          🎉 Quiz Created Successfully!
+        </div>
+      )}
+
           </div>
         </div>
       </div>

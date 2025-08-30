@@ -32,6 +32,7 @@ const CourseDetails = () => {
                 const res = await axios.get(`http://localhost:5000/api/course/${courseId}/lecture`, {withCredentials:true})
                 if(res.data.success){
                     setCourseLecture(res.data.lectures)
+                    console.log(res.data.lectures)
                 }
             } catch (error) {
                 console.log(error);
@@ -168,7 +169,12 @@ useEffect(()=>{
                             <CardContent className="p-4 flex flex-col">
                                  
                                     <div className='w-full aspect-video mb-4'>
-                                   <video controls autoPlay src={courseLecture ? courseLecture[0]?.videoLink : null}></video>
+                                {
+                                    courseLecture?.map((lecture,index)=>{
+                                        return <video key={index} controls src={lecture?.videoUrl}></video>
+                                    })
+                                }
+                                
                                    </div> 
                                    
                                    <h1>{courseLecture ? courseLecture[0]?.lectureTitle : "Lecture Title"}</h1>
@@ -179,6 +185,7 @@ useEffect(()=>{
                               <Button>Continue Course</Button>
                             </CardFooter>
                         </Card>
+                        
                         </div>
                     </div>
                 }

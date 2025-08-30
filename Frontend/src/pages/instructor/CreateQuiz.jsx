@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -42,6 +43,25 @@ const CreateQuiz = ({ isOpen, onClose }) => {
   const handleQuestionChange = (e) => {
     setCurrentQuestion({ ...currentQuestion, question: e.target.value });
   };
+  
+const handleTypeChange = (e) => {
+  const selectedType = e.target.value;
+  if (selectedType === "true-false") {
+    setCurrentQuestion({
+      ...currentQuestion,
+      type: selectedType,
+      options: ["True", "False"],
+      correctAnswer: "True", // default correct answer
+    });
+  } else {
+    setCurrentQuestion({
+      ...currentQuestion,
+      type: selectedType,
+      options: ["", "", "", ""], // 4 empty for multiple choice
+      correctAnswer: "",
+    });
+  }
+};
  console.log(currentQuestion)
   // handle option change
   const handleOptionChange = (index, value) => {
@@ -59,7 +79,7 @@ const CreateQuiz = ({ isOpen, onClose }) => {
     setQuestions([...questions, currentQuestion]);
     setCurrentQuestion({
       question: "",
-      options: ["", "", "", ""],
+      options: ["", "","",""],
       correctAnswer: "",
       type: "multiple-choice",
     });
@@ -108,12 +128,28 @@ const CreateQuiz = ({ isOpen, onClose }) => {
   };
    
       useEffect(()=>{
-        try{
+        const getLectureQuizzes=async ()=>{
+          try{
+              const res = await axios.get(`http://localhost:5000/api/course/:${courseId}/lecture/${lectureId}/quiz`,{withCredentials:true})
+            if(res.data.success){
+              setGetQuizess(res.data.quizzes)
 
-        } catch(error){
-          console.log(error)
+            }
+          }catch(error){
+            console.log(error)
+          }
         }
+        getLectureQuizzes()
       })
+      console.log(getQuizess)
+
+      const removeQuestion = (index) => {
+  setQuestions(questions.filter((_, i) => i !== index));
+};
+const editQuestion = (index) => {
+  setCurrentQuestion(questions[index]);  // select kar liya
+  setQuestions(questions.filter((_, i) => i !== index)); // usko list se nikaal diya
+};
   return (
     <div className="fixed inset-0 bg-white z-50 overflow-y-auto">
       <div className="bg-[#E3F1F1] min-h-screen font-sans p-4 sm:p-6 md:p-10">
@@ -166,31 +202,21 @@ const CreateQuiz = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Questions + Add Question */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Left: Questions List */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <h2 className="text-2xl font-bold text-slate-700 mb-6">Questions (0)</h2>
-              <div className="space-y-6">
-                <p className="text-center text-slate-500 py-10">No questions added yet.</p>
-              </div>
-            </div>
-
-            {/* Right: Add New Question */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg lg:sticky lg:top-10">
+                {/* Questions + Add Question */}
+          <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
+             <div className="bg-white p-8 rounded-2xl shadow-lg lg:sticky lg:top-10">
               <h2 className="text-2xl font-bold text-slate-700 mb-6">Add a New Question</h2>
               <div className="space-y-4">
                 <textarea 
                   type="text"
-         
+                  
                 value={currentQuestion.question}
                 onChange={handleQuestionChange}
                 placeholder="Type your question here..." className="w-full p-4 bg-slate-100 border-slate-200 rounded-lg" rows="3"></textarea>
                 <select 
                   value={currentQuestion.type}
-                  onChange={(e) =>
-                    setCurrentQuestion({ ...currentQuestion, type: e.target.value })
-                  }
+                  onChange={handleTypeChange}
+
                    className="w-full p-3 bg-slate-100 border-slate-200 rounded-lg"
                    >
                    <option value="multiple-choice">Multiple Choice</option>
@@ -199,10 +225,12 @@ const CreateQuiz = ({ isOpen, onClose }) => {
                 <div className="space-y-3  pt-2">
                   <h3 className="font-medium text-slate-600">Options</h3>
                   {currentQuestion.options.map((opt, idx) => (
-                  <input type="text"  placeholder={`Option ${idx + 1}`} 
+                  <input type="text"  
+                  placeholder={`Option ${idx + 1}`} 
                   value={opt}
                   onChange={(e) => handleOptionChange(idx, e.target.value)}
                     key={idx}
+                     readOnly={currentQuestion.type === "true-false"}
                   className="w-full p-2 bg-slate-100 border-slate-200 rounded-lg" />
                   ))}
                   {/* <button className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"><PlusCircleIcon /> Add Option</button> */}
@@ -227,6 +255,44 @@ const CreateQuiz = ({ isOpen, onClose }) => {
                 <button onClick={addQuestion} className="w-full mt-4 py-3 px-4 bg-[#001F3F] text-white font-semibold rounded-lg hover:bg-[#006D77]">Add Question to List</button>
               </div>
             </div>
+          <div className=" w-full  p-4 h-[100vh] overflow-hidden overflow-y-auto  items-start">
+          
+        
+               {
+                questions.map((question,idx)=>{
+                       return  <div key={idx} className="bg-white p-8 rounded-2xl mb-4 shadow-lg">
+              <h2 className="text-2xl font-bold text-slate-700 mb-2">Question : {idx +1 } </h2>
+              <div className="space-y-2">
+                <p className=" text-black ">{question?.question}</p>
+                {
+                  question?.options.map((option,idx)=>{
+                    return <div key={idx} className='flex gap-4'>
+                  <input type="radio" name="" id="" />
+                <label htmlFor="">{option}</label>
+                </div>
+                  })
+                }
+
+              <div className='flex justify-between'>
+                  <h1 className='text-green-500 '>Correct Answer : {question.correctAnswer}</h1>
+                  <div  className='flex gap-4'>
+                    <Button onClick={()=>editQuestion(idx)} >Edit</Button>
+                    <Button onClick={()=>removeQuestion(idx)}>Remove</Button>
+                  </div>
+                </div> 
+                
+              
+              
+              </div>
+            </div>
+                })
+               }
+          
+          
+           
+
+            {/* Right: Add New Question */}
+          </div>
           </div>
 
           {/* Submit */}

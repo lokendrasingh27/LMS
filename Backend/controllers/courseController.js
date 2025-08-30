@@ -423,7 +423,7 @@ export const addQuiz = async (req, res) => {
         });
       }
 
-      if (q.type === "multiple-choice" && (!q.options || q.options.length < 2)) {
+      if (q.type === "multiple-choice" && (!q.options || q.options.length<= 2)) {
         return res.status(400).json({
           success: false,
           message: "Multiple-choice questions must have at least 2 options"
@@ -441,7 +441,7 @@ export const addQuiz = async (req, res) => {
     // Create Quiz
     const quiz = await Quiz.create({
       title,
-      
+
       submissionDeadline,
       questions
     });

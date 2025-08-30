@@ -2,17 +2,19 @@ import Sidebar from '@/components/Sidebar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { setUser } from '@/redux/authSlice'
 import axios from 'axios'
 import { ArrowLeft, Currency, Lock, PlayCircle } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { use } from 'react'
 import ReactPlayer from 'react-player'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 const CourseDetails = () => {
     const navigate = useNavigate()
+    const dispatch=useDispatch()
     const  {courseId}=useParams()
     const { course } = useSelector(store => store.course)
     const {user}= useSelector(store=>store.auth)
@@ -27,6 +29,8 @@ const CourseDetails = () => {
                 setIsEnrolled(true)
             }
     }
+    
+    
     useEffect(()=> {
         const getCourseLecture = async()=> {
             try {
@@ -68,6 +72,7 @@ const CourseDetails = () => {
                             userId
                         },{withCredentials:true})
                         setIsEnrolled(true)
+                        dispatch(setUser(verifyPayment.data.user))
                         toast.success(verifyPayment.data.message)
                 } catch(error){
                     console.log(error)
@@ -89,8 +94,8 @@ const CourseDetails = () => {
 
 useEffect(()=>{
     checkEnrollment()
-},[user])
-   console.log(selectedLecture)
+},[user,courseId])
+   
     return (
         <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
             <Sidebar/>

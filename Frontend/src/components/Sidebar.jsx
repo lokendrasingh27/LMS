@@ -138,6 +138,11 @@ const Sidebar = () => {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
+                   <Link to="/">
+                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                  <FaHome /> Home
+                </button>
+              </Link>
                   <NavLink
                     to="/courseplayer/EnrolledDashboard"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
@@ -146,7 +151,7 @@ const Sidebar = () => {
                   </NavLink>
                   <NavLink
                     to="/payment-method"
-                    className="bg-[#b3e5fc] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
                   >
                     <MdOutlinePayment /> Payment
                   </NavLink>

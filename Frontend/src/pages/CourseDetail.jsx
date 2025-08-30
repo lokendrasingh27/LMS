@@ -19,6 +19,7 @@ const CourseDetails = () => {
     const selectedCourse = course.find(course => course._id === courseId)
     const [courseLecture, setCourseLecture] = useState(null)
     const [isEnrolled , setIsEnrolled ] = useState(false)
+    const [selectedLecture , setSelectedLecture ] = useState(null)
 
     const checkEnrollment =()=>{
         const verify=user?.enrolledCourses?.some( c =>( typeof c === 'string' ? c : c._id).toString()===courseId?.toString())
@@ -89,7 +90,7 @@ const CourseDetails = () => {
 useEffect(()=>{
     checkEnrollment()
 },[user])
-   
+   console.log(selectedLecture)
     return (
         <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
             <Sidebar/>
@@ -154,7 +155,14 @@ useEffect(()=>{
                             <div className='space-y-4'>
                                 {
                                     courseLecture?.map((lecture, index)=>{
-                                        return <div key={index} className='flex items-center gap-3 bg-gray-200 p-4 rounded-md cursor-pointer'>
+                                        return <div onClick={()=>
+                                            {
+                                                if(lecture.isPreviewFree){
+                                                    setSelectedLecture(lecture)
+                                                }
+                                        }}  
+                                        
+                                        key={index} className='flex items-center gap-3 bg-gray-200 p-4 rounded-md cursor-pointer'>
                                             <span>
                                                 {lecture.isPreviewFree ? <PlayCircle size={20}/>:<Lock size={20}/>}
                                             </span>
@@ -168,12 +176,11 @@ useEffect(()=>{
                         <Card>
                             <CardContent className="p-4 flex flex-col">
                                  
-                                    <div className='w-full aspect-video mb-4'>
-                                {
-                                    courseLecture?.map((lecture,index)=>{
-                                        return <video key={index} controls src={lecture?.videoUrl}></video>
-                                    })
-                                }
+                                    <div className='w-full aspect-video  mb-4'>
+                               {
+                                selectedLecture?.videoUrl || selectedLecture?.videoLink  ? <video className='w-full h-full object-cover' controls  src={selectedLecture?.videoUrl || selectedLecture.videoLink}></video> :
+                                <span className='text-black text-sm '>Selected a preview lecture to watch</span>
+                               }
                                 
                                    </div> 
                                    

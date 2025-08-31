@@ -25,8 +25,11 @@ const Instructors = () => {
       <h1 className="text-3xl font-bold mb-6 text-[#00173D]">Instructor Management</h1>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
       {/* Instructor Table */}

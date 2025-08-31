@@ -27,8 +27,11 @@ const Students = () => {
 
       {/* Add New Student */}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
    
 =======
+=======
+>>>>>>> Stashed changes
       {/* <div className="mb-6 bg-white p-4 rounded shadow-md max-w-md">
         <h2 className="text-xl font-semibold mb-2">Add New Student</h2>
         <input
@@ -52,6 +55,9 @@ const Students = () => {
           Add Student
         </button>
       </div> */}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
       {/* Student Table */}

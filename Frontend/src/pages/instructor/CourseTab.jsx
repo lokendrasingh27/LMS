@@ -32,7 +32,7 @@ const CourseTab = () => {
     const [selectedCourse, setSelectedCourse] = useState(selectCourse)
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
-//  console.log(user._id)
+//  console.log(id)
     const getCourseById = async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/course/${id}`, {withCredentials:true})
@@ -48,11 +48,13 @@ const CourseTab = () => {
                   e.preventDefault()
                   const instructorId= user._id
             try {
-            const res= await axios.delete(`http://localhost:5000/api/course/${id}`,instructorId,
+            const res= await axios.delete(`http://localhost:5000/api/course/${id}`,
                 {
+                    data:{instructorId},
                    headers: {
-                    "Content-Type": "multipart/form-data"
-                },withCredentials:true
+                    "Content-Type": "application/json"
+                },
+                withCredentials:true
                 }
             );
                         if(res.data.success){

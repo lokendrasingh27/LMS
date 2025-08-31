@@ -36,7 +36,6 @@ export const createCourse = async(req, res)=> {
 export const deleteInstructorCourse = async (req, res) => {
   try {
     const { instructorId } = req.body;
-    console.log(instructorId)
               const courseId = req.params.courseId
               
     // 1. Course check

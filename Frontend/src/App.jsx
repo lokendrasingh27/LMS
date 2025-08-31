@@ -17,7 +17,7 @@ import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
 import EnrolledDashboard from "./pages/courseplayer/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
-
+import PaymentHistory from "./pages/courseviewpage/PaymentHistory";
 import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Instructors from "./apages/Instructors";
@@ -33,7 +33,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
     
       <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
-
+      
       <Route path="/instructor" element={<Instructor />}>
         {/* children route */}
         <Route path="dashboard" element={<InstructorDashboard />} />
@@ -45,7 +45,7 @@ function App() {
         
 
       </Route>
-      
+      <Route path="/paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />

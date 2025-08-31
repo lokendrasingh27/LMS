@@ -32,7 +32,6 @@ const CourseTab = () => {
     const [selectedCourse, setSelectedCourse] = useState(selectCourse)
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
-//  console.log(id)
     const getCourseById = async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/course/${id}`, {withCredentials:true})
@@ -48,6 +47,7 @@ const CourseTab = () => {
                   e.preventDefault()
                   const instructorId= user._id
             try {
+                setLoading(true)
             const res= await axios.delete(`http://localhost:5000/api/course/${id}`,
                 {
                     data:{instructorId},
@@ -66,6 +66,8 @@ const CourseTab = () => {
                     } catch (err) {
                         console.error(err);
                         toast.error("Failed to delete course");
+                    } finally{
+                        setLoading(false)
                     }
                     };
 
@@ -169,7 +171,16 @@ const CourseTab = () => {
                 </div>
                 <div className='space-x-2 flex '>
                     <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77] hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
-                    <Button onClick={deleteCourse} variant="destructive">Remove Course</Button>
+                    <Button onClick={deleteCourse} disabled={loading} variant="destructive">
+                          {
+                                loading ? (
+                                    <>
+                                    <Loader2 className='mr-2 w-4 h-4 animate-spin'/>
+                                    Please wait
+                                    </>
+                                ):("Remove Course")
+                            }
+                        </Button>
                 </div>
              </div>
             </CardHeader>

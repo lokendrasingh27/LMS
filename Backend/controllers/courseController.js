@@ -38,7 +38,7 @@ export const deleteInstructorCourse = async (req, res) => {
     const { instructorId } = req.body;
     console.log(instructorId)
               const courseId = req.params.courseId
-              // console.log(courseId)
+              
     // 1. Course check
     const course = await Course.findById(courseId);
     if (!course) {

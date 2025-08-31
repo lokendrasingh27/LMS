@@ -2,6 +2,7 @@ import { Assignment } from "../models/Assignment.js";
 import {Course} from "../models/Course.js"
 import { Lecture } from "../models/Lecture.js";
 import { Quiz } from "../models/Quiz.js";
+import { User } from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
@@ -32,7 +33,42 @@ export const createCourse = async(req, res)=> {
         })
     }
 }
+export const deleteInstructorCourse = async (req, res) => {
+  try {
+    const { instructorId } = req.body;
+    console.log(instructorId)
+              const courseId = req.params.courseId
+    // 1. Course check
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
 
+    // 2. Instructor check (sirf wahi delete kar sake jo owner hai)
+     if (course.creator.toString() !== instructorId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to delete this course",
+      });
+    }
+
+    // 3. Enrolled users se course remove karna
+    await User.updateMany(
+      { enrolledCourses: courseId },
+      { $pull: { enrolledCourses: courseId } }
+    );
+
+    // 4. Course delete karna (lectures ke saath)
+    await Course.findByIdAndDelete(courseId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
 export const getPublishedCourse = async(_, res)=>{
     try {
         const courses = await Course.find({isPublished:true}).populate({path:"creator", select:"name photoUrl description"})
@@ -188,43 +224,7 @@ export const getCourseLecture = async (req, res) => {
     }
 }
 
-// export const editLecture = async (req, res) => {
-//     try {
-//         const {lectureTitle, videoInfo, isPreviewFree} = req.body
-//         const {courseId, lectureId} = req.params;
-//         const lecture = await Lecture.findById(lectureId);
-//         if(!lecture){
-//             return res.status(404).json({
-//                 message:"Lecture not found!"
-//             })
-//         }
-//         //update lecture
-//         if(lectureTitle) lecture.lectureTitle = lectureTitle;
-//         if(videoInfo?.videoUrl) lecture.videoUrl = videoInfo.videoUrl;
-//         if(videoInfo?.publicId) lecture.publicId = videoInfo.publicId;
-//         lecture.isPreviewFree = isPreviewFree;
 
-//         await lecture.save();
-
-//         const course = await Course.findById(courseId);
-//         if(course && !course.lectures.includes(lecture._id)){
-//             course.lectures.push(lecture._id);
-//             await course.save()
-//         }
-//         return res.status(200).json({
-//             success:true,
-//             lecture,
-//             message:"Lecture updated successfully"
-//         })
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             message:"Failed to edit lectures",
-//             success:false
-//         })
-        
-//     }
-// }
   export const editLecture = async (req, res) => {
     try {
       const { lectureTitle, videoInfo, isPreviewFree, videoLink } = req.body;

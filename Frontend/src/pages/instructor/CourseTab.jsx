@@ -26,12 +26,13 @@ const CourseTab = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {course} = useSelector(store=> store.course)
+    const {user}  =useSelector(store=>store.auth)
     const selectCourse = course.find(course => course._id === id)
 
     const [selectedCourse, setSelectedCourse] = useState(selectCourse)
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
-
+//  console.log(user._id)
     const getCourseById = async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/course/${id}`, {withCredentials:true})
@@ -43,6 +44,29 @@ const CourseTab = () => {
             
         }
     }
+    const deleteCourse = async (e) => {
+                  e.preventDefault()
+                  const instructorId= user._id
+            try {
+            const res= await axios.delete(`http://localhost:5000/api/course/${id}`,instructorId,
+                {
+                   headers: {
+                    "Content-Type": "multipart/form-data"
+                },withCredentials:true
+                }
+            );
+                        if(res.data.success){
+                            navigate('/instructor/course')
+                            toast.success(res.data.message);
+                        }
+                        // state se remove kar de
+                        // setMyCourses(myCourses.filter(c => c._id !== courseId));
+                    } catch (err) {
+                        console.error(err);
+                        toast.error("Failed to delete course");
+                    }
+                    };
+
     useEffect(()=>{
         getCourseById()
     })
@@ -143,7 +167,7 @@ const CourseTab = () => {
                 </div>
                 <div className='space-x-2 flex '>
                     <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77] hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
-                    <Button variant="destructive">Remove Course</Button>
+                    <Button onClick={deleteCourse} variant="destructive">Remove Course</Button>
                 </div>
              </div>
             </CardHeader>

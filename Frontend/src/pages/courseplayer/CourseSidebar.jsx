@@ -1,7 +1,7 @@
 // src/pages/courseplayer/CourseSidebar.jsx
-import React, { useRef } from 'react';
+import React from 'react';
 import { FaFilePdf } from "react-icons/fa6";
-import { RxCross2 } from "react-icons/rx";  // clean cross icon
+import { RxCross2 } from "react-icons/rx";
 
 const getIcon = (lesson, isCurrent) => {
     const baseClasses = "w-5 text-center";
@@ -13,34 +13,6 @@ const getIcon = (lesson, isCurrent) => {
 };
 
 function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, onClose }) {
-    const touchStartX = useRef(null);
-    const touchEndX = useRef(null);
-
-    const minSwipeDistance = 50; 
-
-    const handleTouchStart = (e) => {
-        touchStartX.current = e.targetTouches[0].clientX;
-        touchEndX.current = null;
-    };
-
-    const handleTouchMove = (e) => {
-        touchEndX.current = e.targetTouches[0].clientX;
-    };
-
-    const handleTouchEnd = () => {
-        if (!touchStartX.current || !touchEndX.current) return;
-
-        const distance = touchEndX.current - touchStartX.current;
-        const isRightSwipe = distance > minSwipeDistance;
-
-        if (isRightSwipe) {
-            onClose();
-        }
-
-        touchStartX.current = null;
-        touchEndX.current = null;
-    };
-
     const sidebarClasses = `
       w-80 md:w-96 bg-[#00173D] border-l border-gray-200 overflow-y-auto p-4 flex-shrink-0
       fixed top-0 right-0 h-full z-50 transform transition-transform duration-300 ease-in-out
@@ -59,12 +31,7 @@ function CourseSidebar({ curriculum, currentLessonId, onSelectLesson, isOpen, on
             )}
 
             {/* Sidebar */}
-            <aside 
-                className={sidebarClasses}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
-            >
+            <aside className={sidebarClasses}>
                 <div className="flex justify-between items-center mb-6 md:hidden">
                     <h3 className="text-sm font-bold text-white uppercase tracking-wider px-2">
                         Course Content

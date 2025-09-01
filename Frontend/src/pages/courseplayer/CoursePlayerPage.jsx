@@ -1,13 +1,77 @@
 // src/pages/courseplayer/CoursePlayerPage.jsx
 import React, { useState, useEffect } from "react";
-import { courseData } from "./mock-data";
 import CourseHeader from "./CourseHeader";
 import ContentPane from "./ContentPane";
 import CourseSidebar from "./CourseSidebar";
 
+// Hardcoded data that was previously in mock-data.js
+const courseData = {
+  title: "The Ultimate Guide to React",
+  progress: 0,
+  curriculum: [
+    {
+      id: "s1",
+      title: "Section 1: Introduction",
+      lessons: [
+        { id: 1, title: "Welcome!", type: "video", isCompleted: false, pdfUrl: null },
+        { id: 2, title: "Course Overview", type: "video", isCompleted: false, pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+      ],
+    },
+    {
+      id: "s2",
+      title: "Section 2: React Basics",
+      lessons: [
+        { id: 3, title: "Components & Props", type: "video", isCompleted: false, pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { id: 4, title: "State & Hooks", type: "text", isCompleted: false, pdfUrl: null },
+        { id: 5, title: "Handling Events", type: "video", isCompleted: false, pdfUrl: null },
+        {
+          id: 6,
+          title: "Your First Quiz",
+          type: "quiz",
+          isCompleted: false,
+          pdfUrl: null,
+          timeLimit: 120, // Time limit in seconds
+          questions: [
+            { id: 'q1', text: 'What does JSX stand for?', options: ['JavaScript XML', 'JavaScript Extension', 'JSON Syntax'], correctAnswer: 'JavaScript XML' },
+            { id: 'q2', text: 'Which hook is used to add state to a functional component?', options: ['useEffect', 'useState', 'useContext'], correctAnswer: 'useState' }
+          ]
+        },
+        {
+          id: 7,
+          title: "Submit Your First Component",
+          type: "assignment",
+          instructions: "Please create a simple 'HelloWorld' React component, zip the file, and submit it here.",
+          isCompleted: false,
+          assignmentStatus: 'pending',
+          pdfUrl: null,
+        },
+      ],
+    },
+    {
+      id: "s3",
+      title: "Section 3: Advanced Topics",
+      lessons: [
+        {
+          id: 8,
+          title: "Submit Your First Component",
+          type: "assignment",
+          instructions: "Please create a simple 'HelloWorld' React component, zip the file, and submit it here.",
+          isCompleted: false,
+          assignmentStatus: 'pending',
+          pdfUrl: null,
+        },
+        { id: 9, title: "Context API", type: "video", isCompleted: false, pdfUrl: null },
+        { id: 10, title: "Performance Optimization", type: "text", isCompleted: false, pdfUrl: null },
+      ],
+    },
+  ],
+};
+
+
 const loadCourseFromStorage = () => {
   try {
     const savedCourse = localStorage.getItem('courseProgress');
+    // It will use the hardcoded courseData if nothing is in localStorage
     return savedCourse ? JSON.parse(savedCourse) : courseData;
   } catch (error) {
     console.error("Could not load course from localStorage", error);
@@ -171,7 +235,6 @@ function CoursePlayerPage() {
           isOpen={isSidebarOpen}
           onClose={toggleSidebar}
         />
-         {/* This transparent overlay captures outside clicks to close the sidebar */}
          {isSidebarOpen && <div onClick={toggleSidebar} className="md:hidden fixed inset-0 z-40"></div>}
       </div>
     </div>

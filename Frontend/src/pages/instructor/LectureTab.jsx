@@ -151,7 +151,7 @@ const LectureTab = () => {
             type="file"
             accept="video/*"
             onChange={fileChangeHandler}
-            className="w-fit"
+            className="max-w-fit"
           ></Input>
         </div>
         <div className="my-5">
@@ -162,7 +162,7 @@ const LectureTab = () => {
             type="text"
             onChange={(e) => setVideoLink(e.target.value)}
             placeholder="Paste video link"
-            className="w-fit"
+            className="max-w-fit"
           ></Input>
         </div>
         <div className="flex items-center space-x-2 my-5">

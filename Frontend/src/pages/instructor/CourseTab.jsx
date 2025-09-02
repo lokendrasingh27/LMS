@@ -267,7 +267,7 @@ const CourseTab = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2 mt-4">
   <Button
-    onClick={() => navigate('/admin/course')}
+    onClick={() => navigate('/instructor/course')}
     variant="outline"
     className="w-full text-white font-semibold bg-[#E7000B] sm:w-auto"
   >

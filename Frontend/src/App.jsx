@@ -23,6 +23,7 @@ import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Instructors from "./apages/Instructors";
 import Students from "./apages/Students";
 import Dashboard from "./acomponents/Dashboard"; 
+import CertificatePage from "./pages/student/Certificatepage";
 
 
 function App() {
@@ -50,7 +51,10 @@ function App() {
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     
-   
+       <Route path="/certificate" element={<CertificatePage 
+       studentName="Sebastian Bennett" 
+       courseName="Graphic Designing" 
+       instructorName="Howard Ong" />} />
       
      
      

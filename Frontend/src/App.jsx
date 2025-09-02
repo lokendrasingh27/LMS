@@ -6,8 +6,6 @@ import LoginPage from "./pages/auth/LoginPage";
 import Signup from "./pages/auth/Signup";
 import InstructorDashboard from "./pages/instructor/Dashboard";
 import CoursePlayerPage from "./pages/courseplayer/CoursePlayerPage";
-// import Courses from './pages/instructor/Courses';
-// import CreateCourse from './pages/instructor/CourseCreate';
 import ProfilePage from "./pages/ProfilePage";
 import Instructor from "./pages/instructor/Instructor";
 import Courses from "./pages/instructor/Courses";
@@ -18,7 +16,6 @@ import CourseDetails from "./pages/CourseDetail";
 import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
-import CoursePayment from "./pages/student/CoursePayment";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 import Instructors from "./apages/Instructors";
 import Students from "./apages/Students";
@@ -51,10 +48,7 @@ function App() {
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     
-       <Route path="/certificate" element={<CertificatePage 
-       studentName="Sebastian Bennett" 
-       courseName="Graphic Designing" 
-       instructorName="Howard Ong" />} />
+       <Route path="/certificate" element={<CertificatePage/>} />
       
      
      

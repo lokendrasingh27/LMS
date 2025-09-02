@@ -60,7 +60,7 @@ const Courses = () => {
               >
                 <TableCell className="flex items-center gap-3 font-semibold">
                   <img
-                    className="w-16 h-16 object-cover hidden md:block rounded-md"
+                    className="w-30 h-16 object-cover hidden md:block rounded-md"
                     src={course?.courseThumbnail}
                     alt="thumbnail"
                   />

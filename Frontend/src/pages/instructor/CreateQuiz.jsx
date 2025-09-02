@@ -51,13 +51,13 @@ const handleTypeChange = (e) => {
       ...currentQuestion,
       type: selectedType,
       options: ["True", "False"],
-      correctAnswer: "True", // default correct answer
+      correctAnswer: "True", 
     });
   } else {
     setCurrentQuestion({
       ...currentQuestion,
       type: selectedType,
-      options: ["", "", "", ""], // 4 empty for multiple choice
+      options: ["", "", "", ""],
       correctAnswer: "",
     });
   }

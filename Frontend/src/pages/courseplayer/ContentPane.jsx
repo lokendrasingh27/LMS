@@ -1,118 +1,32 @@
-// src/pages/courseplayer/ContentPane.jsx
-import React from 'react';
-import QuizInterface from './quizinterface';
-import QuizResults from './quizresults';
-import AssignmentPane from './AssignmentPane';
+import React from "react";
 
-function ContentPane({ 
-  lesson, 
-  quizMode, 
-  quizResult,
-  answers, 
-  timeLeft,
-  onStartQuiz, 
-  onSubmitQuiz, 
-  onContinue, 
-  onToggleComplete,
-  onSelectPreviousLesson,
-  onAssignmentSubmit,
-  onAnswerChange,
-}) {
-
-  // The first lesson has an ID of 1
-  const isFirstLesson = lesson.id === 1;
-
-  const renderContent = () => {
-    if (lesson.type === 'quiz') {
-      if (quizResult) {
-        return <QuizResults result={quizResult} questions={lesson.questions} onContinue={onContinue}/>;
-      }
-      if (quizMode) {
-        // Pass all the necessary props to the QuizInterface
-        return <QuizInterface 
-                 questions={lesson.questions} 
-                 onSubmitQuiz={onSubmitQuiz}
-                 timeLeft={timeLeft}
-                 answers={answers}
-                 onAnswerChange={onAnswerChange}
-               />;
-      }
-    }
-    
-    switch (lesson.type) {
-      case 'video':
-        return (
-          <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/SqcY0GlETPk" 
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        );
-      case 'text':
-        return (
-            <div className="p-6 bg-white rounded-lg border prose">
-                <p>This is a text-based lesson about <strong>{lesson.title}</strong>. Here you would find detailed explanations, code snippets, and other written materials.</p>
-            </div>
-        );
-      case 'quiz':
-         return (
-            <div className="p-10 bg-white rounded-lg border text-center">
-                <h2 className="text-2xl font-bold mb-4">Quiz: {lesson.title}</h2>
-                <button 
-                    onClick={onStartQuiz}
-                    className="px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-lg shadow-sm hover:bg-indigo-700"
-                >
-                    Start Quiz  
-                </button>
-            </div>
-         );
-      case 'assignment':
-        return <AssignmentPane lesson={lesson} onAssignmentSubmit={onAssignmentSubmit} />;
-      default:
-        return <div className="p-6 bg-red-100 text-red-700 rounded-lg">Content type not supported.</div>;
-    }
-  };
-
+const ContentPane = () => {
   return (
-    <main className="contentpane flex-grow pb-10  overflow-y-auto">  
-      {renderContent()}   
-      
-      {!(lesson.type === 'quiz' && (quizMode || quizResult)) && lesson.type !== 'assignment' && (
-        <div className="mt-5 pt-6 border-t border-gray-200">
-          <h2 className="text-3xl ml-5 font-bold text-[#00173D]">{lesson.title}</h2>
-          <div className="mt-4 flex flex-row md:flex-row justify-between items-center gap-4">
-            <button
-              onClick={onSelectPreviousLesson}
-              disabled={isFirstLesson}
-              className=" md:w-auto px-4 ml-5 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 flex items-center justify-center gap-2 disabled:bg-gray-100 disabled:cursor-not-allowed"
-            >
-              <i className="fa-solid fa-arrow-left"></i> Previous Lesson
-            </button>
-            
-            {lesson.isCompleted ? (
-              <button 
-                onClick={onToggleComplete}
-                className="md:w-auto px-4 mr-5 py-2 text-sm font-semibold text-green-800 bg-green-100 border border-green-300 rounded-md shadow-sm hover:bg-green-200 flex items-center justify-center gap-2"
-              >
-                Completed <i className="fa-solid fa-check-circle"></i>
-              </button>
-            ) : (
-              <button 
-                onClick={onToggleComplete}
-                className="md:w-auto px-4 mr-5 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-700 flex items-center justify-center gap-2">
-                Mark as Complete <i className="fa-solid fa-check"></i>
-              </button>
-            )}
-          </div>
+    <main className="contentpane flex-grow  overflow-y-auto p-4 ">
+      <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+        <iframe
+          className="absolute top-0 left-0 w-full h-full"
+          src="https://www.youtube.com/embed/"
+          title="Video"
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
+      </div>
+      <div className="mt-5 pt-6 border-t border-gray-200">
+        <h2 className="text-2xl md:text-3xl ml-2  font-bold text-[#00173D]">
+          Lesson Title
+        </h2>
+        <div className="mt-7 flex flex-col md:flex-row justify-between items-center gap-4">
+          <button className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm">
+            Previous Lesson
+          </button>
+          <button className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm">
+            Mark as Complete
+          </button>
         </div>
-      )}
+      </div>
     </main>
   );
-}
+};
 
 export default ContentPane;

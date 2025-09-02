@@ -11,7 +11,7 @@ import { setUser } from "../redux/authSlice";
 import userLogo from "/images/userimage.jpeg";
 import { toast } from "sonner";
 
-const Sidebar = () => {
+const   Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
@@ -36,7 +36,7 @@ const Sidebar = () => {
   return (
     <>
       {/* ✅ Top Navbar (Mobile/Tablet only) */}
-      <div className="md:hidden flex justify-between items-center bg-[#001f3f] text-white p-4  top-0 left-0 right-0 z-40">
+      <div className="md:hidden flex justify-between   items-center bg-[#001f3f] text-white p-4  top-0 left-0 right-0 z-40">
         {/* Menu Button */}
         <button onClick={() => setIsOpen(true)}>
           <Menu size={28} />

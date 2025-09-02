@@ -23,16 +23,16 @@ const EditLecture = () => {
         <>
             <div className='p-4 md:p-10 h-screen'>
                 <div className='flex items-center justify-between mb-5'>
-                    <div className='flex items-center justify-between w-full '>
+                    <div className='lg:flex items-center justify-between w-full '>
                         <div className='flex items-center  gap-2'>
                             <Link to={`/instructor/course/${courseId}/lecture`}>
                                 <Button size="icon" variant="outline" className='rounded-full'><ArrowBigLeft size={16} /></Button>
                             </Link>
-                            <h1 className='font-bold text-xl text-[#001F3F]'>Update Your Lecture</h1>
+                            <h1 className='font-bold text-2xl text-[#001F3F] whitespace-nowrap'>Update Your Lecture</h1>
                         </div>
-                        <div className=' flex gap-2'>
-                            <Button onClick={handleOpenModal} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Assignment</Button>
-                            <Button onClick={handleOpenQuizModal} className='bg-[#001F3F] hover:bg-[#006D77]'>Create Quizes</Button>
+                        <div className=' mt-5 flex gap-2'>
+                            <Button onClick={handleOpenModal} className='bg-transparent lg:bg-[#001F3F] text-black lg:text-white hover:bg-[#006D77]'>Create Assignment</Button>
+                            <Button onClick={handleOpenQuizModal} className='bg-transparent lg:bg-[#001F3F] text-black lg:text-white hover:bg-[#006D77]'>Create Quizes</Button>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar'; 
-import StatCard from './StatCard';
+import StatCard from '../courseplayer/StatCard';
 import EnrolledCourseCard from './EnrolledCourseCard';
-import { studentData } from './demodata';
+import { studentData } from '../courseplayer/demodata';
 import { Menu, X, Book, CheckCircle, Clock } from 'lucide-react';
 import { useSelector } from 'react-redux';
 

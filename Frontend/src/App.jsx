@@ -17,9 +17,6 @@ import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-import Instructors from "./apages/Instructors";
-import Students from "./apages/Students";
-import Dashboard from "./acomponents/Dashboard"; 
 import CertificatePage from "./pages/student/Certificatepage";
 
 

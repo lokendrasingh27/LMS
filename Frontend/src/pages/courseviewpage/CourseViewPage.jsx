@@ -3,15 +3,15 @@ import Banner from "./banner";
 import { availableCourses, upcomingCourses } from "./demodata";
 import CourseCard from "./coursecard";
 import UpcomingCard from "./upcomingcard";
-import { 
-  Filter, 
-  Search, 
-  Mail, 
-  Phone, 
-  Twitter, 
-  Facebook, 
-  Linkedin, 
-  Instagram 
+import {
+  Filter,
+  Search,
+  Mail,
+  Phone,
+  Twitter,
+  Facebook,
+  Linkedin,
+  Instagram,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -19,32 +19,33 @@ import { setCourse } from "@/redux/courseSlice";
 
 const CourseViewPage = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
- const dispatch=useDispatch()
- const {course}=useSelector(store=>store.course)
+  const dispatch = useDispatch();
+  const { course } = useSelector((store) => store.course);
   // Filter available courses based on the search query
-  console.log(course)
   const filteredAvailableCourses = course.filter((course) =>
     course.courseTitle.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-   useEffect(()=>{
-    const getAllPublishedCourse = async()=>{
-      try{
-        const res = await axios.get(`http://localhost:5000/api/course/published-courses`,{withCredentials:true})
+  useEffect(() => {
+    const getAllPublishedCourse = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/course/published-courses`,
+          { withCredentials: true }
+        );
 
-        if(res.data.success){
-          dispatch(setCourse(res.data.courses))
+        if (res.data.success) {
+          dispatch(setCourse(res.data.courses));
         }
-      } catch(error){
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
-    }
-    getAllPublishedCourse()
-   })
-
+    };
+    getAllPublishedCourse();
+  });
 
   return (
-    <div className="courseView w-[81vw] p-6 h-[100vh] overflow-y-auto">
+    <div className="courseView lg:w-[81vw] w-[100vw] overflow-x-hidden max-sm:p-2 max-md:p-2 lg:p-6 h-[100vh] overflow-y-auto">
       {/* Main Content */}
       <div className="overflow-y-auto">
         <Banner />
@@ -56,7 +57,7 @@ const CourseViewPage = () => {
             <h2 className="text-xl px-4 py-2 bg-[#006D77] rounded-xl text-white font-semibold">
               Our Courses
             </h2>
-            <div className="flex items-center gap-2">
+            <div className="lg:flex max-sm:flex-col max-md:flex  items-start gap-2">
               {/* Search Bar */}
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -79,8 +80,8 @@ const CourseViewPage = () => {
           </div>
 
           {/* Course Grid */}
-          <div className="flex gap-4 overflow-x-auto snap-x">
-            {filteredAvailableCourses.map((course,index) => (
+          <div className="flex gap-4 flex-wrap lg:flex-wrap overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory max-sm:flex-nowrap max-md:flex-nowrap">
+            {filteredAvailableCourses.map((course, index) => (
               <CourseCard key={index} course={course} />
             ))}
           </div>
@@ -108,7 +109,9 @@ const CourseViewPage = () => {
               <div className="md:col-span-2 lg:col-span-1">
                 <h3 className="text-lg font-semibold text-zinc-900">GRADIX</h3>
                 <p className="mt-4 text-sm text-zinc-600">
-                  Your partner in acquiring new skills. We provide high-quality, engaging, and practical courses to help you achieve your career goals right from Bhopal, India.
+                  Your partner in acquiring new skills. We provide high-quality,
+                  engaging, and practical courses to help you achieve your
+                  career goals right from Bhopal, India.
                 </p>
               </div>
 
@@ -116,10 +119,38 @@ const CourseViewPage = () => {
               <div>
                 <h4 className="font-semibold text-zinc-900">Quick Links</h4>
                 <ul className="mt-4 space-y-2 text-sm">
-                  <li><a href="#" className="text-zinc-600 hover:text-indigo-600 transition-colors">Home</a></li>
-                  <li><a href="#" className="text-zinc-600 hover:text-indigo-600 transition-colors">All Courses</a></li>
-                  <li><a href="#" className="text-zinc-600 hover:text-indigo-600 transition-colors">About Us</a></li>
-                  <li><a href="#" className="text-zinc-600 hover:text-indigo-600 transition-colors">Blog</a></li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-zinc-600 hover:text-indigo-600 transition-colors"
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-zinc-600 hover:text-indigo-600 transition-colors"
+                    >
+                      All Courses
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-zinc-600 hover:text-indigo-600 transition-colors"
+                    >
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-zinc-600 hover:text-indigo-600 transition-colors"
+                    >
+                      Blog
+                    </a>
+                  </li>
                 </ul>
               </div>
 
@@ -129,7 +160,12 @@ const CourseViewPage = () => {
                 <ul className="mt-4 space-y-3 text-sm text-zinc-600">
                   <li className="flex items-center gap-2">
                     <Mail className="h-4 w-4 shrink-0" />
-                    <a href="mailto:contact@eduplatform.com" className="hover:text-indigo-600 transition-colors">contact@eduplatform.com</a>
+                    <a
+                      href="mailto:contact@eduplatform.com"
+                      className="hover:text-indigo-600 transition-colors"
+                    >
+                      contact@eduplatform.com
+                    </a>
                   </li>
                   <li className="flex items-center gap-2">
                     <Phone className="h-4 w-4 shrink-0" />
@@ -146,10 +182,34 @@ const CourseViewPage = () => {
               <div>
                 <h4 className="font-semibold text-zinc-900">Follow Us</h4>
                 <div className="flex mt-4 space-x-5 text-zinc-600">
-                    <a href="#" aria-label="Twitter" className="hover:text-indigo-600 transition-colors"><Twitter className="h-6 w-6" /></a>
-                    <a href="#" aria-label="Facebook" className="hover:text-indigo-600 transition-colors"><Facebook className="h-6 w-6" /></a>
-                    <a href="#" aria-label="LinkedIn" className="hover:text-indigo-600 transition-colors"><Linkedin className="h-6 w-6" /></a>
-                    <a href="#" aria-label="Instagram" className="hover:text-indigo-600 transition-colors"><Instagram className="h-6 w-6" /></a>
+                  <a
+                    href="#"
+                    aria-label="Twitter"
+                    className="hover:text-indigo-600 transition-colors"
+                  >
+                    <Twitter className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="Facebook"
+                    className="hover:text-indigo-600 transition-colors"
+                  >
+                    <Facebook className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="LinkedIn"
+                    className="hover:text-indigo-600 transition-colors"
+                  >
+                    <Linkedin className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="Instagram"
+                    className="hover:text-indigo-600 transition-colors"
+                  >
+                    <Instagram className="h-6 w-6" />
+                  </a>
                 </div>
               </div>
             </div>

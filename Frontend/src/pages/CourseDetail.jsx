@@ -37,7 +37,7 @@ const CourseDetails = () => {
                 const res = await axios.get(`http://localhost:5000/api/course/${courseId}/lecture`, {withCredentials:true})
                 if(res.data.success){
                     setCourseLecture(res.data.lectures)
-                    console.log(res.data.lectures)
+                   
                 }
             } catch (error) {
                 console.log(error);
@@ -53,7 +53,6 @@ const CourseDetails = () => {
   try{
             const orderData = await axios.post("http://localhost:5000/api/payment/create-order", {userId,courseId},
     {withCredentials:true});
-    console.log(orderData)
 
         const options={
             key:import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -63,7 +62,7 @@ const CourseDetails = () => {
             description:"course Enrollment Payemnt",
             order_id:orderData.data.order.id,
             handler:async function(response){
-                console.log("RazorPay Response",response)
+                // console.log("RazorPay Response",response)
                 try{
                     const verifyPayment = await axios.post('http://localhost:5000/api/payment/verify',
                         {
@@ -97,11 +96,11 @@ useEffect(()=>{
 },[user,courseId])
    
     return (
-        <div className='bg-gray-100 h-screen w-[100vw] flex overflow-hidden '>
+        <div className='bg-gray-100  h-screen  lg:w-[100vw]    lg:flex overflow-y-auto '>
             <Sidebar/>
             <Card className="max-w-7xl overflow-y-auto  rounded-md mx-auto bg-[url('/bgimage.png')] shadow-md pt-5 ">
                 {/* Header section */}
-                <div className='px-4 py-2 z-9  shadow-xl fixed w-[80vw] '>
+                <div className='px-4 py-2 z-9  shadow-xl   lg: '>
                     <div className='flex justify-between  items-center'>
                         <div className='flex gap-2 items-center'>
                             <Button size="icon" variant="outline" className="rounded-full" onClick={() => navigate('/')}>
@@ -119,10 +118,10 @@ useEffect(()=>{
                 {/* Course overview section */}
                 <div className='p-6 mt-10'>
                     <div className='flex flex-col lg:flex-row  lg:space-x-8'>
-                        <img src={selectedCourse.courseThumbnail} alt="Thumbnail" className='w-full lg:w-1/3 rounded-md mb-4 lg:mb-0' />
+                        <img src={selectedCourse.courseThumbnail} alt="Thumbnail" className='w-full  lg:w-1/3 rounded-md mb-4 lg:mb-0' />
                         <div>
                             <p className='text-gray-800 mb-4 font-semibold capitalize'>{selectedCourse.subTitle}</p>
-                            <p className='mb-4 text-gray-700' dangerouslySetInnerHTML={{ __html: selectedCourse.description }} />
+                            <p className='mb-4 text-gray-700 whitespace-normal ' dangerouslySetInnerHTML={{ __html: selectedCourse.description }} />
                             <p className="text-gray-800 font-semibold">⭐⭐⭐⭐⭐ (4.8) | 1,200 reviews</p>
                             <div className='mt-1'>
                                 <p className="text-2xl font-bold text-gray-800">₹{selectedCourse.coursePrice}</p>

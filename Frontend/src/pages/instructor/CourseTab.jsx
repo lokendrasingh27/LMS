@@ -160,7 +160,7 @@ const CourseTab = () => {
         }
     }
     return (
-        <Card>
+        <Card className="m-2 md:m-6">
             <CardHeader classname="flex ">
              <div className='flex items-center  justify-between'>
                    <div>
@@ -184,7 +184,7 @@ const CourseTab = () => {
                 </div>
              </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pb-20 md:pb-0">
                 <div className='space-y-4 mt-5'>
                     <div>
                         <Label className='mb-1'>Title</Label>
@@ -265,19 +265,30 @@ const CourseTab = () => {
                             )
                         }
                     </div>
-                    <div className='flex gap-2'>
-                        <Button onClick={()=> navigate('/admin/course')} variant="outline">Cancel</Button>
-                        <Button className="bg-[#006D77] hover:bg-[#001F3F]" disabled={loading} onClick={updateCourseHandler}>
-                            {
-                                loading ? (
-                                    <>
-                                    <Loader2 className='mr-2 w-4 h-4 animate-spin'/>
-                                    Please wait
-                                    </>
-                                ):("Save")
-                            }
-                        </Button>
-                    </div>
+                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
+  <Button
+    onClick={() => navigate('/admin/course')}
+    variant="outline"
+    className="w-full text-white font-semibold bg-[#E7000B] sm:w-auto"
+  >
+    Cancel
+  </Button>
+  <Button
+    className="bg-[#006D77] hover:bg-[#001F3F] w-full sm:w-auto"
+    disabled={loading}
+    onClick={updateCourseHandler}
+  >
+    {loading ? (
+      <>
+        <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+        Please wait
+      </>
+    ) : (
+      "Save"
+    )}
+  </Button>
+</div>
+
                 </div>
             </CardContent>
         </Card>

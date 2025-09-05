@@ -26,13 +26,8 @@ const Students = () => {
       <h1 className="text-3xl font-bold mb-6 text-[#00173D]">Student Management</h1>
 
       {/* Add New Student */}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-   
-=======
-=======
->>>>>>> Stashed changes
-      {/* <div className="mb-6 bg-white p-4 rounded shadow-md max-w-md">
+<<<<<<< HEAD:Frontend/src/apages/Students.jsx
+       <div className="mb-6 bg-white p-4 rounded shadow-md max-w-md">
         <h2 className="text-xl font-semibold mb-2">Add New Student</h2>
         <input
           type="text"
@@ -54,11 +49,10 @@ const Students = () => {
         >
           Add Student
         </button>
-      </div> */}
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
+      </div> 
 =======
->>>>>>> Stashed changes
+   
+>>>>>>> 25fa0bf7989f804fdb18202c16e05fef84491df3:Frontend/src/pages/apages/Students.jsx
 
       {/* Student Table */}
       <div className="overflow-x-auto">

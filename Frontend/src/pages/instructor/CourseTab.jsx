@@ -26,12 +26,12 @@ const CourseTab = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {course} = useSelector(store=> store.course)
+    const {user}  =useSelector(store=>store.auth)
     const selectCourse = course.find(course => course._id === id)
 
     const [selectedCourse, setSelectedCourse] = useState(selectCourse)
     const [loading, setLoading] = useState(false)
     const [publish, setPublish] = useState(false)
-
     const getCourseById = async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/course/${id}`, {withCredentials:true})
@@ -43,6 +43,34 @@ const CourseTab = () => {
             
         }
     }
+    const deleteCourse = async (e) => {
+                  e.preventDefault()
+                  const instructorId= user._id
+            try {
+                setLoading(true)
+            const res= await axios.delete(`http://localhost:5000/api/course/${id}`,
+                {
+                    data:{instructorId},
+                   headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials:true
+                }
+            );
+                        if(res.data.success){
+                            navigate('/instructor/course')
+                            toast.success(res.data.message);
+                        }
+                        // state se remove kar de
+                        // setMyCourses(myCourses.filter(c => c._id !== courseId));
+                    } catch (err) {
+                        console.error(err);
+                        toast.error("Failed to delete course");
+                    } finally{
+                        setLoading(false)
+                    }
+                    };
+
     useEffect(()=>{
         getCourseById()
     })
@@ -132,22 +160,31 @@ const CourseTab = () => {
         }
     }
     return (
-        <Card>
+        <Card className="m-2 md:m-6">
             <CardHeader classname="flex ">
-             <div className='flex items-center  justify-between'>
+             <div className='lg:flex flex-col w-full lg:justify-between'>
                    <div>
                     <CardTitle>Basic Course Information</CardTitle>
                     <CardDescription>
                         Make changes to your courses here. Click save when you're done.
                     </CardDescription>
                 </div>
-                <div className='space-x-2 flex '>
-                    <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77] hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
-                    <Button variant="destructive">Remove Course</Button>
+                <div className='space-x-2 flex mt-2 '>
+                    <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77]  hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
+                    <Button onClick={deleteCourse} disabled={loading} variant="destructive">
+                          {
+                                loading ? (
+                                    <>
+                                    <Loader2 className='mr-2 w-4 h-4 animate-spin'/>
+                                    Please wait
+                                    </>
+                                ):("Remove Course")
+                            }
+                        </Button>
                 </div>
              </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pb-20 md:pb-0">
                 <div className='space-y-4 mt-5'>
                     <div>
                         <Label className='mb-1'>Title</Label>
@@ -228,19 +265,30 @@ const CourseTab = () => {
                             )
                         }
                     </div>
-                    <div className='flex gap-2'>
-                        <Button onClick={()=> navigate('/admin/course')} variant="outline">Cancel</Button>
-                        <Button className="bg-[#006D77] hover:bg-[#001F3F]" disabled={loading} onClick={updateCourseHandler}>
-                            {
-                                loading ? (
-                                    <>
-                                    <Loader2 className='mr-2 w-4 h-4 animate-spin'/>
-                                    Please wait
-                                    </>
-                                ):("Save")
-                            }
-                        </Button>
-                    </div>
+                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
+  <Button
+    onClick={() => navigate('/instructor/course')}
+    variant="outline"
+    className="w-full text-white font-semibold bg-[#E7000B] sm:w-auto"
+  >
+    Cancel
+  </Button>
+  <Button
+    className="bg-[#006D77] hover:bg-[#001F3F] w-full sm:w-auto"
+    disabled={loading}
+    onClick={updateCourseHandler}
+  >
+    {loading ? (
+      <>
+        <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+        Please wait
+      </>
+    ) : (
+      "Save"
+    )}
+  </Button>
+</div>
+
                 </div>
             </CardContent>
         </Card>

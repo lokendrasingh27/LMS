@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const Instructor = () => {
   return (
-    <div className='bg-[#e3f1f1] h-[100vh] flex  overflow-hidden w-'>
+    <div className='bg-[#e3f1f1] h-[100vh] lg:flex  overflow-hidden w-'>
       <Sidebar/>
       <div className='flex-1'>
         <Outlet/>

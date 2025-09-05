@@ -1,0 +1,138 @@
+import { Button } from '@/components/ui/button';
+import axios from 'axios';
+import { Loader2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
+
+// --- Icon Components (self-contained) ---
+const CalendarIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar-days"><rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /><path d="M16 18h.01" /></svg>
+);
+const FileUpIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-up"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><path d="M12 12v6" /><path d="m15 15-3-3-3 3" /></svg>
+);
+const XIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+);
+
+
+const CreateAssignment = ({ isOpen, onClose }) => {
+    const Navigate =useNavigate()
+   const [assignmentTitle, setAssignmentTitle] = useState('');
+   const [assignmentQuestion , setAssignmentQuestion ] = useState('')
+    const [description, setDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [file, setFile] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const {courseId,lectureId}=useParams()
+    const [loading, setLoading] = useState(false)
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try{
+            setIsSubmitting(true);
+           
+            const formData= new FormData()
+            formData.append("assignmentTitle",assignmentTitle);
+            formData.append("question",assignmentQuestion);
+            formData.append("description",assignmentQuestion);
+            formData.append("submissionDeadline",dueDate);
+             if (file) {
+                formData.append("pdf", file);
+            }
+
+            const res = await axios.post( `http://localhost:5000/api/course/${courseId}/lecture/${lectureId}/assignment`,
+                formData,{
+                    headers:{
+                        "Content-Type":"multipart/form-data"
+                    },withCredentials:true
+                })
+                if(res.data.success){
+                    toast.success(res.data.message)
+               
+                }
+        } catch(error){
+            console.log(error)
+        } finally{
+            setIsSubmitting(false)
+        }
+     
+    };
+    useEffect(()=>{
+        
+    })
+    if (!isOpen) {
+        return null;
+    }
+
+    return (
+        <div className="fixed inset-0 backdrop-blur flex items-center justify-center z-50 p-4">
+            <div className="w-full max-w-2xl mx-auto max-h-[80vh] overflow-y-auto bg-white rounded-2xl shadow-lg p-8 md:p-12 relative">
+                <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition-colors">
+                    <XIcon />
+                </button>
+                <header className="mb-8 ">
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-800">Create New Assignment</h1>
+                    <p className="text-black mt-2">Fill out the details below to create a new assignment.</p>
+                </header>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Assignment Title */}
+                    <div>
+                        <label htmlFor="assignmentTitle" className="block text-sm font-medium text-slate-700 mb-1">Assignment Title</label>
+                        <input type="text" id="assignmentTitle" value={assignmentTitle} onChange={(e) => setAssignmentTitle(e.target.value)} className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+                    </div>
+                     <div>
+                        <label htmlFor="assignmentQuestion" className="block text-sm font-medium text-slate-700 mb-1">Assignment Question</label>
+                        <input type="text" id="assignmentQuestion" value={assignmentQuestion} onChange={(e) => setAssignmentQuestion(e.target.value)} className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+                    </div>
+                    {/* Description */}
+                    <div>
+                        <label htmlFor="description" className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                        <textarea id="description" rows="5" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Due Date */}
+                        <div>
+                            <label htmlFor="dueDate" className="flex items-center text-sm font-medium text-slate-700 mb-1"><CalendarIcon /><span className="ml-2">Due Date</span></label>
+                            <input type="date" id="dueDate" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+                        </div>
+                    </div>
+                    {/* File Upload */}
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Attach Files (Optional)</label>
+                        <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-lg">
+                            <div className="space-y-1 text-center">
+                                <FileUpIcon className="mx-auto h-12 w-12 text-slate-400"/>
+                                <div className="flex text-sm text-slate-600"><label htmlFor="file-upload" 
+                                className="relative cursor-pointer bg-white rounded-md font-medium
+                                 text-indigo-600 hover:text-indigo-500"><span>Upload a file</span>
+                                 <input id="file-upload" name="file-upload" type="file" onChange={handleFileChange} className="sr-only" /></label><p className="pl-1">or drag and drop</p></div>
+                                {file && <p className="text-sm text-green-600 pt-2">File selected: </p>}
+                            </div>
+                        </div>
+                    </div>
+                    {/* Submit Button */}
+                    <div className="flex pt-4 justify-end">
+                         <Button className="bg-[#006D77] hover:bg-[#001F3F]" disabled={isSubmitting}  >
+                            {
+                                isSubmitting ? (
+                                    <>
+                                    <Loader2 className='mr-2 w-4 h-4 animate-spin'/>
+                                    Please wait
+                                    </>
+                                ):("Create Assignment")
+                            }
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+export default CreateAssignment;

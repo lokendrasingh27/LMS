@@ -6,22 +6,19 @@ import LoginPage from "./pages/auth/LoginPage";
 import Signup from "./pages/auth/Signup";
 import InstructorDashboard from "./pages/instructor/Dashboard";
 import CoursePlayerPage from "./pages/courseplayer/CoursePlayerPage";
-// import Courses from './pages/instructor/Courses';
-// import CreateCourse from './pages/instructor/CourseCreate';
-import ProfilePage from "./pages/profile/ProfilePage";
+import ProfilePage from "./pages/ProfilePage";
 import Instructor from "./pages/instructor/Instructor";
 import Courses from "./pages/instructor/Courses";
 import CreateCourse from "./pages/instructor/CreateCourse";
 import UpdateCourse from "./pages/instructor/UpdateCourse";
 import CreateLecture from "./pages/instructor/CreateLecture";
 import CourseDetails from "./pages/CourseDetail";
-import StudentDashboard from "./pages/courseplayer/StudentDashboard";
+import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
-import CoursePayment from "./pages/student/CoursePayment";
+import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-import Instructors from "./apages/Instructors";
-import Students from "./apages/Students";
-import Dashboard from "./acomponents/Dashboard";
+import CertificatePage from "./pages/student/Certificatepage";
+
 
 function App() {
   return (
@@ -29,9 +26,9 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/course-player" element={<CoursePlayerPage />} />
-      <Route path="/courseplayer/student-dashboard" element={<StudentDashboard />} />
-
+    
+      <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
+      
       <Route path="/instructor" element={<Instructor />}>
         {/* children route */}
         <Route path="dashboard" element={<InstructorDashboard />} />
@@ -41,13 +38,14 @@ function App() {
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
         <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
         
-
       </Route>
+      <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
+      <Route path="/paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails/>}/>
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
-
       <Route path="/profile" element={<ProfilePage />} />
-   
+    
+      <Route path="/certificate" element={<CertificatePage/>} />
       
      
      

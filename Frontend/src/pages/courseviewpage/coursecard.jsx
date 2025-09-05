@@ -13,7 +13,7 @@ export default function CourseCard({ course,key }) {
     <motion.div
       layout
       whileHover={{ y: -3 }}
-      className="min-w-[240px] max-w-[260px] snap-start rounded-2xl border border-zinc-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+      className="min-w-[240px] mb-2 max-w-[260px] snap-start rounded-2xl border border-zinc-200 bg-white shadow-sm transition-shadow hover:shadow-md"
     >
       <div key={key} className="relative h-36 w-full overflow-hidden rounded-t-2xl bg-gradient-to-br from-zinc-100 to-zinc-200">
         {course.courseThumbnail ? (

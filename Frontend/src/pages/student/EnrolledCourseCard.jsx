@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 const EnrolledCourseCard = ({ course }) => {
   const isCompleted = course.progress === 100;
+  const courseId=course._id
+  const Navigate= useNavigate()
 
   return (
     <motion.div 
@@ -10,11 +13,11 @@ const EnrolledCourseCard = ({ course }) => {
       whileHover={{ y: -4 }}
       className="bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col min-w-[280px] snap-start"
     >
-      <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
+      <img src={course.courseThumbnail} alt={course.courseTitle} className="w-full h-40 object-cover" />
       <div className="p-5 flex flex-col flex-grow">
         <p className="text-sm text-zinc-500">{course.category}</p>
-        <h3 className="text-md font-bold text-zinc-800 mt-1 flex-grow">{course.title}</h3>
-        <p className="text-xs text-zinc-500 mt-2">by {course.instructor}</p>
+        <h3 className="text-md font-bold text-zinc-800 mt-1 flex-grow">{course.courseTitle}</h3>
+        <p className="text-xs text-zinc-500 mt-2">by {course.creator?.name}</p>
         
         {/* Progress Bar */}
         <div className="mt-4">
@@ -34,7 +37,7 @@ const EnrolledCourseCard = ({ course }) => {
           </div>
         </div>
         
-        <button className={`w-full mt-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors ${isCompleted ? 'bg-zinc-600 hover:bg-zinc-700' : 'bg-[#006D77] hover:bg-[#005c63]'}`}>
+        <button onClick={()=>Navigate(`course-player/:${courseId}`)} className={`w-full mt-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors ${isCompleted ? 'bg-zinc-600 hover:bg-zinc-700' : 'bg-[#006D77] hover:bg-[#005c63]'}`}>
           {isCompleted ? 'Review Course' : 'Continue Learning'}
         </button>
       </div>

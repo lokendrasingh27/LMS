@@ -27,7 +27,7 @@ export const studentData = {
     },
   ],
   stats: {
-    inProgress: 2,
+    inProgress: 1,
     completed: 1,
     timeSpent: "28h 45m",
   },

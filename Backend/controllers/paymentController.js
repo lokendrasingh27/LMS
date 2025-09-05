@@ -54,7 +54,9 @@ export const verifyPayment = async (req, res) => {
             await course.save()
         }
         return res.status(200).json({
-            message:"payment verified and enrollement successful"
+            message:"payment verified and enrollement successful",
+            user,   // updated user with enrolledCourses
+        course
         })
        }
        else{

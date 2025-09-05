@@ -2,6 +2,7 @@ import { Assignment } from "../models/Assignment.js";
 import {Course} from "../models/Course.js"
 import { Lecture } from "../models/Lecture.js";
 import { Quiz } from "../models/Quiz.js";
+import { User } from "../models/User.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 
@@ -32,7 +33,42 @@ export const createCourse = async(req, res)=> {
         })
     }
 }
+export const deleteInstructorCourse = async (req, res) => {
+  try {
+    const { instructorId } = req.body;
+              const courseId = req.params.courseId
+              
+    // 1. Course check
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
 
+    // 2. Instructor check (sirf wahi delete kar sake jo owner hai)
+     if (course.creator.toString() !== instructorId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to delete this course",
+      });
+    }
+
+    // 3. Enrolled users se course remove karna
+    await User.updateMany(
+      { enrolledCourses: courseId },
+      { $pull: { enrolledCourses: courseId } }
+    );
+
+    // 4. Course delete karna (lectures ke saath)
+    await Course.findByIdAndDelete(courseId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
 export const getPublishedCourse = async(_, res)=>{
     try {
         const courses = await Course.find({isPublished:true}).populate({path:"creator", select:"name photoUrl description"})
@@ -188,43 +224,59 @@ export const getCourseLecture = async (req, res) => {
     }
 }
 
-export const editLecture = async (req, res) => {
+
+  export const editLecture = async (req, res) => {
     try {
-        const {lectureTitle, videoInfo, isPreviewFree} = req.body
-        const {courseId, lectureId} = req.params;
-        const lecture = await Lecture.findById(lectureId);
-        if(!lecture){
-            return res.status(404).json({
-                message:"Lecture not found!"
-            })
-        }
-        //update lecture
-        if(lectureTitle) lecture.lectureTitle = lectureTitle;
-        if(videoInfo?.videoUrl) lecture.videoUrl = videoInfo.videoUrl;
-        if(videoInfo?.publicId) lecture.publicId = videoInfo.publicId;
-        lecture.isPreviewFree = isPreviewFree;
+      const { lectureTitle, videoInfo, isPreviewFree, videoLink } = req.body;
+      const { courseId, lectureId } = req.params;
 
-        await lecture.save();
+      const lecture = await Lecture.findById(lectureId);
+      if (!lecture) {
+        return res.status(404).json({
+          message: "Lecture not found!",
+        });
+      }
 
-        const course = await Course.findById(courseId);
-        if(course && !course.lectures.includes(lecture._id)){
-            course.lectures.push(lecture._id);
-            await course.save()
-        }
-        return res.status(200).json({
-            success:true,
-            lecture,
-            message:"Lecture updated successfully"
-        })
+      // update lecture fields
+      if (lectureTitle) lecture.lectureTitle = lectureTitle;
+
+      // ✅ Cloudinary video update
+      if (videoInfo?.videoUrl) lecture.videoUrl = videoInfo.videoUrl;
+      if (videoInfo?.publicId) lecture.publicId = videoInfo.publicId;
+
+      // ✅ Direct video link update
+      if (videoLink) {
+        lecture.videoLink = videoLink;
+        // agar direct link diya gaya hai, to Cloudinary ka url null kar do (optional)
+        lecture.videoUrl = null;
+        lecture.publicId = null;
+      }
+
+      lecture.isPreviewFree = isPreviewFree;
+
+      await lecture.save();
+
+      // ensure course contains lecture
+      const course = await Course.findById(courseId);
+      if (course && !course.lectures.includes(lecture._id)) {
+        course.lectures.push(lecture._id);
+        await course.save();
+      }
+
+      return res.status(200).json({
+        success: true,
+        lecture,
+        message: "Lecture updated successfully",
+      });
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            message:"Failed to edit lectures",
-            success:false
-        })
-        
+      console.log(error);
+      return res.status(500).json({
+        message: "Failed to edit lecture",
+        success: false,
+      });
     }
-}
+  };
+
 
 export const removeLecture = async(req, res)=>{
     try {
@@ -281,10 +333,14 @@ export const togglePublishedCourse = async (req, res)=>{
 
 export const addAssignment = async (req, res) => {
   try {
-    const {  title, questions } = req.body;
+    const {   assignmentTitle,
+      question,
+      description,
+    
+      submissionDeadline } = req.body;
     const {lectureId}=req.params
 
-    if (!lectureId || !title || !questions || questions.length === 0) {
+    if (!assignmentTitle || !submissionDeadline || !question ) {
       return res.status(400).json({ message: "Lecture ID and questions are required" });
     }
 
@@ -292,10 +348,29 @@ export const addAssignment = async (req, res) => {
     if (!lecture) {
       return res.status(404).json({ message: "Lecture not found" });
     }
+     // File upload to Cloudinary (req.file)
+   let pdfUrl = null;
+    let pdfPublicId = null;
 
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
+      const result = await cloudinary.uploader.upload(fileUri, {
+        resource_type: "raw", // ⚡ pdf ke liye
+        folder: "assignments",
+         format: "pdf",
+      });
+
+      pdfUrl = result.secure_url;
+      pdfPublicId = result.public_id;
+    }
     const assignment = new Assignment({
-      title,
-      questions
+      assignmentTitle,
+      question,
+      submissionDeadline,
+      description,
+      pdfUrl,
+      pdfPublicId
+
     });
 
     await assignment.save();
@@ -303,27 +378,75 @@ export const addAssignment = async (req, res) => {
     lecture.assignments.push(assignment._id);
     await lecture.save();
 
-    res.status(201).json({ message: "Assignment created successfully", assignment });
+    res.status(201).json({ message: "Assignment created successfully", assignment,success:true});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
+export const getAssignmentsByLecture = async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+
+    const lecture = await Lecture.findById(lectureId).populate("assignments");
+    if (!lecture) {
+      return res.status(404).json({ message: "Lecture not found" });
+    }
+
+    res.status(200).json({ assignments: lecture.assignments , success:true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 export const addQuiz = async (req, res) => {
   try {
     const { lectureId } = req.params;
-    const { questions, title, } = req.body;
+    const { questions, title, submissionDeadline } = req.body;
 
-   if (!lectureId || !title || !questions || questions.length === 0) {
-      return res.status(400).json({ message: "Lecture ID and questions are required" });
+    // Validation
+    if (!lectureId || !title || !submissionDeadline || !questions || questions.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Lecture ID, title, submissionDeadline, and questions are required" 
+      });
     }
 
+    // Validate each question's type and structure
+    for (let q of questions) {
+      if (!q.type || !["multiple-choice", "true-false"].includes(q.type)) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a valid type: 'multiple-choice' or 'true-false'"
+        });
+      }
+
+      if (q.type === "multiple-choice" && (!q.options || q.options.length<= 2)) {
+        return res.status(400).json({
+          success: false,
+          message: "Multiple-choice questions must have at least 2 options"
+        });
+      }
+
+      if (!q.correctAnswer) {
+        return res.status(400).json({
+          success: false,
+          message: "Each question must have a correctAnswer"
+        });
+      }
+    }
+
+    // Create Quiz
     const quiz = await Quiz.create({
-     title,
+      title,
+
+      submissionDeadline,
       questions
     });
+
+    // Push quiz to lecture
     await Lecture.findByIdAndUpdate(lectureId, {
       $push: { quizzes: quiz._id },
     });
@@ -333,7 +456,26 @@ export const addQuiz = async (req, res) => {
       message: "Quiz added successfully",
       quiz,
     });
-    } catch (error) {
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+export const getQuizzesByLecture = async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+
+    const lecture = await Lecture.findById(lectureId).populate("quizzes");
+    if (!lecture) {
+      return res.status(404).json({ success: false, message: "Lecture not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      quizzes: lecture.quizzes,
+    });
+  } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };

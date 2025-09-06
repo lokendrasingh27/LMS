@@ -1,4 +1,3 @@
-// /components/CourseList.jsx
 import React from 'react';
 
 const CourseList = ({
@@ -8,73 +7,74 @@ const CourseList = ({
   onEdit,
   onDelete,
   onSelect,
-  selectedCourseId
+  selectedCourseId,
 }) => {
   return (
-    <div className="p-4">
-      <h1 className="text-3xl text-[#00173D] font-bold mb-6">Course Management</h1>
-      <div className="space-y-4">
-        {courses.map(course => (
-          <div
-            key={course.id}
-            className={`cursor-pointer bg-[#C2E8F8] rounded shadow p-4 flex flex-col md:flex-row justify-between items-start md:items-center border-2 ${
-              selectedCourseId === course.id ? 'border-blue-600' : 'border-transparent'
-            }`}
-            onClick={() => onSelect(course.id)}
-          >
-            <div className="space-y-1">
-              <h2 className="text-xl font-semibold">{course.title}</h2>
-              <p className="text-sm text-[#0A5F6F]">👨‍🏫 {course.instructor}</p>
-              <p className="text-sm text-[#0A5F6F]">📂 {course.category}</p>
-              <p className="text-sm text-[#0A5F6F]">📌 Status: {course.status}</p>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-3 md:mt-0">
-              {course.status === 'Pending' && (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onApprove(course.id);
-                    }}
-                    className="bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onReject(course.id);
-                    }}
-                    className="bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Reject
-                  </button>
-                </>
-              )}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit(course.id);
-                }}
-                className="bg-blue-800 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
-              >
-                Edit
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (window.confirm('Are you sure you want to delete this course?')) {
-                    onDelete(course.id);
-                  }
-                }}
-                className="bg-red-700 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
-              >
-                Delete
-              </button>
-            </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {courses.map(course => (
+        <div
+          key={course.id}
+          className={`border rounded-lg p-4 cursor-pointer shadow-sm ${
+            selectedCourseId === course.id ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300'
+          }`}
+          onClick={() => onSelect(course.id)}
+        >
+          {/* Thumbnail placeholder */}
+          <div className="w-full h-40 bg-gray-200 rounded-md mb-4 flex items-center justify-center">
+            <img
+              src={course.thumbnail || "https://via.placeholder.com/400x240.png?text=Course+Thumbnail"}
+              alt={course.title}
+              className="object-cover w-full h-full rounded-md"
+            />
           </div>
-        ))}
-      </div>
+
+          <h3 className="text-xl font-semibold text-[#00173D] mb-2">{course.title}</h3>
+          <p className="text-gray-600 mb-1"><strong>Instructor:</strong> {course.instructor}</p>
+          <p className="text-gray-600 mb-2"><strong>Category:</strong> {course.category}</p>
+          <p className="text-sm font-medium mb-4">
+            Status: <span className={`font-bold ${course.status === 'Approved' ? 'text-green-600' : course.status === 'Rejected' ? 'text-red-600' : 'text-gray-600'}`}>{course.status || 'Pending'}</span>
+          </p>
+
+          <div className="flex gap-2 flex-wrap">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onApprove(course.id);
+              }}
+              className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+            >
+              Approve
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onReject(course.id);
+              }}
+              className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+            >
+              Reject
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(course.id);
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
+            >
+              Edit
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(course.id);
+              }}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,8 +1,8 @@
 // /pages/CoursesPage.jsx
 import React, { useState } from 'react';
-import { courses as dummyCourses } from "../data/Dummydata";
-import CourseList from '../components/CourseList';
-import CourseDetails from '../components/CourseDetails';
+import { courses as dummyCourses } from "./Dummydata";
+import CourseList from './CourseList';
+import CourseDetails from './CourseDetails';
 
 const CoursesPage = () => {
   const [courses, setCourses] = useState(dummyCourses);

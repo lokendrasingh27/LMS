@@ -1,27 +1,22 @@
-// /data/dummyCourses.js
+// Dummydata.js
 export const courses = [
   {
-    id: '1',
-    title: 'React Basics',
-    instructor: 'John Doe',
-    status: 'Pending',
-    category: 'Frontend',
-    description: 'Learn React from scratch.',
-    students: [{ id: 's1', name: 'Alice' }, { id: 's2', name: 'Bob' }],
-    reviews: [
-      { id: 'r1', studentName: 'Alice', rating: 5, comment: 'Great course!' },
-    ]
+    id: 1,
+    title: "React Basics",
+    instructor: "John Doe",
+    category: "Web Development",
+    description: "Learn the fundamentals of React.",
+    status: "Approved",
+    thumbnail: "https://via.placeholder.com/400x240.png?text=React+Basics",
   },
   {
-    id: '2',
-    title: 'Node.js Fundamentals',
-    instructor: 'Jane Smith',
-    status: 'Approved',
-    category: 'Backend',
-    description: 'Master Node.js for backend development.',
-    students: [{ id: 's3', name: 'Charlie' }],
-    reviews: [
-      { id: 'r2', studentName: 'Charlie', rating: 4, comment: 'Very useful!' },
-    ]
+    id: 2,
+    title: "Data Science Intro",
+    instructor: "Jane Smith",
+    category: "Data Science",
+    description: "An introduction to data science concepts.",
+    status: "Pending",
+    thumbnail: "https://via.placeholder.com/400x240.png?text=Data+Science",
   },
+  // more courses...
 ];

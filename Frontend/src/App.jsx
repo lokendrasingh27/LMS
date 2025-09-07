@@ -63,6 +63,8 @@ function App() {
          <Route path="/admin/assessments" element={<AssessmentResults />} />
          <Route path="/admin/communications" element={<Communications />} />
         <Route path="/admin/financials" element={<FinancialManagement />} />
+        <Route path="/admin/assessments" element={<AssessmentResults />} />
+<Route path="/admin/course-analytics" element={<CourseAnalytics />} />
     </Routes>
   );
 }

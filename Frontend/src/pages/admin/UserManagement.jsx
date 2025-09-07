@@ -34,7 +34,7 @@ const UserManagement = () => {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="p-6  mx-auto">
       
       {/* ✅ Title + Back button in same row */}
       <div className="flex items-center justify-between mb-6">

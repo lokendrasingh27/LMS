@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Dummy course data
 const dummyCourses = [
@@ -25,6 +26,7 @@ const dummyCourses = [
 ];
 
 const EnrollmentManagement = () => {
+  const navigate = useNavigate();
   const [courses, setCourses] = React.useState(dummyCourses);
 
   const handleRemoveStudent = (courseId, studentId) => {
@@ -43,7 +45,16 @@ const EnrollmentManagement = () => {
 
   return (
     <div className="p-8 bg-[#E3F1F1] min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-[#15315B]">📋 Enrollment Management</h1>
+       <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold text-[#15315B]">Enrollment Management</h1>
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+      {/* <h1 className="text-3xl font-bold mb-6 text-[#15315B]">📋 Enrollment Management</h1> */}
 
       {courses.map(course => (
         <div

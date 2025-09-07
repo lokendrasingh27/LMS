@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Instructors = () => {
+  const navigate = useNavigate();
   const [instructors, setInstructors] = useState([
     {
       id: 1,
@@ -28,7 +30,17 @@ const Instructors = () => {
 
   return (
     <div className="p-8 md:p-12 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-8 text-gray-900">Instructor Management</h1>
+      
+      {/* Header and Back Button aligned */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-4xl font-bold text-gray-900">Instructor Management</h1>
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
 
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
         <div className="overflow-x-auto">

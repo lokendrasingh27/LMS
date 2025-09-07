@@ -1,7 +1,9 @@
 // src/components/FinancialManagement.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import for navigation
 
 const FinancialManagement = () => {
+    const navigate = useNavigate(); // ✅ Hook to navigate
   // Mock data for demo
   const totalRevenue = 12500;
   const recentTransactions = [
@@ -12,7 +14,17 @@ const FinancialManagement = () => {
 
   return (
     <section className="bg-white rounded-2xl shadow-md p-8">
-      <h2 className="text-2xl font-bold mb-6 text-[#00173D]">Financial Management</h2>
+      <div className="flex items-center justify-between mb-2">
+        <h1 className="text-3xl font-bold mb-4">Financial Management</h1>
+     
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+      {/* <h2 className="text-2xl font-bold mb-6 text-[#00173D]">Financial Management</h2> */}
 
       {/* Total Revenue */}
       <div className="mb-8">

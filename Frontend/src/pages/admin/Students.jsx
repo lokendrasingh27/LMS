@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 🔄 Add this import
 
 const Students = () => {
+  const navigate = useNavigate(); // 🔄 Hook to navigate back
+
   const [students, setStudents] = useState([
     { id: 1, name: 'John Doe', email: 'john@example.com' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
@@ -13,7 +16,17 @@ const Students = () => {
 
   return (
     <div className="p-8 md:p-12 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold mb-8 text-gray-900">Student Management</h1>
+      
+      {/* ✅ Header and Back Button aligned in flex */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-4xl font-bold text-gray-900">Student Management</h1>
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
 
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
         <div className="overflow-x-auto">

@@ -1,10 +1,11 @@
-// /pages/CoursesPage.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 🔁 Required for navigation
 import { courses as dummyCourses } from "./Dummydata";
 import CourseList from './CourseList';
 import CourseDetails from './CourseDetails';
 
 const CoursesPage = () => {
+  const navigate = useNavigate(); // 🔁 Hook for redirection
   const [courses, setCourses] = useState(dummyCourses);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
@@ -50,6 +51,19 @@ const CoursesPage = () => {
 
   return (
     <div className="min-h-screen bg-[#E8F1F2] p-4">
+
+      {/* 🔁 Header with back button */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-3xl text-[#00173D] font-bold">Course Details</h2>
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+
+      {/* Course List and Details */}
       <CourseList
         courses={courses}
         onApprove={handleApprove}
@@ -61,7 +75,6 @@ const CoursesPage = () => {
       />
 
       <div className="mt-10 p-4">
-        <h2 className="text-3xl text-[#00173D] font-bold mb-6">Course Details</h2>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <CourseDetails course={selectedCourse} />

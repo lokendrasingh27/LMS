@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import for navigation
 
-// Dummy users data (replace with real API/data later)
 const dummyUsers = [
   { id: 1, name: 'Alice Johnson', role: 'Instructor', email: 'alice@example.com' },
   { id: 2, name: 'Bob Smith', role: 'Student', email: 'bob@example.com' },
@@ -8,9 +8,10 @@ const dummyUsers = [
 ];
 
 const UserManagement = () => {
+  const navigate = useNavigate(); // ✅ Hook to navigate
+
   const [users, setUsers] = useState(dummyUsers);
 
-  // Edit user - simple prompt for new name and email
   const handleEdit = (id) => {
     const user = users.find((u) => u.id === id);
     const newName = prompt('Enter new name:', user.name);
@@ -26,7 +27,6 @@ const UserManagement = () => {
     );
   };
 
-  // Delete user from list
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       setUsers((prev) => prev.filter((u) => u.id !== id));
@@ -34,15 +34,26 @@ const UserManagement = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-[#15315B]">User Management</h1>
+    <div className="p-6 max-w-5xl mx-auto">
+      
+      {/* ✅ Title + Back button in same row */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold text-[#15315B]">User Management</h1>
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+
       <table className="min-w-full border border-gray-300 rounded-md overflow-hidden">
         <thead className="bg-[#006D77] text-white">
           <tr>
             <th className="p-3 text-left">Name</th>
             <th className="p-3 text-left">Role</th>
             <th className="p-3 text-left">Email</th>
-            <th className="p-3">Actions</th>
+            <th className="p-3 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>

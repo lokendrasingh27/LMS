@@ -2,7 +2,7 @@ import React from 'react';
 
 const CourseDetails = ({ course }) => {
   if (!course) {
-    return <p className="text-gray-500 italic">Select a course to see details</p>;
+    return <h3 className="text-gray-500 italic">Select a course to see details</h3>;
   }
 
   return (

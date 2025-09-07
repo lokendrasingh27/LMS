@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Import for navigation
 
 const Communications = () => {
+  const navigate = useNavigate(); // ✅ Hook to navigate
   const [announcements, setAnnouncements] = useState([
     { id: 1, title: 'System Maintenance', content: 'Scheduled maintenance on Sunday at 2 AM.' },
     { id: 2, title: 'New Feature', content: 'Dark mode will be released next week!' },
@@ -24,9 +26,18 @@ const Communications = () => {
   };
 
   return (
-    <div className="p-8 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Communications</h1>
-      <p className="mb-6">Manage announcements, notifications, and messages here.</p>
+    <div className="p-8  mx-auto">
+       <div className="flex items-center justify-between mb-2">
+        <h1 className="text-3xl font-bold mb-4">Communications</h1>
+     
+        <button
+          onClick={() => navigate('/admin')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+       <p className="mb-6">Manage announcements, notifications, and messages here.</p>
 
       <form onSubmit={handleAddAnnouncement} className="mb-8">
         <input
@@ -47,7 +58,7 @@ const Communications = () => {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+          className="px-4 py-2 bg-[#006D77] text-white rounded hover:bg-[#033b41db] transition"
         >
           Add Announcement
         </button>

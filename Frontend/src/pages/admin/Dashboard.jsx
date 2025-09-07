@@ -31,7 +31,7 @@ const Dashboard = () => {
         </div>
 
         {/* Main content with margin-left equal to sidebar width */}
-        <div className="flex-1 ml-64 overflow-y-auto p-6">
+        <div className="flex-1  ml-64 overflow-y-auto p-6">
           <main className="p-8 space-y-8 max-w-7xl mx-auto w-full">
             {/* Welcome Section */}
             <section className="bg-gradient-to-r from-[#15315B] to-[#1A406E] text-white rounded-2xl p-8 shadow-lg">

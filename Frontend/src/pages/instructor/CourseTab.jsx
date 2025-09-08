@@ -162,15 +162,15 @@ const CourseTab = () => {
     return (
         <Card className="m-2 md:m-6">
             <CardHeader classname="flex ">
-             <div className='flex items-center  justify-between'>
+             <div className='lg:flex flex-col w-full lg:justify-between'>
                    <div>
                     <CardTitle>Basic Course Information</CardTitle>
                     <CardDescription>
                         Make changes to your courses here. Click save when you're done.
                     </CardDescription>
                 </div>
-                <div className='space-x-2 flex '>
-                    <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77] hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
+                <div className='space-x-2 flex mt-2 '>
+                    <Button onClick={()=>togglePublishUnpublish(selectedCourse.isPublished ? "false": "true")} className="bg-[#006D77]  hover:bg-[#001F3F]">{selectedCourse.isPublished ? "UnPublish": "Publish"}</Button>
                     <Button onClick={deleteCourse} disabled={loading} variant="destructive">
                           {
                                 loading ? (

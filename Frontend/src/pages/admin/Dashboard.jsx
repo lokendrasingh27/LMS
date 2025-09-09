@@ -23,24 +23,25 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#E3F1F1]">
-      {/* Sidebar */}
-      <div className="fixed top-0 left-0 h-screen w-64">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#E3F1F1]">
+      {/* Sticky Sidebar (Top Nav on Mobile, Fixed Sidebar on Desktop) */}
+      <div className="sticky top-0 md:fixed md:top-0 md:left-0 md:h-screen md:w-64 w-full bg-white shadow-md z-20">
         <Sidebar />
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 ml-64 overflow-y-auto p-6">
-        <main className="p-8 space-y-8 max-w-7xl mx-auto w-full">
+      {/* Main Content */}
+      <div className="flex-1 md:ml-64 p-6 sm:p-6 pt-20 md:pt-6 overflow-y-auto">
+        
+        <main className="space-y-8 p-6 max-w-7xl mx-auto w-full">
           {/* Welcome Section */}
-          <section className="bg-gradient-to-r from-[#15315B] to-[#1A406E] text-white rounded-2xl p-8 shadow-lg">
-            <h1 className="text-3xl font-extrabold tracking-wide">
+          <section className="bg-gradient-to-r from-[#15315B] to-[#1A406E] text-white rounded-2xl p-6 sm:p-8 shadow-lg">
+            <h1 className="text-2xl sm:text-3xl font-extrabold">
               Welcome back, {user?.name || 'Admin'}!
             </h1>
           </section>
 
           {/* Quick Stats */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { label: 'Instructors', count: 3, icon: <FaChalkboardTeacher size={30} />, link: '/admin/instructors' },
               { label: 'Students', count: 12, icon: <FaUserGraduate size={30} />, link: '/admin/students' },
@@ -49,14 +50,11 @@ const Dashboard = () => {
             ].map(({ label, count, icon, link }) => (
               <div
                 key={label}
-                onClick={() => link && handleNavigate(link)}
-                className={`cursor-pointer bg-white rounded-2xl shadow-md flex flex-col items-center justify-center p-6 space-y-3
-                  hover:shadow-xl transition-shadow duration-300
-                  ${link ? 'hover:bg-[#17838d98] hover:text-white' : ''}
-                `}
+                onClick={() => handleNavigate(link)}
+                className="cursor-pointer bg-white rounded-2xl shadow-md flex flex-col items-center justify-center p-6 space-y-3 hover:shadow-xl transition duration-300 hover:bg-[#17838d98] hover:text-white"
               >
-                <div className="text-[#006D77] group-hover:text-white">{icon}</div>
-                <h2 className="text-4xl font-extrabold">{count}</h2>
+                <div className="text-[#006D77]">{icon}</div>
+                <h2 className="text-3xl font-extrabold">{count}</h2>
                 <p className="text-lg font-semibold">{label}</p>
               </div>
             ))}
@@ -64,18 +62,18 @@ const Dashboard = () => {
 
           {/* Course Analytics */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-between">
-              <span className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center space-x-2">
                 <FaChartLine className="text-[#006D77]" />
                 <span>Course Analytics</span>
-              </span>
+              </h2>
               <button
                 onClick={() => handleNavigate('/admin/course-analytics')}
-                className="text-sm bg-[#006D77] hover:bg-[#00A3B7] text-white px-4 py-2 rounded-xl font-medium shadow"
+                className="mt-2 sm:mt-0 text-sm bg-[#006D77] hover:bg-[#00A3B7] text-white px-4 py-2 rounded-xl font-medium shadow"
               >
                 View Details
               </button>
-            </h2>
+            </div>
             <div className="bg-white rounded-2xl shadow-md p-6">
               <p className="text-gray-700 mb-4">Here’s a summary of course performance metrics:</p>
               <ul className="list-disc list-inside space-y-2 text-gray-600">
@@ -89,26 +87,26 @@ const Dashboard = () => {
 
           {/* Assignment Results */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-between">
-              <span className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center space-x-2">
                 <FaClipboardList className="text-[#006D77]" />
                 <span>Assignment Results</span>
-              </span>
+              </h2>
               <button
                 onClick={() => handleNavigate('/admin/assessments')}
-                className="text-sm bg-[#006D77] hover:bg-[#00A3B7] text-white px-4 py-2 rounded-xl font-medium shadow"
+                className="mt-2 sm:mt-0 text-sm bg-[#006D77] hover:bg-[#00A3B7] text-white px-4 py-2 rounded-xl font-medium shadow"
               >
                 View Details
               </button>
-            </h2>
+            </div>
             <div className="bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
-              <table className="min-w-full table-auto border-collapse border border-gray-300">
+              <table className="min-w-full table-auto border-collapse border border-gray-300 text-sm">
                 <thead>
                   <tr className="bg-[#006D77] text-white">
-                    <th className="border border-gray-300 px-4 py-2 text-left">Student</th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">Assignment</th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">Score</th>
-                    <th className="border border-gray-300 px-4 py-2 text-left">Status</th>
+                    <th className="border px-4 py-2 text-left">Student</th>
+                    <th className="border px-4 py-2 text-left">Assignment</th>
+                    <th className="border px-4 py-2 text-left">Score</th>
+                    <th className="border px-4 py-2 text-left">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,13 +116,11 @@ const Dashboard = () => {
                     { student: 'Mark Lee', assignment: 'Assignment 1', score: '65%', status: 'Passed' },
                     { student: 'Emily Davis', assignment: 'Assignment 2', score: '50%', status: 'Failed' },
                   ].map(({ student, assignment, score, status }, idx) => (
-                    <tr key={idx} className="even:bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-                      <td className="border border-gray-300 px-4 py-2">{student}</td>
-                      <td className="border border-gray-300 px-4 py-2">{assignment}</td>
-                      <td className="border border-gray-300 px-4 py-2">{score}</td>
-                      <td className={`border border-gray-300 px-4 py-2 font-semibold ${
-                        status === 'Passed' ? 'text-green-600' : 'text-red-600'
-                      }`}>
+                    <tr key={idx} className="even:bg-gray-50 hover:bg-gray-100 transition">
+                      <td className="border px-4 py-2">{student}</td>
+                      <td className="border px-4 py-2">{assignment}</td>
+                      <td className="border px-4 py-2">{score}</td>
+                      <td className={`border px-4 py-2 font-semibold ${status === 'Passed' ? 'text-green-600' : 'text-red-600'}`}>
                         {status}
                       </td>
                     </tr>
@@ -136,7 +132,7 @@ const Dashboard = () => {
 
           {/* Enrollment Management */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
               <FaUserPlus className="text-[#006D77]" />
               <span>Enrollment Management</span>
             </h2>
@@ -144,7 +140,7 @@ const Dashboard = () => {
               <p className="text-gray-700 mb-4">Manage and track student enrollments.</p>
               <button
                 onClick={() => handleNavigate('/admin/enrollments')}
-                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition duration-300"
+                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md"
               >
                 Go to Enrollment Management
               </button>
@@ -153,7 +149,7 @@ const Dashboard = () => {
 
           {/* Communication Tools */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
               <FaComments className="text-[#006D77]" />
               <span>Communication Tools</span>
             </h2>
@@ -161,7 +157,7 @@ const Dashboard = () => {
               <p className="text-gray-700 mb-4">Send announcements, notifications, or messages to users.</p>
               <button
                 onClick={() => handleNavigate('/admin/communications')}
-                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition duration-300"
+                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md"
               >
                 Manage Communications
               </button>
@@ -170,7 +166,7 @@ const Dashboard = () => {
 
           {/* Financial Management */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center space-x-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 flex items-center space-x-2">
               <FaDollarSign className="text-[#006D77]" />
               <span>Financial Management</span>
             </h2>
@@ -178,7 +174,7 @@ const Dashboard = () => {
               <p className="text-gray-700 mb-4">View payment transactions, pricing plans, and financial reports.</p>
               <button
                 onClick={() => handleNavigate('/admin/financials')}
-                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition duration-300"
+                className="bg-[#006D77] hover:bg-[#00A3B7] text-white px-6 py-3 rounded-xl font-semibold shadow-md"
               >
                 Go to Financial Management
               </button>
@@ -186,6 +182,15 @@ const Dashboard = () => {
           </section>
         </main>
       </div>
+
+      {/* Floating Chatbox Icon */}
+      <button
+        onClick={() => handleNavigate('/admin/chatbox')}
+        className="fixed bottom-6 right-6 bg-[#006D77] hover:bg-[#00A3B7] text-white p-4 rounded-full shadow-lg z-50 transition"
+        aria-label="Open Chat"
+      >
+        <FaComments size={24} />
+      </button>
     </div>
   );
 };

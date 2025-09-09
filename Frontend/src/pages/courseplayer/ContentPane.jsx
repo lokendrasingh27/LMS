@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const ContentPane = () => {
+  const course = useSelector((state) => state.course.course);
+
   return (
     <main className="contentpane flex-grow  overflow-y-auto p-4 ">
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
@@ -13,8 +16,8 @@ const ContentPane = () => {
         ></iframe>
       </div>
       <div className="mt-5 pt-6 border-t border-gray-200">
-        <h2 className="text-2xl md:text-3xl ml-2  font-bold text-[#00173D]">
-          Lesson Title
+        <h2 className="text-2xl md:text-3xl ml-2 font-bold text-[#00173D]">
+          {course ? course.courseTitle : "Loading..."}
         </h2>
         <div className="mt-7 flex flex-col md:flex-row justify-between items-center gap-4">
           <button className="w-full md:w-auto px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm">

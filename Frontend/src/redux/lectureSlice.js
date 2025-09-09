@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const lectureSlice = createSlice({
   name: 'lecture',
   initialState: {
-    lecture: null
+    lecture: [],
   },
 
   reducers: {

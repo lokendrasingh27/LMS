@@ -36,7 +36,7 @@ function App() {
         <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
       </Route>
       
-      <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
+      
       <Route path="/paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />

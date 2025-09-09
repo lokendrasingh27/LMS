@@ -1,7 +1,5 @@
-// src/App.js
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import React from "react";
 import LoginPage from "./pages/auth/LoginPage";
 import Signup from "./pages/auth/Signup";
 import InstructorDashboard from "./pages/instructor/Dashboard";
@@ -17,7 +15,7 @@ import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-
+import CertificatePage from "./pages/student/Certificatepage";
 
 
 function App() {
@@ -26,30 +24,30 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
-    
+      
       <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
       
       <Route path="/instructor" element={<Instructor />}>
-        {/* children route */}
         <Route path="dashboard" element={<InstructorDashboard />} />
         <Route path="course" element={<Courses />} />
         <Route path="course/create" element={<CreateCourse />} />
         <Route path="course/:courseId" element={<UpdateCourse />} />
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
         <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
-        
       </Route>
+      
       <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
       <Route path="/paymenthistory" element={<PaymentHistory />} />
-      <Route path="/courses/:courseId" element={<CourseDetails/>}/>
+      <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     
-      
+       <Route path="/certificate" element={<CertificatePage/>} />
       
      
      
     </Routes>
   );
 }
+
 export default App;

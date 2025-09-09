@@ -15,7 +15,7 @@ import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-import CertificatePage from "./pages/student/Certificatepage";
+// import CertificatePage from "./pages/student/Certificatepage";
 
 
 function App() {
@@ -42,8 +42,7 @@ function App() {
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
     
-       <Route path="/certificate" element={<CertificatePage/>} />
-      
+       
      
      
     </Routes>

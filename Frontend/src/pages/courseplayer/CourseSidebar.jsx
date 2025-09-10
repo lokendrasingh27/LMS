@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentLecture } from "../../redux/lectureSlice"; // Adjust the import path
 
-const CourseSidebar = ({ isOpen, onSelectLecture }) => {
+const CourseSidebar = ({ isOpen }) => {
   const [openLecture, setOpenLecture] = useState(null);
+  const dispatch = useDispatch();
 
-  // This component now simply reads the lecture data from the Redux store.
-  // The parent component is responsible for fetching and putting the data here.
+  // Get the full list of lectures from the Redux store
   const lectures = useSelector((state) => state.lecture.lecture ?? []);
 
-  const toggleLecture = (index) => {
+  const handleSelectLecture = (lecture) => {
+    // Dispatch the selected lecture object to the Redux store
+    dispatch(setCurrentLecture(lecture));
+  };
+
+  const toggleLecture = (index, lecture) => {
     setOpenLecture(openLecture === index ? null : index);
-    
-    // Call the onSelectLecture prop if it's provided, passing the selected lecture
-    if (onSelectLecture) {
-      onSelectLecture(lectures[index]);
-    }
+    handleSelectLecture(lecture);
   };
 
   return (
@@ -25,20 +27,21 @@ const CourseSidebar = ({ isOpen, onSelectLecture }) => {
     >
       <ul className="space-y-4">
         {lectures.length === 0 && (
-          <li className="text-white">Loading lectures...</li>
+          <li className="text-white">Loading lessons...</li>
         )}
         {lectures.map((lecture, index) => (
           <li key={lecture._id}>
             <button
               className="w-full text-left p-3 bg-[#006D77] text-white rounded-md font-semibold"
-              onClick={() => toggleLecture(index)}
+              onClick={() => toggleLecture(index, lecture)}
             >
               {`Lecture ${index + 1}: ${lecture.lectureTitle}`}
             </button>
             {openLecture === index && (
               <ul className="mt-2 ml-4 space-y-2 text-sm font-normal">
+                {/* This part can be dynamic later if you have sub-lessons */}
                 <li className="p-3 bg-[#C2E8F8] rounded-md font-semibold text-black">
-                  {`Lesson ${index + 1}.1: Details`}
+                  {`Lesson Details`}
                 </li>
               </ul>
             )}

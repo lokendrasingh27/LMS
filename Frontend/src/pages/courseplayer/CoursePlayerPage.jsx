@@ -30,14 +30,14 @@ const CoursePlayerPage = () => {
           `http://localhost:5000/api/course/${courseId}/lecture`,
           { withCredentials: true }
         );
-
+        console.log(lecturesResponse.data)
         dispatch(setCourse(courseResponse.data.course));
         dispatch(setLecture(lecturesResponse.data.lectures));
       } catch (error) {
         console.error("Error fetching course or lectures:", error);
       }
     };
-
+    
     fetchCourseData();
   // ✅ FIX 3: Add courseId to the dependency array
   }, [dispatch, courseId]);

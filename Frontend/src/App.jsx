@@ -15,7 +15,7 @@ import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-import CertificatePage from "./pages/student/Certificatepage";
+
 import Dashboard from './pages/admin/Dashboard';
 import Instructors from './pages/admin/Instructors';
 import Students from './pages/admin/Students';
@@ -53,7 +53,7 @@ function App() {
       <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/certificate" element={<CertificatePage />} />
+      
 
       <Route path="/admin" element={<Dashboard />} />
       <Route path="/admin/instructors" element={<Instructors />} />

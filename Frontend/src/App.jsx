@@ -31,6 +31,7 @@ import ChatBox from "./pages/Chatbox";
 =======
 // import CertificatePage from "./pages/student/Certificatepage";
 >>>>>>> 6ac77445c335aaf84d55a8e5c8d0ea1fba524773
+// import CertificatePage from "./pages/student/Certificatepage";
 
 
 function App() {
@@ -50,34 +51,26 @@ function App() {
         <Route path="course/:courseId/lecture" element={<CreateLecture />} />
         <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
       </Route>
-
+      
       <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
       <Route path="/paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
-<<<<<<< HEAD
       <Route path="/certificate" element={<CertificatePage />} />
 
       <Route path="/admin" element={<Dashboard />} />
       <Route path="/admin/instructors" element={<Instructors />} />
       <Route path="/admin/students" element={<Students />} />
-      <Route path="/admin/courses" element={<CoursesPage />} />
-      <Route path="/admin/users" element={<UserManagement />} />
-      <Route path="/admin/course-analytics" element={<CourseAnalytics />} />
-      <Route path="/admin/enrollments" element={<EnrollmentManagement />} />
-      <Route path="/admin/assessments" element={<AssessmentResults />} />
-      <Route path="/admin/communications" element={<Communications />} />
-      <Route path="/admin/financials" element={<FinancialManagement />} />
-      <Route path="/admin/assessments" element={<AssessmentResults />} />
-      <Route path="/admin/course-analytics" element={<CourseAnalytics />} />
-      <Route path="/admin/chatbox" element={<ChatBox />} />
-=======
-    
-       
-     
-     
->>>>>>> 6ac77445c335aaf84d55a8e5c8d0ea1fba524773
+       <Route path="/admin/courses" element={<CoursesPage />} />
+       <Route path="/admin/users" element={<UserManagement />} />
+       <Route path="/admin/course-analytics" element={<CourseAnalytics />} />
+        <Route path="/admin/enrollments" element={<EnrollmentManagement />} />
+         <Route path="/admin/assessments" element={<AssessmentResults />} />
+         <Route path="/admin/communications" element={<Communications />} />
+        <Route path="/admin/financials" element={<FinancialManagement />} />
+        <Route path="/admin/assessments" element={<AssessmentResults />} />
+<Route path="/admin/course-analytics" element={<CourseAnalytics />} />
     </Routes>
   );
 }

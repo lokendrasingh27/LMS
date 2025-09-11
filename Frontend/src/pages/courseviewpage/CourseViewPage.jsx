@@ -22,9 +22,12 @@ const CourseViewPage = () => {
   const dispatch = useDispatch();
   const { course } = useSelector((store) => store.course);
   // Filter available courses based on the search query
-  const filteredAvailableCourses = course.filter((course) =>
-    course.courseTitle.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredAvailableCourses = Array.isArray(course)
+  ? course.filter((course) =>
+      course.courseTitle.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  : [];
+
 
   useEffect(() => {
     const getAllPublishedCourse = async () => {

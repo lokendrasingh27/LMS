@@ -15,22 +15,7 @@ import EnrolledDashboard from "./pages/student/EnrolledDashboard";
 import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
-<<<<<<< HEAD
-import CertificatePage from "./pages/student/Certificatepage";
-import Dashboard from './pages/admin/Dashboard';
-import Instructors from './pages/admin/Instructors';
-import Students from './pages/admin/Students';
-import CoursesPage from './pages/admin/CoursesPage';
-import UserManagement from './pages/admin/UserManagement';
-import CourseAnalytics from "./pages/admin/CourseAnalytics";
-import EnrollmentManagement from "./pages/admin/EnrollmentManagement";
-import AssessmentResults from "./pages/admin/AssessmentResults";
-import Communications from './pages/admin/Communications';
-import FinancialManagement from './pages/admin/FinancialManagement';
-import ChatBox from "./pages/Chatbox";
-=======
 // import CertificatePage from "./pages/student/Certificatepage";
->>>>>>> 6ac77445c335aaf84d55a8e5c8d0ea1fba524773
 // import CertificatePage from "./pages/student/Certificatepage";
 
 

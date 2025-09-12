@@ -25,7 +25,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
-  const [isOpen, setIsOpen] = useState(false); // mobile sidebar toggle
+  const [isOpen, setIsOpen] = useState(false);
 
   const logoutHandler = async () => {
     try {
@@ -47,7 +47,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ✅ Mobile Navbar */}
+      {/* ✅ Mobile Top Navbar */}
       <div className="md:hidden flex justify-between items-center bg-[#001f3f] text-white p-4">
         <button onClick={() => setIsOpen(true)}>
           <Menu size={28} />
@@ -71,20 +71,20 @@ const Sidebar = () => {
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           md:translate-x-0 md:static md:flex md:flex-col`}
       >
-        {/* Close Button on Mobile */}
+        {/* Mobile Close Button */}
         <div className="md:hidden flex justify-end">
           <button onClick={() => setIsOpen(false)}>
             <X size={28} />
           </button>
         </div>
 
-        {/* Sidebar Logo */}
+        {/* Logo */}
         <div className="flex flex-col items-center mb-8 mt-10 md:mt-0">
           <FaGraduationCap className="text-5xl" />
           <h1 className="text-2xl font-bold">Gradix</h1>
         </div>
 
-        {/* Sidebar Links */}
+        {/* Sidebar Content */}
         <div className="space-y-4">
           {!user ? (
             // ✅ Unauthenticated Sidebar
@@ -104,7 +104,7 @@ const Sidebar = () => {
             </div>
           ) : (
             <>
-              {/* ✅ User Profile Box */}
+              {/* ✅ Profile Box */}
               <div className="bg-[#15315B] p-4 rounded-2xl text-center mb-4">
                 <img
                   src={user?.photoUrl || userLogo}
@@ -116,79 +116,67 @@ const Sidebar = () => {
                 <p className="text-xs capitalize">{user.role}</p>
               </div>
 
-              {/* ✅ Dynamic Sidebar Menu */}
-              <div className="flex flex-col gap-3">
-                {/* Instructor Menu */}
-                {user.role === "instructor" && (
-                  <>
-                    <NavLink to="/" className={baseLinkStyle}>
-                      <FaHome /> Home
-                    </NavLink>
-                    <NavLink to="/instructor/dashboard" className={baseLinkStyle}>
-                      <ChartColumnBig /> Dashboard
-                    </NavLink>
-                    <NavLink to="/instructor/course" className={baseLinkStyle}>
-                      <FolderPlus /> Courses
-                    </NavLink>
-                  </>
-                )}
+              {/* ✅ Role-Based Navigation */}
+              {user.role === "instructor" ? (
+                <div className="flex flex-col gap-3">
+                  <Link to="/" className={baseLinkStyle}>
+                    <FaHome /> Home
+                  </Link>
+                  <NavLink to="/instructor/dashboard" className={baseLinkStyle}>
+                    <ChartColumnBig /> Dashboard
+                  </NavLink>
+                  <NavLink to="/instructor/course" className={baseLinkStyle}>
+                    <FolderPlus /> Courses
+                  </NavLink>
+                </div>
+              ) : user.role === "admin" ? (
+                <div className="flex flex-col gap-3">
+                  <NavLink to="/admindemo" end className={baseLinkStyle}>
+                    <FaHome /> Dashboard
+                  </NavLink>
+                  <NavLink to="/admindemo/instructors" className={baseLinkStyle}>
+                    <FaChalkboardTeacher /> Instructors
+                  </NavLink>
+                  <NavLink to="/admindemo/students" className={baseLinkStyle}>
+                    <FaGraduationCap /> Students
+                  </NavLink>
+                  <NavLink to="/admindemo/courses" className={baseLinkStyle}>
+                    <ImBook /> Courses
+                  </NavLink>
+                  <NavLink to="/admindemo/users" className={baseLinkStyle}>
+                    <FaUsers /> Users
+                  </NavLink>
+                  <NavLink to="/admindemo/course-analytics" className={baseLinkStyle}>
+                    <ChartColumnBig /> Analytics
+                  </NavLink>
+                  <NavLink to="/admindemo/enrollments" className={baseLinkStyle}>
+                    <FaUserPlus /> Enrollments
+                  </NavLink>
+                  <NavLink to="/admindemo/assessments" className={baseLinkStyle}>
+                    <FaClipboardList /> Assessments
+                  </NavLink>
+                  <NavLink to="/admindemo/communications" className={baseLinkStyle}>
+                    <FaComments /> Communications
+                  </NavLink>
+                  <NavLink to="/admindemo/financials" className={baseLinkStyle}>
+                    <MdOutlinePayment /> Financials
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  <Link to="/" className={baseLinkStyle}>
+                    <FaHome /> Home
+                  </Link>
+                  <NavLink to="/EnrolledDashboard" className={baseLinkStyle}>
+                    <ImBook /> Enrolled Courses
+                  </NavLink>
+                  <NavLink to="/Paymenthistory" className={baseLinkStyle}>
+                    <MdOutlinePayment /> Payment History
+                  </NavLink>
+                </div>
+              )}
 
-                {/* Admin Menu */}
-                {user.role === "admin" && (
-                  <>
-                    <NavLink to="/admin" className={baseLinkStyle}>
-                      <FaHome /> Dashboard
-                    </NavLink>
-                    <NavLink to="/admin/instructors" className={baseLinkStyle}>
-                      <FaChalkboardTeacher /> Instructors
-                    </NavLink>
-                    <NavLink to="/admin/students" className={baseLinkStyle}>
-                      <FaGraduationCap /> Students
-                    </NavLink>
-                    <NavLink to="/admin/courses" className={baseLinkStyle}>
-                      <ImBook /> Courses
-                    </NavLink>
-                    <NavLink to="/admin/users" className={baseLinkStyle}>
-                      <FaUsers /> Users
-                    </NavLink>
-                    <NavLink to="/admin/course-analytics" className={baseLinkStyle}>
-                      <ChartColumnBig /> Analytics
-                    </NavLink>
-                    <NavLink to="/admin/enrollments" className={baseLinkStyle}>
-                      <FaUserPlus /> Enrollments
-                    </NavLink>
-                    <NavLink to="/admin/assessments" className={baseLinkStyle}>
-                      <FaClipboardList /> Assessments
-                    </NavLink>
-                    <NavLink to="/admin/communications" className={baseLinkStyle}>
-                      <FaComments /> Announcement
-                    </NavLink>
-                    <NavLink to="/admin/financials" className={baseLinkStyle}>
-                      <MdOutlinePayment /> Financials
-                    </NavLink>
-                  </>
-                )}
-
-                {/* Student Menu */}
-                {user.role === "student" && (
-                  <>
-                    <NavLink to="/" className={baseLinkStyle}>
-                      <FaHome /> Home
-                    </NavLink>
-                    <NavLink
-                      to="/courseplayer/EnrolledDashboard"
-                      className={baseLinkStyle}
-                    >
-                      <ImBook /> Enrolled Courses
-                    </NavLink>
-                    <NavLink to="/paymenthistory" className={baseLinkStyle}>
-                      <MdOutlinePayment /> Payment History
-                    </NavLink>
-                  </>
-                )}
-              </div>
-
-              {/* ✅ Logout Button */}
+              {/* ✅ Logout */}
               <button
                 onClick={logoutHandler}
                 className="mt-6 bg-red-500 text-white rounded-xl py-2 px-4 flex items-center gap-2 w-full"

@@ -21,6 +21,7 @@ import CreateLecture from "./pages/instructor/CreateLecture";
 import EditLecture from "./pages/instructor/EditLecture";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 
+<<<<<<< HEAD
 // Admin Layout + Pages (Demo Layout)
 import AdminDemoDashboard from "./pages/admin/AdminDemoDashboard"; // Layout
 import DashboardHome from "./pages/admin/DashboardHome";
@@ -33,6 +34,20 @@ import EnrollmentManagement from "./pages/admin/EnrollmentManagement";
 import AssessmentResults from "./pages/admin/AssessmentResults";
 import Communications from "./pages/admin/Communications";
 import FinancialManagement from "./pages/admin/FinancialManagement";
+=======
+import Dashboard from './pages/admin/Dashboard';
+import Instructors from './pages/admin/Instructors';
+import Students from './pages/admin/Students';
+import CoursesPage from './pages/admin/CoursesPage';
+import UserManagement from './pages/admin/UserManagement';
+import CourseAnalytics from "./pages/admin/CourseAnalytics";
+import EnrollmentManagement from "./pages/admin/EnrollmentManagement";
+import AssessmentResults from "./pages/admin/AssessmentResults";
+import Communications from './pages/admin/Communications';
+import FinancialManagement from './pages/admin/FinancialManagement';
+import ChatBox from "./pages/Chatbox";
+// import CertificatePage from "./pages/student/Certificatepage";
+>>>>>>> ad72d6f89faa945e24b7c9793cdac626f7edc778
 
 // Fallback
 const NotFound = () => <h1 className="text-center text-3xl mt-20">404 - Page Not Found</h1>;
@@ -42,6 +57,7 @@ function App() {
     <Router>
       <Routes>
 
+<<<<<<< HEAD
         {/* 🔹 Public Pages */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -54,6 +70,25 @@ function App() {
         {/* 🔹 Student Routes */}
         <Route path="/paymenthistory" element={<PaymentHistory />} />
         <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
+=======
+      <Route path="/EnrolledDashboard" element={<EnrolledDashboard />} />
+
+      <Route path="/instructor" element={<Instructor />}>
+        <Route path="dashboard" element={<InstructorDashboard />} />
+        <Route path="course" element={<Courses />} />
+        <Route path="course/create" element={<CreateCourse />} />
+        <Route path="course/:courseId" element={<UpdateCourse />} />
+        <Route path="course/:courseId/lecture" element={<CreateLecture />} />
+        <Route path="course/:courseId/lecture/:lectureId" element={<EditLecture />} />
+      </Route>
+      
+      <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
+      <Route path="/Paymenthistory" element={<PaymentHistory />} />
+      <Route path="/courses/:courseId" element={<CourseDetails />} />
+      <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      
+>>>>>>> ad72d6f89faa945e24b7c9793cdac626f7edc778
 
         {/* 🔹 Instructor Routes (with nested layout) */}
         <Route path="/instructor" element={<Instructor />}>

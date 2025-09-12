@@ -37,7 +37,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
 
-      <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
+      <Route path="/EnrolledDashboard" element={<EnrolledDashboard />} />
 
       <Route path="/instructor" element={<Instructor />}>
         <Route path="dashboard" element={<InstructorDashboard />} />
@@ -49,7 +49,7 @@ function App() {
       </Route>
       
       <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
-      <Route path="/paymenthistory" element={<PaymentHistory />} />
+      <Route path="/Paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />

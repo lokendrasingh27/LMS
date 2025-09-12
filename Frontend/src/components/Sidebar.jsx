@@ -144,16 +144,16 @@ const   Sidebar = () => {
                 </button>
               </Link>
                   <NavLink
-                    to="/courseplayer/EnrolledDashboard"
+                    to="/EnrolledDashboard"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <ImBook /> Enrolled Courses
                   </NavLink>
                   <NavLink
-                    to="/payment-method"
+                    to="/Paymenthistory"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
                   >
-                    <MdOutlinePayment /> Payment
+                    <MdOutlinePayment /> Payment History
                   </NavLink>
                 </div>
               )}

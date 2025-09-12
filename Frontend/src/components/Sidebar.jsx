@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUserPlus, FaSignInAlt } from "react-icons/fa";
-import { CiLogout } from "react-icons/ci";
-import { ImBook } from "react-icons/im";
+import {
+  FaGraduationCap,
+  FaHome,
+  FaChalkboardTeacher,
+  FaUserPlus,
+  FaSignInAlt,
+  FaUsers,
+  FaClipboardList,
+  FaComments,
+} from "react-icons/fa";
 import { MdOutlinePayment } from "react-icons/md";
+import { ImBook } from "react-icons/im";
+import { CiLogout } from "react-icons/ci";
 import { ChartColumnBig, FolderPlus, Menu, X } from "lucide-react";
+
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { setUser } from "../redux/authSlice";
 import userLogo from "/images/userimage.jpeg";
 import { toast } from "sonner";
 
-const   Sidebar = () => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
-
-  const [isOpen, setIsOpen] = useState(false); // for mobile sidebar
+  const [isOpen, setIsOpen] = useState(false); // mobile sidebar toggle
 
   const logoutHandler = async () => {
     try {
@@ -24,31 +33,29 @@ const   Sidebar = () => {
         withCredentials: true,
       });
       if (res.data.success) {
-        navigate("/");
         dispatch(setUser(null));
         toast.success(res.data.message);
+        navigate("/");
       }
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.error("Logout failed:", error);
     }
   };
 
+  const baseLinkStyle =
+    "flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] hover:bg-[#006D77] hover:text-white rounded-xl w-full";
+
   return (
     <>
-      {/* ✅ Top Navbar (Mobile/Tablet only) */}
-      <div className="md:hidden flex justify-between   items-center bg-[#001f3f] text-white p-4  top-0 left-0 right-0 z-40">
-        {/* Menu Button */}
+      {/* ✅ Mobile Navbar */}
+      <div className="md:hidden flex justify-between items-center bg-[#001f3f] text-white p-4">
         <button onClick={() => setIsOpen(true)}>
           <Menu size={28} />
         </button>
-
-        {/* Logo */}
         <div className="flex items-center gap-2">
           <FaGraduationCap className="text-2xl" />
           <h1 className="font-bold text-xl">Gradix</h1>
         </div>
-
-        {/* Profile pic */}
         {user && (
           <img
             src={user?.photoUrl || userLogo}
@@ -60,117 +67,140 @@ const   Sidebar = () => {
 
       {/* ✅ Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-[100vh] rounded-tr-xl w-72 bg-[#001f3f] text-white p-4 z-50 transform transition-transform duration-300 
+        className={`fixed top-0 left-0 h-full w-72 bg-[#001f3f] text-white p-4 z-50 transform transition-transform duration-300 
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-          md:translate-x-0 md:static md:flex md:flex-col md:w-72`}
+          md:translate-x-0 md:static md:flex md:flex-col`}
       >
-        {/* Close button (only mobile) */}
+        {/* Close Button on Mobile */}
         <div className="md:hidden flex justify-end">
           <button onClick={() => setIsOpen(false)}>
             <X size={28} />
           </button>
         </div>
 
-        {/* Logo */}
+        {/* Sidebar Logo */}
         <div className="flex flex-col items-center mb-8 mt-10 md:mt-0">
-          <FaGraduationCap className="text-6xl" />
-          <h1 className="text-2xl font-bold text-white">Gradix</h1>
+          <FaGraduationCap className="text-5xl" />
+          <h1 className="text-2xl font-bold">Gradix</h1>
         </div>
 
-        {/* Sidebar Items */}
+        {/* Sidebar Links */}
         <div className="space-y-4">
           {!user ? (
+            // ✅ Unauthenticated Sidebar
             <div className="flex flex-col gap-3">
-              <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
+              <Link to="/" className={baseLinkStyle}>
+                <FaHome /> Home
               </Link>
-              <Link to="/courses">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
-                  <ImBook /> All Courses
-                </button>
+              <Link to="/courses" className={baseLinkStyle}>
+                <ImBook /> All Courses
               </Link>
-              <Link to="/login">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
-                  <FaSignInAlt /> Login
-                </button>
+              <Link to="/login" className={baseLinkStyle}>
+                <FaSignInAlt /> Login
               </Link>
-              <Link to="/signup">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] text-[#001f3f] rounded-xl w-full">
-                  <FaUserPlus /> Signup
-                </button>
+              <Link to="/signup" className={baseLinkStyle}>
+                <FaUserPlus /> Signup
               </Link>
             </div>
           ) : (
-            <div>
+            <>
+              {/* ✅ User Profile Box */}
               <div className="bg-[#15315B] p-4 rounded-2xl text-center mb-4">
                 <img
                   src={user?.photoUrl || userLogo}
                   alt="User"
-                  className="w-16 h-16 rounded-full mx-auto mb-2"
-                  onClick={()=>navigate('/profile')}
+                  className="w-16 h-16 rounded-full mx-auto mb-2 cursor-pointer"
+                  onClick={() => navigate("/profile")}
                 />
                 <p className="text-sm">{user.name}</p>
-                <p className="text-xs">{user.role}</p>
+                <p className="text-xs capitalize">{user.role}</p>
               </div>
 
-              {/* Example nav */}
-              {user.role === "instructor" ? (
-                <div className="flex flex-col gap-3">
-                  <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
-                  <NavLink
-                    to="/instructor/dashboard"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white  text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
-                    <ChartColumnBig /> Dashboard
-                  </NavLink>
-                  <NavLink
-                    to="/instructor/course"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
-                    <FolderPlus /> Courses
-                  </NavLink>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-3">
-                   <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
-                  <NavLink
-                    to="/courseplayer/EnrolledDashboard"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
-                    <ImBook /> Enrolled Courses
-                  </NavLink>
-                  <NavLink
-                    to="/payment-method"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
-                  >
-                    <MdOutlinePayment /> Payment
-                  </NavLink>
-                </div>
-              )}
+              {/* ✅ Dynamic Sidebar Menu */}
+              <div className="flex flex-col gap-3">
+                {/* Instructor Menu */}
+                {user.role === "instructor" && (
+                  <>
+                    <NavLink to="/" className={baseLinkStyle}>
+                      <FaHome /> Home
+                    </NavLink>
+                    <NavLink to="/instructor/dashboard" className={baseLinkStyle}>
+                      <ChartColumnBig /> Dashboard
+                    </NavLink>
+                    <NavLink to="/instructor/course" className={baseLinkStyle}>
+                      <FolderPlus /> Courses
+                    </NavLink>
+                  </>
+                )}
 
-              {/* Logout */}
+                {/* Admin Menu */}
+                {user.role === "admin" && (
+                  <>
+                    <NavLink to="/admin" className={baseLinkStyle}>
+                      <FaHome /> Dashboard
+                    </NavLink>
+                    <NavLink to="/admin/instructors" className={baseLinkStyle}>
+                      <FaChalkboardTeacher /> Instructors
+                    </NavLink>
+                    <NavLink to="/admin/students" className={baseLinkStyle}>
+                      <FaGraduationCap /> Students
+                    </NavLink>
+                    <NavLink to="/admin/courses" className={baseLinkStyle}>
+                      <ImBook /> Courses
+                    </NavLink>
+                    <NavLink to="/admin/users" className={baseLinkStyle}>
+                      <FaUsers /> Users
+                    </NavLink>
+                    <NavLink to="/admin/course-analytics" className={baseLinkStyle}>
+                      <ChartColumnBig /> Analytics
+                    </NavLink>
+                    <NavLink to="/admin/enrollments" className={baseLinkStyle}>
+                      <FaUserPlus /> Enrollments
+                    </NavLink>
+                    <NavLink to="/admin/assessments" className={baseLinkStyle}>
+                      <FaClipboardList /> Assessments
+                    </NavLink>
+                    <NavLink to="/admin/communications" className={baseLinkStyle}>
+                      <FaComments /> Announcement
+                    </NavLink>
+                    <NavLink to="/admin/financials" className={baseLinkStyle}>
+                      <MdOutlinePayment /> Financials
+                    </NavLink>
+                  </>
+                )}
+
+                {/* Student Menu */}
+                {user.role === "student" && (
+                  <>
+                    <NavLink to="/" className={baseLinkStyle}>
+                      <FaHome /> Home
+                    </NavLink>
+                    <NavLink
+                      to="/courseplayer/EnrolledDashboard"
+                      className={baseLinkStyle}
+                    >
+                      <ImBook /> Enrolled Courses
+                    </NavLink>
+                    <NavLink to="/paymenthistory" className={baseLinkStyle}>
+                      <MdOutlinePayment /> Payment History
+                    </NavLink>
+                  </>
+                )}
+              </div>
+
+              {/* ✅ Logout Button */}
               <button
                 onClick={logoutHandler}
-                className="mt-4 bg-red-500 text-white rounded-xl py-2 px-4 flex items-center gap-2 w-full"
+                className="mt-6 bg-red-500 text-white rounded-xl py-2 px-4 flex items-center gap-2 w-full"
               >
                 <CiLogout /> Logout
               </button>
-            </div>
+            </>
           )}
         </div>
       </div>
 
-      {/* ✅ Blur background when sidebar open (mobile only) */}
+      {/* ✅ Mobile Backdrop */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-40 md:hidden"

@@ -87,7 +87,7 @@ const Sidebar = () => {
         </div>
 
         {/* Sidebar Items */}
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-y-auto flex-grow  scrollbar-hide">
           {!user ? (
             <div className="flex flex-col gap-3">
               <Link to="/">

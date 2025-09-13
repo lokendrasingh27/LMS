@@ -16,18 +16,17 @@ import EditLecture from "./pages/instructor/EditLecture";
 import PaymentHistory from "./pages/student/PaymentHistory";
 import AssignmentGradingPage from "./pages/instructor/AssignmentGradingPage";
 
-import Dashboard from './pages/admin/Dashboard';
-import Instructors from './pages/admin/Instructors';
-import Students from './pages/admin/Students';
-import CoursesPage from './pages/admin/CoursesPage';
-import UserManagement from './pages/admin/UserManagement';
+import AdminDemoDashboard from "./pages/admin/AdminDemoDashboard"; // Layout
+import DashboardHome from "./pages/admin/DashboardHome";
+import Instructors from "./pages/admin/Instructors";
+import Students from "./pages/admin/Students";
+import CoursesPage from "./pages/admin/CoursesPage";
+import UserManagement from "./pages/admin/UserManagement";
 import CourseAnalytics from "./pages/admin/CourseAnalytics";
 import EnrollmentManagement from "./pages/admin/EnrollmentManagement";
 import AssessmentResults from "./pages/admin/AssessmentResults";
-import Communications from './pages/admin/Communications';
-import FinancialManagement from './pages/admin/FinancialManagement';
-import ChatBox from "./pages/Chatbox";
-// import CertificatePage from "./pages/student/Certificatepage";
+import Communications from "./pages/admin/Communications";
+import FinancialManagement from "./pages/admin/FinancialManagement";
 
 
 function App() {
@@ -37,7 +36,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
 
-      <Route path="/EnrolledDashboard" element={<EnrolledDashboard />} />
+      <Route path="/courseplayer/EnrolledDashboard" element={<EnrolledDashboard />} />
 
       <Route path="/instructor" element={<Instructor />}>
         <Route path="dashboard" element={<InstructorDashboard />} />
@@ -49,24 +48,27 @@ function App() {
       </Route>
       
       <Route path="/CoursePlayerPage" element={<CoursePlayerPage />} />
-      <Route path="/Paymenthistory" element={<PaymentHistory />} />
+      <Route path="/paymenthistory" element={<PaymentHistory />} />
       <Route path="/courses/:courseId" element={<CourseDetails />} />
       <Route path="/course-player/:courseId" element={<CoursePlayerPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       
 
-      <Route path="/admin" element={<Dashboard />} />
-      <Route path="/admin/instructors" element={<Instructors />} />
-      <Route path="/admin/students" element={<Students />} />
-       <Route path="/admin/courses" element={<CoursesPage />} />
-       <Route path="/admin/users" element={<UserManagement />} />
-       <Route path="/admin/course-analytics" element={<CourseAnalytics />} />
-        <Route path="/admin/enrollments" element={<EnrollmentManagement />} />
-         <Route path="/admin/assessments" element={<AssessmentResults />} />
-         <Route path="/admin/communications" element={<Communications />} />
-        <Route path="/admin/financials" element={<FinancialManagement />} />
-        <Route path="/admin/assessments" element={<AssessmentResults />} />
-<Route path="/admin/course-analytics" element={<CourseAnalytics />} />
+      {/* 🔹 Admin Panel with Layout (`/admindemo`) */}
+        <Route path="/admindemo" element={<AdminDemoDashboard />}>
+          <Route index element={<DashboardHome />} />
+          <Route path="instructors" element={<Instructors />} />
+          <Route path="students" element={<Students />} />
+          <Route path="courses" element={<CoursesPage />} />
+          <Route path="users" element={<UserManagement />} />
+          <Route path="course-analytics" element={<CourseAnalytics />} />
+          <Route path="enrollments" element={<EnrollmentManagement />} />
+          <Route path="assessments" element={<AssessmentResults />} />
+          <Route path="communications" element={<Communications />} />
+          <Route path="financials" element={<FinancialManagement />} />
+        </Route>
+
+
     </Routes>
   );
 }

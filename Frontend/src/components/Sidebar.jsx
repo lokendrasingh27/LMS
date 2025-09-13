@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+// ✅ Added FaUsers for the admin section
+import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUserPlus, FaSignInAlt, FaUsers } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { ImBook } from "react-icons/im";
 import { MdOutlinePayment } from "react-icons/md";
@@ -11,7 +12,7 @@ import { setUser } from "../redux/authSlice";
 import userLogo from "/images/userimage.jpeg";
 import { toast } from "sonner";
 
-const   Sidebar = () => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
@@ -109,56 +110,64 @@ const   Sidebar = () => {
                   src={user?.photoUrl || userLogo}
                   alt="User"
                   className="w-16 h-16 rounded-full mx-auto mb-2"
-                  onClick={()=>navigate('/profile')}
+                  onClick={() => navigate('/profile')}
                 />
                 <p className="text-sm">{user.name}</p>
-                <p className="text-xs">{user.role}</p>
+                <p className="text-xs capitalize">{user.role}</p>
               </div>
 
-              {/* Example nav */}
-              {user.role === "instructor" ? (
+              {/* ✅ UPDATED LOGIC FOR ROLES */}
+              {user.role === "admin" ? (
+                // 👑 Admin Links
+                <div className="flex flex-col gap-3">
+                    <Link to="/">
+                        <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                            <FaHome /> Home
+                        </button>
+                    </Link>
+                    <NavLink to="/admin/dashboard" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2">
+                        <ChartColumnBig /> Dashboard
+                    </NavLink>
+                    <NavLink to="/admin/users" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2">
+                        <FaUsers /> Manage Users
+                    </NavLink>
+                    <NavLink to="/admin/courses" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2">
+                        <ImBook /> Manage Courses
+                    </NavLink>
+                </div>
+              ) : user.role === "instructor" ? (
+                // 🧑‍🏫 Instructor Links
                 <div className="flex flex-col gap-3">
                   <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
-                  <NavLink
-                    to="/instructor/dashboard"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white  text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
+                    <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                      <FaHome /> Home
+                    </button>
+                  </Link>
+                  <NavLink to="/instructor/dashboard" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white  text-[#001f3f] rounded-xl p-2 flex gap-2">
                     <ChartColumnBig /> Dashboard
                   </NavLink>
-                  <NavLink
-                    to="/instructor/course"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
+                  <NavLink to="/instructor/course" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2">
                     <FolderPlus /> Courses
                   </NavLink>
                 </div>
               ) : (
+                // 🎓 Student/Default Links
                 <div className="flex flex-col gap-3">
-                   <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
-                  <NavLink
-                    to="/EnrolledDashboard"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
-                  >
+                  <Link to="/">
+                    <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                      <FaHome /> Home
+                    </button>
+                  </Link>
+                  <NavLink to="/EnrolledDashboard" className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2">
                     <ImBook /> Enrolled Courses
                   </NavLink>
-                  <NavLink
-                    to="/Paymenthistory"
-                    className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
-                  >
+                  <NavLink to="/Paymenthistory" className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2">
                     <MdOutlinePayment /> Payment History
                   </NavLink>
                 </div>
               )}
 
-              {/* Logout */}
+              {/* Logout Button (common to all logged-in users) */}
               <button
                 onClick={logoutHandler}
                 className="mt-4 bg-red-500 text-white rounded-xl py-2 px-4 flex items-center gap-2 w-full"

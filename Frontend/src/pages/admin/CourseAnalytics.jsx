@@ -48,7 +48,7 @@ const CourseAnalytics = () => {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-[#15315B] mb-6">📊 Course Analytics</h1>
         <button
-          onClick={() => navigate('/admindemo')}
+          onClick={() => navigate('/')}
           className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
         >
           ← Back to Dashboard

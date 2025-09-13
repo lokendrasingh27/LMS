@@ -131,7 +131,7 @@ const Sidebar = () => {
                 </div>
               ) : user.role === "admin" ? (
                 <div className="flex flex-col gap-3">
-                  <NavLink to="/admindemo" end className={baseLinkStyle}>
+                  <NavLink to="/" end className={baseLinkStyle}>
                     <FaHome /> Dashboard
                   </NavLink>
                   <NavLink to="/admindemo/instructors" className={baseLinkStyle}>
@@ -143,20 +143,20 @@ const Sidebar = () => {
                   <NavLink to="/admindemo/courses" className={baseLinkStyle}>
                     <ImBook /> Courses
                   </NavLink>
-                  <NavLink to="/admindemo/users" className={baseLinkStyle}>
+                  {/* <NavLink to="/admindemo/users" className={baseLinkStyle}>
                     <FaUsers /> Users
-                  </NavLink>
-                  <NavLink to="/admindemo/course-analytics" className={baseLinkStyle}>
+                  </NavLink> */}
+                  {/* <NavLink to="/admindemo/course-analytics" className={baseLinkStyle}>
                     <ChartColumnBig /> Analytics
-                  </NavLink>
-                  <NavLink to="/admindemo/enrollments" className={baseLinkStyle}>
+                  </NavLink> */}
+                  {/* <NavLink to="/admindemo/enrollments" className={baseLinkStyle}>
                     <FaUserPlus /> Enrollments
-                  </NavLink>
-                  <NavLink to="/admindemo/assessments" className={baseLinkStyle}>
+                  </NavLink> */}
+                  {/* <NavLink to="/admindemo/assessments" className={baseLinkStyle}>
                     <FaClipboardList /> Assessments
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink to="/admindemo/communications" className={baseLinkStyle}>
-                    <FaComments /> Communications
+                    <FaComments /> Announcement
                   </NavLink>
                   <NavLink to="/admindemo/financials" className={baseLinkStyle}>
                     <MdOutlinePayment /> Financials

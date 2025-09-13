@@ -150,40 +150,8 @@ const Sidebar = () => {
                     <FolderPlus /> Courses
                   </NavLink>
                 </div>
-              ) : user.role === "admin" ? (
-                <div className="flex flex-col gap-3">
-                  <NavLink to="/" end className={baseLinkStyle}>
-                    <FaHome /> Dashboard
-                  </NavLink>
-                  <NavLink to="/admindemo/instructors" className={baseLinkStyle}>
-                    <FaChalkboardTeacher /> Instructors
-                  </NavLink>
-                  <NavLink to="/admindemo/students" className={baseLinkStyle}>
-                    <FaGraduationCap /> Students
-                  </NavLink>
-                  <NavLink to="/admindemo/courses" className={baseLinkStyle}>
-                    <ImBook /> Courses
-                  </NavLink>
-                  {/* <NavLink to="/admindemo/users" className={baseLinkStyle}>
-                    <FaUsers /> Users
-                  </NavLink> */}
-                  {/* <NavLink to="/admindemo/course-analytics" className={baseLinkStyle}>
-                    <ChartColumnBig /> Analytics
-                  </NavLink> */}
-                  {/* <NavLink to="/admindemo/enrollments" className={baseLinkStyle}>
-                    <FaUserPlus /> Enrollments
-                  </NavLink> */}
-                  {/* <NavLink to="/admindemo/assessments" className={baseLinkStyle}>
-                    <FaClipboardList /> Assessments
-                  </NavLink> */}
-                  <NavLink to="/admindemo/communications" className={baseLinkStyle}>
-                    <FaComments /> Announcement
-                  </NavLink>
-                  <NavLink to="/admindemo/financials" className={baseLinkStyle}>
-                    <MdOutlinePayment /> Financials
-                  </NavLink>
-                </div>
               ) : (
+                // 🎓 Student/Default Links
                 <div className="flex flex-col gap-3">
                   <Link to="/">
                     <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">

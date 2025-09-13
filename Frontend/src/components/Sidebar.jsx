@@ -134,31 +134,31 @@ const Sidebar = () => {
                     </button>
                   </Link>
                   <NavLink
-                    to="/admin/users"
+                    to="/admindemo/instructors"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <FaChalkboardTeacher /> Manage instructor
                   </NavLink>
                   <NavLink
-                    to="/admin/courses"
+                    to="/admindemo/students"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <ImBook /> Manage student
                   </NavLink>
                   <NavLink
-                    to="/admin/courses"
+                    to="/admindemo/courses"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <ImBook /> Courses
                   </NavLink>
                   <NavLink
-                    to="/admin/courses"
+                    to="/admindemo/communications"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <FaComments /> Announcements
                   </NavLink>
                   <NavLink
-                    to="/admin/courses"
+                    to="/admindemo/financials"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <MdOutlinePayment /> Financials

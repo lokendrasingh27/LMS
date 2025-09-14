@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 🔁 Required for navigation
-import { courses as dummyCourses } from "./Dummydata";
+import { useNavigate } from 'react-router-dom';
+import { courses as dummyCourses } from "./Dummydata"; // Ensure this path is correct
 import CourseList from './CourseList';
 import CourseDetails from './CourseDetails';
 
 const CoursesPage = () => {
-  const navigate = useNavigate(); // 🔁 Hook for redirection
+  const navigate = useNavigate();
   const [courses, setCourses] = useState(dummyCourses);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
 
@@ -52,18 +52,18 @@ const CoursesPage = () => {
   return (
     <div className="min-h-screen bg-[#E8F1F2] p-4">
 
-      {/* 🔁 Header with back button */}
+      {/* Header with back button */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl text-[#00173D] font-bold">Course Details</h2>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
+        <h2 className="text-3xl text-[#00173D] font-bold">Course Management</h2>
+        {/* <button
+          onClick={() => navigate('/admindemo')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded-lg hover:bg-[#033b41db] transition"
         >
           ← Back to Dashboard
-        </button>
+        </button> */}
       </div>
 
-      {/* Course List and Details */}
+      {/* Course List Component */}
       <CourseList
         courses={courses}
         onApprove={handleApprove}
@@ -74,13 +74,16 @@ const CoursesPage = () => {
         selectedCourseId={selectedCourseId}
       />
 
-      <div className="mt-10 p-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <CourseDetails course={selectedCourse} />
+      {/* Conditional rendering for Course Details */}
+      {selectedCourse && (
+        <div className="mt-10 p-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              {/* <CourseDetails course={selectedCourse} /> */}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

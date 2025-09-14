@@ -56,7 +56,7 @@ function App() {
 
       {/* 🔹 Admin Panel with Layout (`/admindemo`) */}
         <Route path="/admindemo" element={<AdminDemoDashboard />}>
-          <Route index element={<DashboardHome />} />
+          {/* <Route index element={<DashboardHome />} /> */}
           <Route path="instructors" element={<Instructors />} />
           <Route path="students" element={<Students />} />
           <Route path="courses" element={<CoursesPage />} />
@@ -66,6 +66,7 @@ function App() {
           <Route path="assessments" element={<AssessmentResults />} />
           <Route path="communications" element={<Communications />} />
           <Route path="financials" element={<FinancialManagement />} />
+          <Route path="coursedetail" element={<CourseDetails />} />"
         </Route>
 
 

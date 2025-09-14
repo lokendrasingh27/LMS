@@ -1,3 +1,4 @@
+// src/components/CourseList.jsx
 import React from 'react';
 
 const CourseList = ({
@@ -14,12 +15,11 @@ const CourseList = ({
       {courses.map(course => (
         <div
           key={course.id}
-          className={`border rounded-lg p-4 cursor-pointer shadow-sm ${
+          className={`border rounded-lg p-4 shadow-sm ${
             selectedCourseId === course.id ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300'
           }`}
-          onClick={() => onSelect(course.id)}
         >
-          {/* Thumbnail placeholder */}
+          {/* Thumbnail */}
           <div className="w-full h-40 bg-gray-200 rounded-md mb-4 flex items-center justify-center">
             <img
               src={course.thumbnail || "https://via.placeholder.com/400x240.png?text=Course+Thumbnail"}
@@ -36,6 +36,7 @@ const CourseList = ({
           </p>
 
           <div className="flex gap-2 flex-wrap">
+            {/* Action Buttons */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -72,6 +73,23 @@ const CourseList = ({
             >
               Delete
             </button>
+            
+            {/* ✅ New "View Details" button */}
+            {/* <button
+              onClick={(e) => {
+                e.stopPropagation(); // 👈 Prevents the parent div's onClick from firing
+                onSelect(course.id);
+              }}
+              className="bg-[#006D77] hover:bg-[#033b41db] text-white px-3 py-1 rounded"
+            >
+              View Details
+            </button> */}
+             {/* <button
+          onClick={() => navigate('/admindemo')}
+          className="bg-[#006D77] text-white px-4 py-2 rounded-lg hover:bg-[#033b41db] transition"
+        >
+          ← Back to Dashboard
+        </button> */}
           </div>
         </div>
       ))}

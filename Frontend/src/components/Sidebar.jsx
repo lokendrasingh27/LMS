@@ -126,40 +126,50 @@ const Sidebar = () => {
 
               {/* ✅ UPDATED LOGIC FOR ROLES */}
               {user.role === "admin" ? (
-                // 👑 Admin Links
                 <div className="flex flex-col gap-3">
-                  <Link to="/">
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <Link to="/" onClick={() => setIsOpen(false)}>
                     <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
                       <FaHome /> Home
                     </button>
                   </Link>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink
                     to="/admindemo/instructors"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
                   >
                     <FaChalkboardTeacher /> Manage instructor
                   </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink
                     to="/admindemo/students"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
                   >
                     <ImBook /> Manage student
                   </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink
                     to="/admindemo/courses"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
                   >
-                    <ImBook /> Courses
+                    <FolderPlus /> Courses
                   </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink
                     to="/admindemo/communications"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
                   >
                     <FaComments /> Announcements
                   </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink
                     to="/admindemo/financials"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
                   >
                     <MdOutlinePayment /> Financials
                   </NavLink>

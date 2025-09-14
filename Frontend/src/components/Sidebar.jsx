@@ -155,7 +155,7 @@ const Sidebar = () => {
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                     onClick={() => setIsOpen(false)}
                   >
-                    <ImBook /> Courses
+                    <FolderPlus /> Courses
                   </NavLink>
                   {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
                   <NavLink

@@ -7,7 +7,8 @@ import { Link } from "react-router-dom"; // Import Link for navigation
 
 const Dashboard = () => {
   const { user } = useSelector((store) => store.auth);
-
+  const [totalAssignments, setTotalAssignments] = useState(0);
+  const [totalQuizzes, setTotalQuizzes] = useState(0);
   // ✅ State for storing courses, loading, and error status
   const courses = useSelector((store) => store.course.course ?? []);
   const dispatch = useDispatch();
@@ -25,6 +26,20 @@ const Dashboard = () => {
         );
         if (response.data.success) {
           dispatch(setCourse(response.data.courses));
+          let assignmentsCount = 0;
+          let quizzesCount = 0;
+
+          courses.forEach((course) => {
+            course.lectures.forEach((lecture) => {
+              assignmentsCount += lecture.assignments
+                ? lecture.assignments.length
+                : 0;
+              quizzesCount += lecture.quizzes ? lecture.quizzes.length : 0;
+            });
+          });
+
+          setTotalAssignments(assignmentsCount);
+          setTotalQuizzes(quizzesCount);
         }
       } catch (err) {
         console.error("Failed to fetch courses:", err);
@@ -33,7 +48,7 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-    
+
     fetchInstructorCourses();
   }, []);
   const renderCourses = () => {
@@ -90,16 +105,23 @@ const Dashboard = () => {
               </div>
               {/* Other static stat cards */}
               <div className="bg-[#006D77] shadow rounded-lg p-4 text-white text-center">
-                <h2 className="text-xl font-bold text-white">12</h2>
-                <p className="text-white">Completed Assignments</p>
+                <h2 className="text-xl font-bold text-white">
+                  {loading ? "..." : totalAssignments}
+                </h2>
+                <p className="text-white">Assignments Created</p>
               </div>
               <div className="bg-[#006D77] shadow rounded-lg p-4 text-white text-center">
-                <h2 className="text-xl font-bold text-white">3</h2>
-                <p className="text-white">Pending Quizzes</p>
+                <h2 className="text-xl font-bold text-white">
+                  {loading ? "..." : totalQuizzes}
+                </h2>
+                <p className="text-white">Quizzes Created</p>
               </div>
-              <div className="bg-[#006D77] shadow rounded-lg p-4 text-white text-center">
-                <h2 className="text-xl font-bold text-white">2</h2>
-                <p className="text-white">Purchased Courses</p>
+              <div className="bg-[#006D77] shadow rounded-lg p-4 text-center">
+              <p className="text-xl font-bold text-white">
+                  ₹1000
+                </p>
+                <p className="text-white">Total revenue </p>
+                
               </div>
             </section>
             {/* Active Courses */}

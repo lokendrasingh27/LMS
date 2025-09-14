@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import CourseCard from "../courseviewpage/coursecard";
 import { setCourse } from "../../redux/courseSlice";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link, NavLink } from "react-router-dom"; // Import Link for navigation
 
 const Dashboard = () => {
   const { user } = useSelector((store) => store.auth);
@@ -89,9 +89,11 @@ const Dashboard = () => {
               <Link to="/courses">
                 {" "}
                 {/* Link to your course catalog page */}
+                <NavLink to="/">
                 <button className="mt-4 bg-[#006D77] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#B3E5FC] hover:text-black">
                   Browse New Courses
                 </button>
+                </NavLink>
               </Link>
             </section>
             {/* Quick Stats - You can make these dynamic later */}

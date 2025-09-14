@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+
 const EnrolledCourseCard = ({ course }) => {
   const isCompleted = course.progress === 100;
   const courseId=course._id
@@ -37,7 +38,7 @@ const EnrolledCourseCard = ({ course }) => {
           </div>
         </div>
         
-        <button onClick={()=>Navigate(`course-player/:${courseId}`)} className={`w-full mt-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors ${isCompleted ? 'bg-zinc-600 hover:bg-zinc-700' : 'bg-[#006D77] hover:bg-[#005c63]'}`}>
+        <button onClick={()=>Navigate(`/course-player/${courseId}`)} className={`w-full mt-6 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors ${isCompleted ? 'bg-zinc-600 hover:bg-zinc-700' : 'bg-[#006D77] hover:bg-[#005c63]'}`}>
           {isCompleted ? 'Review Course' : 'Continue Learning'}
         </button>
       </div>

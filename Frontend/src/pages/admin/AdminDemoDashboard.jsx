@@ -1,17 +1,18 @@
+// src/pages/admin/AdminDemoDashboard.jsx
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "@/components/Sidebar";
-
+import Sidebar from "../../components/Sidebar";
 
 const AdminDemoDashboard = () => {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 p-6 bg-gray-100">
-        <Outlet /> {/* renders the matching child route here */}
-      </main>
+   <div className='bg-[#e3f1f1] h-[100vh] lg:flex relative min-h-screen  overflow-hidden w-'>
+      <Sidebar/>
+      <div className='flex-1  '>
+        <Outlet/>
+      </div>
     </div>
   );
 };
 
 export default AdminDemoDashboard;
+

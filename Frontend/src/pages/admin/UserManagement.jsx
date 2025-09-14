@@ -39,12 +39,12 @@ const UserManagement = () => {
       {/* ✅ Title + Back button in same row */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-[#15315B]">User Management</h1>
-        <button
+        {/* <button
           onClick={() => navigate('/')}
           className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
         >
           ← Back to Dashboard
-        </button>
+        </button> */}
       </div>
 
       <table className="min-w-full border border-gray-300 rounded-md overflow-hidden">

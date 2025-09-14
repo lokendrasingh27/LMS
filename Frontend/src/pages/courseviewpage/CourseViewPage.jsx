@@ -105,19 +105,7 @@ const CourseViewPage = () => {
           )}
         </section>
 
-        {/* Upcoming Courses */}
-        <section className="m-6">
-          <div className="mb-6 flex items-center">
-            <h2 className="text-xl px-4 py-2 bg-[#006D77] rounded-xl text-white font-semibold mb-4">
-              Upcoming Courses
-            </h2>
-          </div>
-          <div className="flex gap-4 overflow-x-auto snap-x">
-            {upcomingCourses.map((course) => (
-              <UpcomingCard key={course.id} course={course} />
-            ))}
-          </div>
-        </section>
+      
 
         {/* Enhanced Footer */}
         <footer className="mt-16 bg-zinc-50 border-t border-zinc-200">

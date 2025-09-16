@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 🔄 Add this import
+import { useNavigate } from 'react-router-dom';
 
 const Students = () => {
-  const navigate = useNavigate(); // 🔄 Hook to navigate back
+  const navigate = useNavigate();
 
+  // 🔄 Sample student data with course enrolled
   const [students, setStudents] = useState([
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-    { id: 3, name: 'Michael Chen', email: 'michael@example.com' },
+    { id: 1, name: 'John Doe', email: 'john@example.com', course: 'React Basics' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', course: 'Node.js Advanced' },
+    { id: 3, name: 'Michael Chen', email: 'michael@example.com', course: 'UI/UX Design' },
   ]);
 
   const handleDelete = (id) => {
@@ -16,16 +17,14 @@ const Students = () => {
 
   return (
     <div className="p-8 md:p-12 bg-gray-100 min-h-screen">
-      
-      {/* ✅ Header and Back Button aligned in flex */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-4xl font-bold text-gray-900">Student Management</h1>
-        <button
-          onClick={() => navigate('/admin')}
+        {/* <button
+          onClick={() => navigate('/')}
           className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
         >
           ← Back to Dashboard
-        </button>
+        </button> */}
       </div>
 
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
@@ -36,6 +35,7 @@ const Students = () => {
                 <th className="py-4 px-6 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
                 <th className="py-4 px-6 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
                 <th className="py-4 px-6 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
+                <th className="py-4 px-6 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Course</th>
                 <th className="py-4 px-6 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
@@ -46,6 +46,7 @@ const Students = () => {
                     <td className="py-4 px-6 text-sm font-medium text-gray-900">{student.id}</td>
                     <td className="py-4 px-6 text-sm text-gray-700">{student.name}</td>
                     <td className="py-4 px-6 text-sm text-gray-700">{student.email}</td>
+                    <td className="py-4 px-6 text-sm text-gray-700">{student.course}</td>
                     <td className="py-4 px-6">
                       <button
                         onClick={() => handleDelete(student.id)}
@@ -58,7 +59,7 @@ const Students = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="text-center py-6 text-gray-500 italic">
+                  <td colSpan="5" className="text-center py-6 text-gray-500 italic">
                     No students found.
                   </td>
                 </tr>

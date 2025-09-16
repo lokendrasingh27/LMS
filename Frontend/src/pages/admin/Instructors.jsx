@@ -34,12 +34,12 @@ const Instructors = () => {
       {/* Header and Back Button aligned */}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-4xl font-bold text-gray-900">Instructor Management</h1>
-        <button
-          onClick={() => navigate('/admin')}
+        {/* <button
+          onClick={() => navigate('/')}
           className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
         >
           ← Back to Dashboard
-        </button>
+        </button> */}
       </div>
 
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">

@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { FaGraduationCap, FaHome, FaChalkboardTeacher, FaUserPlus, FaSignInAlt } from "react-icons/fa";
+// ✅ Added FaUsers for the admin section
+import {
+  FaGraduationCap,
+  FaHome,
+  FaChalkboardTeacher,
+  FaUserPlus,
+  FaSignInAlt,
+  FaUsers,
+  FaComments,
+} from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { ImBook } from "react-icons/im";
 import { MdOutlinePayment } from "react-icons/md";
@@ -11,7 +20,7 @@ import { setUser } from "../redux/authSlice";
 import userLogo from "/images/userimage.jpeg";
 import { toast } from "sonner";
 
-const   Sidebar = () => {
+const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.auth);
@@ -78,7 +87,7 @@ const   Sidebar = () => {
         </div>
 
         {/* Sidebar Items */}
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-y-auto flex-grow  scrollbar-hide">
           {!user ? (
             <div className="flex flex-col gap-3">
               <Link to="/">
@@ -109,20 +118,70 @@ const   Sidebar = () => {
                   src={user?.photoUrl || userLogo}
                   alt="User"
                   className="w-16 h-16 rounded-full mx-auto mb-2"
-                  onClick={()=>navigate('/profile')}
+                  onClick={() => navigate("/profile")}
                 />
                 <p className="text-sm">{user.name}</p>
-                <p className="text-xs">{user.role}</p>
+                <p className="text-xs capitalize">{user.role}</p>
               </div>
 
-              {/* Example nav */}
-              {user.role === "instructor" ? (
+              {/* ✅ UPDATED LOGIC FOR ROLES */}
+              {user.role === "admin" ? (
+                <div className="flex flex-col gap-3">
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <Link to="/" onClick={() => setIsOpen(false)}>
+                    <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                      <FaHome /> Home
+                    </button>
+                  </Link>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <NavLink
+                    to="/admindemo/instructors"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <FaChalkboardTeacher /> Manage instructor
+                  </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <NavLink
+                    to="/admindemo/students"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <ImBook /> Manage student
+                  </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <NavLink
+                    to="/admindemo/courses"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <FolderPlus /> Courses
+                  </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <NavLink
+                    to="/admindemo/communications"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <FaComments /> Announcements
+                  </NavLink>
+                  {/* ✅ UPDATED: Added onClick to close the sidebar on mobile */}
+                  <NavLink
+                    to="/admindemo/financials"
+                    className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <MdOutlinePayment /> Financials
+                  </NavLink>
+                </div>
+              ) : user.role === "instructor" ? (
+                // 🧑‍🏫 Instructor Links
                 <div className="flex flex-col gap-3">
                   <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
+                    <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                      <FaHome /> Home
+                    </button>
+                  </Link>
                   <NavLink
                     to="/instructor/dashboard"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white  text-[#001f3f] rounded-xl p-2 flex gap-2"
@@ -137,28 +196,29 @@ const   Sidebar = () => {
                   </NavLink>
                 </div>
               ) : (
+                // 🎓 Student/Default Links
                 <div className="flex flex-col gap-3">
-                   <Link to="/">
-                <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
-                  <FaHome /> Home
-                </button>
-              </Link>
+                  <Link to="/">
+                    <button className="flex items-center gap-2 py-2 px-4 bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl w-full">
+                      <FaHome /> Home
+                    </button>
+                  </Link>
                   <NavLink
-                    to="/courseplayer/EnrolledDashboard"
+                    to="/EnrolledDashboard"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] hover:text-white text-[#001f3f] rounded-xl p-2 flex gap-2"
                   >
                     <ImBook /> Enrolled Courses
                   </NavLink>
                   <NavLink
-                    to="/payment-method"
+                    to="/Paymenthistory"
                     className="bg-[#b3e5fc] hover:bg-[#006D77] text-[#001f3f] hover:text-white rounded-xl p-2 flex gap-2"
                   >
-                    <MdOutlinePayment /> Payment
+                    <MdOutlinePayment /> Payment History
                   </NavLink>
                 </div>
               )}
 
-              {/* Logout */}
+              {/* Logout Button (common to all logged-in users) */}
               <button
                 onClick={logoutHandler}
                 className="mt-4 bg-red-500 text-white rounded-xl py-2 px-4 flex items-center gap-2 w-full"

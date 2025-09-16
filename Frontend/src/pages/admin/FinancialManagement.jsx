@@ -29,7 +29,7 @@ const FinancialManagement = () => {
       {/* Total Revenue */}
       <div className="mb-6">
         <p className="text-base sm:text-lg font-semibold text-[#0A5F6F]">Total Revenue</p>
-        <p className="text-3xl sm:text-4xl font-extrabold text-[#C2E8F8]">${totalRevenue.toLocaleString()}</p>
+        <p className="text-3xl sm:text-4xl font-extrabold text-[#C2E8F8]">Rs {totalRevenue.toLocaleString()}</p>
       </div>
 
       {/* Recent Transactions */}
@@ -56,7 +56,7 @@ const FinancialManagement = () => {
                 >
                   <td className="py-2 px-4 text-sm sm:text-base">{user}</td>
                   <td className="py-2 px-4 text-sm sm:text-base">{course}</td>
-                  <td className="py-2 px-4 text-sm sm:text-base">${amount}</td>
+                  <td className="py-2 px-4 text-sm sm:text-base">Rs {amount}</td>
                   <td
                     className={`py-2 px-4 font-semibold text-sm sm:text-base ${
                       status === 'Completed' ? 'text-green-600' : 'text-yellow-600'

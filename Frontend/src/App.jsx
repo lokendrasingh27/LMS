@@ -27,6 +27,8 @@ import EnrollmentManagement from "./pages/admin/EnrollmentManagement";
 import AssessmentResults from "./pages/admin/AssessmentResults";
 import Communications from "./pages/admin/Communications";
 import FinancialManagement from "./pages/admin/FinancialManagement";
+import AddCoursePage from "./pages/admin/AddCoursePage";
+import EditCoursePage from "./pages/admin/EditCoursePage";
 
 
 function App() {
@@ -66,7 +68,10 @@ function App() {
           <Route path="assessments" element={<AssessmentResults />} />
           <Route path="communications" element={<Communications />} />
           <Route path="financials" element={<FinancialManagement />} />
-          <Route path="coursedetail" element={<CourseDetails />} />"
+          <Route path="coursedetail" element={<CourseDetails />} />
+          <Route path="courses/add" element={<AddCoursePage />} />
+          <Route path="courses/edit/:courseId" element={<EditCoursePage />} />
+
         </Route>
 
 

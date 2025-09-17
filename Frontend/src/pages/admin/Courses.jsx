@@ -99,9 +99,7 @@ const CreateCourse = () => {
           </div>
 
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Description
-            </label>
+            <label className="block text-gray-700 font-semibold mb-2">Description</label>
             <textarea
               name="description"
               value={form.description}
@@ -131,10 +129,16 @@ const CreateCourse = () => {
                 className="bg-white rounded-lg p-6 shadow-md border border-gray-200"
               >
                 <h3 className="font-bold text-xl text-indigo-700 mb-1">{course.title}</h3>
-                <p className="text-gray-600"><strong className="font-semibold">Instructor:</strong> {course.instructor}</p>
-                <p className="text-gray-600"><strong className="font-semibold">Category:</strong> {course.category}</p>
+                <p className="text-gray-600">
+                  <strong className="font-semibold">Instructor:</strong> {course.instructor}
+                </p>
+                <p className="text-gray-600">
+                  <strong className="font-semibold">Category:</strong> {course.category}
+                </p>
                 {course.description && (
-                  <p className="text-gray-600 mt-2"><strong className="font-semibold">Description:</strong> {course.description}</p>
+                  <p className="text-gray-600 mt-2">
+                    <strong className="font-semibold">Description:</strong> {course.description}
+                  </p>
                 )}
               </li>
             ))}

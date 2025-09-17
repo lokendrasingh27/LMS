@@ -1,87 +1,126 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { courses as dummyCourses } from "./Dummydata"; // Ensure this path is correct
 import CourseList from './CourseList';
 import CourseDetails from './CourseDetails';
+import { courses as dummyCourses } from './Dummydata';
 
 const CoursesPage = () => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState(dummyCourses);
+  const [courses, setCourses] = useState([]);
   const [selectedCourseId, setSelectedCourseId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleApprove = (id) => {
-    setCourses(prev =>
-      prev.map(course => course.id === id ? { ...course, status: 'Approved' } : course)
-    );
-  };
+  // Map dummy courses to backend structure
+  const mapDummyCourses = () =>
+    dummyCourses.map(c => ({
+      _id: c.id.toString(),
+      courseTitle: c.title,
+      instructor: c.instructor,
+      category: c.category,
+      description: c.description,
+      isPublished: c.status === 'Approved',
+      thumbnail: c.thumbnail,
+    }));
 
-  const handleReject = (id) => {
-    setCourses(prev =>
-      prev.map(course => course.id === id ? { ...course, status: 'Rejected' } : course)
-    );
-  };
+  useEffect(() => {
+    const fetchCourses = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get('http://localhost:5000/api/course/', {
+          withCredentials: true,
+        });
 
-  const handleEdit = (id) => {
-    const newTitle = prompt('Enter new course title:');
-    if (!newTitle) return;
+        if (res.data.success && res.data.courses.length > 0) {
+          setCourses(res.data.courses);
+          setError('');
+        } else {
+          setCourses(mapDummyCourses());
+          setError('');
+        }
+      } catch (err) {
+        console.error('Error fetching courses:', err);
+        setError('Could not fetch courses from server. Showing dummy data.');
+        setCourses(mapDummyCourses());
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const newInstructor = prompt('Enter new instructor name:');
-    if (!newInstructor) return;
+    fetchCourses();
+  }, []);
 
-    const newCategory = prompt('Enter new category:');
-    if (!newCategory) return;
-
-    setCourses(prev =>
-      prev.map(course =>
-        course.id === id
-          ? { ...course, title: newTitle, instructor: newInstructor, category: newCategory }
-          : course
-      )
-    );
-  };
-
-  const handleDelete = (id) => {
-    setCourses(prev => prev.filter(course => course.id !== id));
-    if (selectedCourseId === id) {
-      setSelectedCourseId(null); // Deselect if deleted
+  const handleTogglePublish = async (id, publishStatus) => {
+    try {
+      const res = await axios.patch(
+        `http://localhost:5000/api/course/${id}?publish=${publishStatus}`,
+        {},
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        setCourses(prev =>
+          prev.map(c =>
+            c._id === id ? { ...c, isPublished: publishStatus } : c
+          )
+        );
+      }
+    } catch (err) {
+      console.error('Error toggling publish status', err);
+      alert('Error toggling publish status');
     }
   };
 
-  const selectedCourse = courses.find(course => course.id === selectedCourseId);
+  // Navigate to Edit Course page
+  const handleEdit = (id) => {
+    navigate(`/admindemo/courses/edit/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this course?')) return;
+    try {
+      const res = await axios.delete(`http://localhost:5000/api/course/${id}`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        setCourses(prev => prev.filter(c => c._id !== id));
+        if (selectedCourseId === id) setSelectedCourseId(null);
+      }
+    } catch (err) {
+      console.error('Error deleting course:', err);
+      alert('Error deleting course');
+    }
+  };
+
+  const selectedCourse = courses.find(c => c._id === selectedCourseId);
 
   return (
     <div className="min-h-screen bg-[#E8F1F2] p-4">
-
-      {/* Header with back button */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl text-[#00173D] font-bold">Course Management</h2>
-        {/* <button
-          onClick={() => navigate('/admindemo')}
-          className="bg-[#006D77] text-white px-4 py-2 rounded-lg hover:bg-[#033b41db] transition"
+        <button
+          onClick={() => navigate('/admindemo/courses/add')}
+          className="px-4 py-2 bg-[#006D77] text-white rounded hover:bg-[#024c52] transition"
         >
-          ← Back to Dashboard
-        </button> */}
+          Add New Course
+        </button>
       </div>
 
-      {/* Course List Component */}
+      {loading && <p>Loading courses...</p>}
+      {error && <p className="text-red-600 mb-4">{error}</p>}
+
       <CourseList
         courses={courses}
-        onApprove={handleApprove}
-        onReject={handleReject}
+        onTogglePublish={handleTogglePublish}
         onEdit={handleEdit}
         onDelete={handleDelete}
         onSelect={setSelectedCourseId}
         selectedCourseId={selectedCourseId}
       />
 
-      {/* Conditional rendering for Course Details */}
       {selectedCourse && (
-        <div className="mt-10 p-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              {/* <CourseDetails course={selectedCourse} /> */}
-            </div>
-          </div>
+        <div className="mt-8 max-w-3xl mx-auto">
+          <CourseDetails course={selectedCourse} />
         </div>
       )}
     </div>

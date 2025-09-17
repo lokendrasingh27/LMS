@@ -1,10 +1,11 @@
-// src/components/CourseList.jsx
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Edit, Trash2 } from 'lucide-react';
 
 const CourseList = ({
   courses,
-  onApprove,
-  onReject,
+  onTogglePublish,
   onEdit,
   onDelete,
   onSelect,
@@ -14,82 +15,79 @@ const CourseList = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {courses.map(course => (
         <div
-          key={course.id}
-          className={`border rounded-lg p-4 shadow-sm ${
-            selectedCourseId === course.id ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300'
+          key={course._id}
+          onClick={() => onSelect(course._id)}
+          className={`cursor-pointer border rounded-lg p-4 shadow-sm ${
+            selectedCourseId === course._id ? 'border-indigo-600 bg-indigo-50' : 'border-gray-300'
           }`}
         >
-          {/* Thumbnail */}
           <div className="w-full h-40 bg-gray-200 rounded-md mb-4 flex items-center justify-center">
-            <img
-              src={course.thumbnail || "https://via.placeholder.com/400x240.png?text=Course+Thumbnail"}
-              alt={course.title}
-              className="object-cover w-full h-full rounded-md"
-            />
+            {course.courseThumbnail ? (
+              <img
+                src={course.courseThumbnail}
+                alt={course.courseTitle}
+                className="object-cover w-full h-full rounded-md"
+              />
+            ) : (
+              <span className="text-gray-500">No Image</span>
+            )}
           </div>
 
-          <h3 className="text-xl font-semibold text-[#00173D] mb-2">{course.title}</h3>
-          <p className="text-gray-600 mb-1"><strong>Instructor:</strong> {course.instructor}</p>
-          <p className="text-gray-600 mb-2"><strong>Category:</strong> {course.category}</p>
-          <p className="text-sm font-medium mb-4">
-            Status: <span className={`font-bold ${course.status === 'Approved' ? 'text-green-600' : course.status === 'Rejected' ? 'text-red-600' : 'text-gray-600'}`}>{course.status || 'Pending'}</span>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">{course.courseTitle}</h3>
+          <p className="text-gray-600 mb-1">
+            <strong>Category:</strong> {course.category || 'N/A'}
+          </p>
+
+          <p className="text-gray-600 mb-2">
+            <strong>Status:</strong>{' '}
+            <Badge
+              className={course.isPublished ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'}
+            >
+              {course.isPublished ? 'Published' : 'Draft'}
+            </Badge>
           </p>
 
           <div className="flex gap-2 flex-wrap">
-            {/* Action Buttons */}
-            <button
-              onClick={(e) => {
+            {course.isPublished ? (
+              <Button
+                variant="outline"
+                onClick={e => {
+                  e.stopPropagation();
+                  onTogglePublish(course._id, false);
+                }}
+              >
+                Unpublish
+              </Button>
+            ) : (
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  onTogglePublish(course._id, true);
+                }}
+              >
+                Publish
+              </Button>
+            )}
+
+            <Button
+              variant="outline"
+              onClick={e => {
                 e.stopPropagation();
-                onApprove(course.id);
+                onEdit(course._id);
               }}
-              className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
             >
-              Approve
-            </button>
-            <button
-              onClick={(e) => {
+              <Edit size={16} />
+            </Button>
+
+            <Button
+              variant="destructive"
+              onClick={e => {
                 e.stopPropagation();
-                onReject(course.id);
+                onDelete(course._id);
               }}
-              className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
             >
-              Reject
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onEdit(course.id);
-              }}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded"
-            >
-              Edit
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onDelete(course.id);
-              }}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded"
-            >
-              Delete
-            </button>
-            
-            {/* ✅ New "View Details" button */}
-            {/* <button
-              onClick={(e) => {
-                e.stopPropagation(); // 👈 Prevents the parent div's onClick from firing
-                onSelect(course.id);
-              }}
-              className="bg-[#006D77] hover:bg-[#033b41db] text-white px-3 py-1 rounded"
-            >
-              View Details
-            </button> */}
-             {/* <button
-          onClick={() => navigate('/admindemo')}
-          className="bg-[#006D77] text-white px-4 py-2 rounded-lg hover:bg-[#033b41db] transition"
-        >
-          ← Back to Dashboard
-        </button> */}
+              <Trash2 size={16} />
+            </Button>
           </div>
         </div>
       ))}

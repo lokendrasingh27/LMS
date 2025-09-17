@@ -1,43 +1,56 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ Import for navigation
+import React, { useState, useEffect } from 'react';
 
 const Communications = () => {
-  const navigate = useNavigate(); // ✅ Hook to navigate
-  const [announcements, setAnnouncements] = useState([
-    { id: 1, title: 'System Maintenance', content: 'Scheduled maintenance on Sunday at 2 AM.' },
-    { id: 2, title: 'New Feature', content: 'Dark mode will be released next week!' },
-  ]);
+  const [announcements, setAnnouncements] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const handleAddAnnouncement = (e) => {
+  // Fetch announcements on mount
+  useEffect(() => {
+    fetch('http://localhost:5000/api/announcements')
+      .then(res => res.json())
+      .then(data => {
+        setAnnouncements(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to fetch announcements:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  const handleAddAnnouncement = async (e) => {
     e.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
 
-    const newAnnouncement = {
-      id: announcements.length + 1,
-      title: newTitle,
-      content: newContent,
-    };
+    try {
+      const response = await fetch('http://localhost:5000/api/announcements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTitle, content: newContent }),
+      });
 
-    setAnnouncements([newAnnouncement, ...announcements]);
-    setNewTitle('');
-    setNewContent('');
+      if (!response.ok) {
+        throw new Error('Failed to add announcement');
+      }
+
+      const newAnnouncement = await response.json();
+      setAnnouncements([newAnnouncement, ...announcements]);
+      setNewTitle('');
+      setNewContent('');
+    } catch (error) {
+      console.error(error);
+      alert('Error adding announcement. Please try again.');
+    }
   };
 
+  if (loading) return <p>Loading announcements...</p>;
+
   return (
-    <div className="p-8  mx-auto">
-       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-3xl font-bold mb-4">Communications</h1>
-     
-        {/* <button
-          onClick={() => navigate('/')}
-          className="bg-[#006D77] text-white px-4 py-2 rounded hover:bg-[#033b41db] transition"
-        >
-          ← Back to Dashboard
-        </button> */}
-      </div>
-       <p className="mb-6">Manage announcements, notifications, and messages here.</p>
+    <div className="p-8 mx-auto">
+      <h1 className="text-3xl font-bold mb-4">Communications</h1>
+      <p className="mb-6">Manage announcements, notifications, and messages here.</p>
 
       <form onSubmit={handleAddAnnouncement} className="mb-8">
         <input

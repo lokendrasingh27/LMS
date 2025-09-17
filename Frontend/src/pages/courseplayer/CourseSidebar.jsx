@@ -38,7 +38,7 @@ const CourseSidebar = ({ isOpen }) => {
               {`Lecture ${index + 1}: ${lecture.lectureTitle}`}
             </button>
             {openLecture === index && (
-              <ul className="mt-2 ml-4 space-y-2 text-sm font-normal">
+              <ul className=" space-y-2 text-sm font-normal">
                 {/* This part can be dynamic later if you have sub-lessons */}
                 <li className="p-3 bg-[#C2E8F8] rounded-md font-semibold text-black">
                   {`Lesson Details`}

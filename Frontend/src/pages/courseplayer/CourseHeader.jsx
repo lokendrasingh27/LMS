@@ -1,6 +1,7 @@
 import React from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const CourseHeader = ({ onToggleSidebar }) => {
   const course = useSelector((state) => state.course.course);
@@ -25,12 +26,11 @@ const CourseHeader = ({ onToggleSidebar }) => {
       </div>
 
       <div className="hidden md:flex justify-between items-center gap-4">
-        <a
-          href="#"
-          className="px-4 py-2 text-sm font-semibold text-white bg-[#006D77] rounded-lg"
-        >
-          Dashboard
-        </a>
+        <NavLink to="/">
+          <button  className="px-4 py-2 text-sm font-semibold text-white bg-[#006D77] rounded-lg">
+            Back Dashboard
+          </button>
+        </NavLink>
         <h1 className="text-2xl font-bold text-gray-800 flex-1 text-center">
           {course?.courseTitle || "Course Title"}
         </h1>

@@ -46,13 +46,15 @@ const AddCoursePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#E8F1F2] p-6 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold text-[#00173D] mb-6">Add New Course</h2>
+    <div className="min-h-screen bg-[#E8F1F2] p-4 max-w-3xl mx-auto">
+      <h2 className="text-2xl font-bold text-[#00173D] mb-2">Add New Course</h2>
 
       <form
         onSubmit={handleAddCourse}
-        className="bg-white p-6 rounded-xl shadow border border-gray-200 space-y-4"
+        className="bg-white p-4 rounded-xl shadow border border-gray-200 space-y-4"
       >
+        <div>
+           <label className="block font-semibold mb-1">Course Title</label>
         <input
           type="text"
           placeholder="Course Title"
@@ -63,6 +65,10 @@ const AddCoursePage = () => {
           className="p-2 border rounded w-full"
           required
         />
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-1">Instructor Name</label>
         <input
           type="text"
           placeholder="Instructor"
@@ -73,6 +79,10 @@ const AddCoursePage = () => {
           className="p-2 border rounded w-full"
           required
         />
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-1">Course Category</label>
         <input
           type="text"
           placeholder="Category"
@@ -83,7 +93,8 @@ const AddCoursePage = () => {
           className="p-2 border rounded w-full"
           required
         />
-        <input
+        </div>
+        {/* <input
           type="text"
           placeholder="Thumbnail URL (optional)"
           value={newCourse.thumbnail}
@@ -91,7 +102,29 @@ const AddCoursePage = () => {
             setNewCourse({ ...newCourse, thumbnail: e.target.value })
           }
           className="p-2 border rounded w-full"
-        />
+        /> */}
+
+        {/* EDIT: Thumbnail file upload field */}
+<div>
+  <label className="block font-semibold mb-1">Thumbnail</label>
+<input
+  type="file"
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewCourse({ ...newCourse, thumbnail: reader.result });
+      };
+      reader.readAsDataURL(file); // convert image to base64 string
+    }
+  }}
+  className="p-2 border rounded w-full"
+/>
+</div>
+<div>
+  <label className="block font-semibold mb-1">Course Description</label>
         <textarea
           placeholder="Description"
           value={newCourse.description}
@@ -102,12 +135,13 @@ const AddCoursePage = () => {
           rows={5}
           required
         />
+        </div>
 
         <div className="flex justify-between">
           <button
             type="button"
             className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-            onClick={() => navigate('/courses')}
+            onClick={() => navigate('/admindemo/courses')}
           >
             Cancel
           </button>
